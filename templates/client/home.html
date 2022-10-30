@@ -1,0 +1,94 @@
+{% extends 'base.html'%}
+{% block main %} 
+
+<div id="indicators-carousel" class="relative font-mavenpro " data-carousel="static">
+  <!-- Carousel wrapper -->
+  <div class="relative overflow-hidden h-screen">
+       <!-- Item 1 -->
+     
+      <div class=" duration-700" data-carousel-item="active">
+        
+          <div class=" bg-fixed  sm:h-screen  bg-cover bg-center " style="background-image: url('{{dbKanjo.imgIndex}}')">
+            <div class="h-screen bg-gradient-to-l from-black">
+              <div class="grid h-screen grid-rows-6 p-4 text-white">
+                <p class="row-span-1"></p>
+                <p class="row-span-1"></p>
+                <p class="row-span-1"></p>
+                <p class="row-span-1"></p>
+                <p class="row-span-1"></p>
+                <p class="row-span-1 pl-10 text-2xl  md:text-5xl lg:text-5xl "><a href="{{url_for('client.detailManga',url = dbKanjo.keyName.lower().replace(' ','-'))}}">{{dbKanjo.keyName}}</a></p>
+              </div>
+            </div>
+          </div>
+
+      </div>
+      
+      <!-- Item 2 -->
+      <div class=" duration-700" data-carousel-item="">
+        <div  class="bg-fixed h-screen bg-cover bg-center  " style="background-image: url('{{dbChinko.imgIndex}}')">
+          <div class="h-screen bg-gradient-to-l from-black">
+            <div class="grid h-screen grid-rows-6 p-4 text-white">
+              <p class="row-span-1"></p>
+              <p class="row-span-1"></p>
+              <p class="row-span-1"></p>
+              <p class="row-span-1"></p>
+              <p class="row-span-1"></p>
+              <p class="row-span-1 pl-10 text-2xl  md:text-5xl lg:text-5xl "><a href="{{url_for('client.detailManga',url = dbChinko.keyName.lower().replace(' ','-'))}}">{{dbChinko.keyName}}</a></p>
+            </div>
+            
+          </div>
+        </div>
+    </div>
+      <!-- Item 3 -->
+      <div class=" duration-700" data-carousel-item="">
+        <div  class="bg-fixed h-screen bg-cover bg-center " style="background-image: url('{{dbMizore.imgIndex}}')">
+          <div class="h-screen bg-gradient-to-l from-black">
+            <div class="grid h-screen grid-rows-6 p-4 text-white">
+              <p class="row-span-1"></p>
+              <p class="row-span-1"></p>
+              <p class="row-span-1"></p>
+              <p class="row-span-1"></p>
+              <p class="row-span-1"></p>
+              <p class="row-span-1 pl-10 text-2xl  md:text-5xl lg:text-5xl  "><a href="{{url_for('client.detailManga',url = dbMizore.keyName.lower().replace(' ','-'))}}">{{dbMizore.keyName}}</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Item 4 -->
+      <div class=" duration-700" data-carousel-item="">
+        <div  class="bg-fixed h-screen bg-cover bg-center  " style="background-image: url('{{dbToaru.imgIndex}}')">
+          <div class="h-screen bg-gradient-to-l from-black">
+            <div class="grid h-screen grid-rows-6 p-4 text-white">
+              <p class="row-span-1"></p>
+              <p class="row-span-1"></p>
+              <p class="row-span-1"></p>
+              <p class="row-span-1"></p>
+              <p class="row-span-1"></p>
+              <p class="row-span-1 pl-10 text-2xl  md:text-5xl lg:text-5xl "><a href="{{url_for('client.detailManga',url = dbToaru.keyName.lower().replace(' ','-'))}}">{{dbToaru.keyName}}</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="p-14 lg:text-2xl grid justify-items-end gap-7 lg:p-28 text-white absolute z-30 right-0">
+      <img width="300" height="200" src="{{srcLogo}}" />
+      <h1 style="font-weight:800"> <a href="{{ url_for('client.home') }}">HOME</a></h1>
+      <h1 style="font-weight:800"><a href="{{ url_for('client.about') }}">ABOUT</a></h1>
+      <h1 style="font-weight:800"><a href="{{ url_for('client.manga') }}">MANGA</a></h1>
+      <h1 style="font-weight:800"><a href="#">BE STAFF</a></h1>
+    </div>
+  </div>
+
+  <!-- Slider indicators -->
+  <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
+      <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+      <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+      <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+      <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
+      
+  </div>
+
+
+</div>
+
+
+{% endblock %}
