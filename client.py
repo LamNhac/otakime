@@ -83,7 +83,7 @@ def manga():
 @client.route('/<url>')
 def detailManga(url):
 
-    chapterFirst =""
+
     for item in getManga():
         if url == item.keyName.lower().replace(" ","-"):
             title = f"Otakime - {item.keyName}"
@@ -113,6 +113,8 @@ def chapterManga(url,urlChapter):
         if url == item.keyName.lower().replace(" ","-"):
             for keyChapter,valueIMG in item.chapter.items():
                 if  keyChapter.lower().replace('chap ','') == urlChapter:
+                    title = f"Otakime - {item.keyName} - {keyChapter}"
+                    description = f"{item.description}"
                     chapterPresent = keyChapter
                     img.append(valueIMG)
 
@@ -140,6 +142,8 @@ def chapterManga(url,urlChapter):
 
         db = _dict,
         dbIMG = img,
-        chapterPresent = chapterPresent
+        chapterPresent = chapterPresent,
+        title = title,
+        description =description
         )
 
