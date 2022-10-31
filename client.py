@@ -1,5 +1,5 @@
-from email.policy import default
-from flask import Flask,Blueprint,render_template
+
+from flask import Blueprint,render_template
 from model import getManga,Manga
 client = Blueprint('client', __name__)
 
@@ -11,7 +11,8 @@ def home():
     chinkoHome = {}
     toaruHome = {}
     mizoreHome = {}
-
+    title= 'Otakime - Home'
+    description = 'Trang web chính thức của nhóm dịch Otakime, Việt hóa những dự án manga nhằm giới thiệu độc giả. Truy cập ngay để đọc những tựa truyện được yêu thích.'
 
     for item in getManga():
         if item.keyName == "Kawaii Kanojo-chan":
@@ -43,14 +44,22 @@ def home():
         dbToaru = toaruHome,
         dbMizore = mizoreHome,
         dbChinko = chinkoHome,
+        title= title,
+        description = description
         )
 
 @client.route('/about')
 def about():
-    return render_template('client/about.html')
+    title = 'Otakime - About'
+    return render_template(
+        'client/about.html',
+        title = title
+        )
 
 @client.route('/manga')
 def manga():
+    title = 'Otakime - Manga'
+    description = 'Đọc ngay những tựa truyện được Việt hóa chất lượng bởi Otakime.'
     _manga = {}
     index=0
     for item in getManga():
@@ -66,7 +75,9 @@ def manga():
 
     return render_template(
             'client/manga.html',
-            db = _manga
+            db = _manga,
+            title = title,
+            description = description
         )
 
 @client.route('/<url>')
@@ -75,13 +86,17 @@ def detailManga(url):
     chapterFirst =""
     for item in getManga():
         if url == item.keyName.lower().replace(" ","-"):
+            title = f"Otakime - {item.keyName}"
+            description = f"{item.description}"
             index = list(item.chapter)[0].lower().replace('chap ','')
             print(index)
             return render_template(
                 'client/detailManga.html',
                 indexFirst = index,
                 db = item,
-                dbChapter = item.chapter.keys()
+                dbChapter = item.chapter.keys(),
+                title = title,
+                description=description
             )
 
     return render_template('404.html')
