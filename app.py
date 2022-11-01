@@ -1,4 +1,4 @@
-from flask import Flask, render_template,Blueprint
+from flask import Flask,Blueprint
 from client import client
 from admin import admin
 

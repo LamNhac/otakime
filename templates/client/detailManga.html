@@ -30,12 +30,12 @@
   <div class="container mx-auto p-4" style="padding:1.98em">
     <div class="border text-white">
       <h1 class="p-6 text-2xl">Chapter</h1>
-      <div class=" grid grid-cols-1 gap-4 p-6 sm:grid-cols-2 place-items-center md:grid-cols-4 lg:grid-cols-6">
+      <div class=" grid grid-cols-1 gap-4 p-6 lg:grid-cols-6 place-items-center md:grid-cols-4  ">
         {%for item in dbChapter%}
         <a href="{{url_for('client.chapterManga',url = db.keyName.lower().replace(' ','-'), urlChapter = item.lower().replace('chap ','') )}}">
           <button class="h-20 bg-slate-400">
             <p>{{item}}</p>
-            <p>Ngày đăng: ##/##/####</p>
+            <p class="p-2">Ngày đăng: ##/##/####</p>
           </button>
       </a>
         {%endfor%}

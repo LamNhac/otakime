@@ -38,3 +38,20 @@ def deleteManga():
         'admin/deleteManga.html',
        
     )
+
+@admin.route('/admin/gmailcustom')
+def gmailCustom():
+    title= "Otakime - Admin - Gmail custom"
+    return render_template(
+        'admin/gmailCustom.html',
+       
+    )
+
+@admin.route('/admin/gmailhire')
+def gmailHire():
+    title= "Otakime - Admin - Gmail hire"
+    return render_template(
+        'admin/gmailHire.html',
+       
+    )
+
