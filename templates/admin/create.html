@@ -7,37 +7,58 @@
       <div class="col-span-3">
         <div class="row-span-1 h-full bg-slate-500">
           <div class="container mx-auto p-4">
-            <form>
+            <form method="post">
               <div class="mb-6 grid gap-6 md:grid-cols-2">
+                <!-- Manga KeyName -->
                 <div>
                   <label for="manga" class="mb-2 block   text-xl font-medium  ">Manga</label>
-                  <input type="text" id="first_name" class="block w-full rounded-lg border p-2.5 text-black  " placeholder="Tên Manga bằng Latin" required />
+                  {{form.manga(class="block w-full rounded-lg border p-2.5 text-black  ", placeholder="Tên Manga bằng Latin")}}
                 </div>
+
+                <!-- Manga KeyName -->
+
+                <!-- nameManga  -->
                 <div>
                   <label for="nameManga" class="mb-2 block   font-medium  text-xl ">Tên Manga</label>
-                  <input type="text" id="last_name" class="block w-full rounded-lg border text-black   p-2.5   " placeholder="Tên tiếng Việt" required />
+                  {{form.nameManga(class="block w-full rounded-lg border text-black   p-2.5   ", placeholder="Tên tiếng Việt")}}
                 </div>
+                <!-- nameManga  -->
+
+                <!-- author  -->
                 <div>
                   <label for="author" class="mb-2 block   font-medium  text-xl ">Tác giả</label>
-                  <input type="text" id="company" class="block w-full rounded-lg border text-black   " placeholder="Tên tác giả" required />
+                  {{form.author(class="block w-full rounded-lg border text-black p-2.5 ",placeholder="Tên tác giả")}}
                 </div>
+                <!-- author  -->
+
+                <!-- otherName  -->
                 <div>
                   <label for="otherName" class="mb-2 block   font-medium  text-xl ">Tên khác</label>
-                  <input class="block w-full rounded-lg border text-black p-2.5    " placeholder="Tên Manga khác" required />
+                  {{form.otherName(class="block w-full rounded-lg border text-black p-2.5", placehoder = "Tên Manga khác")}}
                 </div>
+                <!-- otherName  -->
+
+                <!-- tags  -->
                 <div>
                   <label for="tags" class="mb-2 block   font-medium   0">Thể loại</label>
-                  <input class="block w-full rounded-lg border text-black p-2.5     " placeholder="tags" required />
+                  {{form.tags(class="block w-full rounded-lg border text-black p-2.5 ")}}
                 </div>
+                <!-- tags  -->
+                
+                
+                <!-- updateAt  -->
                 <div>
                   <label for="updateAt" class="mb-2 block   font-medium  text-xl  ">Ngày cập nhật</label>
-                  <input class="block w-full rounded-lg border text-black p-2.5    " placeholder="Ngày cập nhật" required />
+                  {{form.updateAt(class="block w-full rounded-lg border text-black p-2.5 ",placehoder="Ngày cập nhật")}}
                 </div>
+                <!-- updateAt  -->
               </div>
+              <!-- Description  -->
               <div class="mb-6">
                 <label for="description" class="mb-2 block   font-medium text-xl    ">Mô tả</label>
-                <input class="block w-full rounded-lg border text-black p-2.5    " placeholder="Mô tả" required />
+                {{form.description(class="block w-full rounded-lg border text-black p-2.5", placehoder="Mô tả")}}
               </div>
+              <!-- Description  -->
               <div class="mb-6 grid gap-6 md:grid-cols-3">
                 <div class="mb-6 text-white col-span-1">
                   <label for="" class="mb-2 block   font-medium  text-xl   ">Ảnh Index</label>
