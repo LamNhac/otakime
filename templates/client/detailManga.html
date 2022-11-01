@@ -14,13 +14,17 @@
         <h2 class="">Tên khác: {{db.otherName}}</h2>
         <h1 class="">Tác giả: {{db.author}}</h1>
         <h1 class="">Ngày đăng: {{db.updateAt}}</h1>
-        <h1 class="">Thể loại: {%for item in db.tags%} {{item}} {% endfor %}</h1>
+        {%set tag = db.tags %}
+        {%set tagString = ", ".join(tag) %}
+        <h1 class="">Thể loại: {{tagString}} </h1>
         <h1 class="">Mô tả: {{db.description}}</h1>
         <div class="pt-5">
 
           <a href="{{url_for('client.chapterManga', url = db.keyName.lower().replace(' ','-'), urlChapter = indexFirst) }}">
-            <div class="grid h-14 w-24 place-content-center bg-white text-black duration-500 hover:bg-[#4c4c4c] hover:text-white">
-              <p class="font-light">Đọc ngay</p>
+            <div class="grid h-14 w-24 place-content-center bg-white text-black duration-700 hover:bg-[#4c4c4c] hover:text-white">
+             
+                <p class="font-light ">Đọc ngay</p>          
+
             </div>
           </a>
         </div>
@@ -33,9 +37,9 @@
       <div class=" grid grid-cols-1 gap-4 p-6 lg:grid-cols-6 place-items-center md:grid-cols-4  ">
         {%for item in dbChapter%}
         <a href="{{url_for('client.chapterManga',url = db.keyName.lower().replace(' ','-'), urlChapter = item.lower().replace('chap ','') )}}">
-          <button class="h-20 bg-slate-400">
-            <p>{{item}}</p>
-            <p class="p-2">Ngày đăng: ##/##/####</p>
+          <button class="h-20 bg-slate-400 hover:bg-slate-500 duration-500">
+            <p class="text-lg">{{item}}</p>
+            <p class="p-1 italic">Ngày đăng: ##/##/####</p>
           </button>
       </a>
         {%endfor%}

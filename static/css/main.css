@@ -1485,8 +1485,8 @@ video {
   text-decoration-line: underline;
 }
 
-.underline-offset-8 {
-  text-underline-offset: 8px;
+.underline-offset-4 {
+  text-underline-offset: 4px;
 }
 
 .shadow-xl {
@@ -1583,6 +1583,11 @@ video {
 .hover\:bg-\[\#4c4c4c\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(76 76 76 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-slate-500:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(100 116 139 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-gradient-to-t:hover {

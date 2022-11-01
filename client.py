@@ -89,7 +89,7 @@ def detailManga(url):
             title = f"Otakime - {item.keyName}"
             description = f"{item.description}"
             index = list(item.chapter)[0].lower().replace('chap ','')
-            print(index)
+            print(item.tags)
             return render_template(
                 'client/detailManga.html',
                 indexFirst = index,
