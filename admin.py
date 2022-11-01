@@ -1,33 +1,39 @@
-from flask import Flask,Blueprint,render_template,request,redirect
-
+from flask import Flask,Blueprint,render_template,request,redirect,session,url_for
+from flask_wtf import FlaskForm
+from wtforms import StringField
 admin = Blueprint('admin', __name__)
 
 @admin.route('/admin' ,methods =['GET','POST'])
 def login():
     title= "Otakime - Login"
-
+    usernameRoot = "potato"
+    passwordRoot = "potato"
     if request.method == 'POST':
-        usernameRoot = "potato"
-        passwordRoot = "potato"
+
         username = request.form.get('username')
         password = request.form.get('password')
         if username == usernameRoot and password == passwordRoot:
-            print(username)
-            print(password)
-            return redirect('/admin/create.html') 
-
-
-
+            session["name"] = username
+            return redirect('/admin/create') 
 
     return render_template('admin/login.html')
 
+@admin.route("/logout")
+def logtout():
+    session.pop('name',None)
+    return redirect('/admin')
+
 @admin.route('/admin/create')
 def create():
+
+    if not session.get("name"):
+        return redirect("/admin")
+
     title= "Otakime - Admin - Create"
     return render_template(
         'admin/create.html',
         title = title
-       
+    
     )
 
 @admin.route('/admin/updatechapter')
