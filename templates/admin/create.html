@@ -7,6 +7,11 @@
       <div class="col-span-3">
         <div class="row-span-1 h-full bg-slate-500">
           <div class="container mx-auto p-4">
+            {% if success%}
+              <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+                <span class="font-medium">Success alert!</span> Change a few things up and try submitting again.
+              </div>
+            {% endif%}
             <form method="post">
               <div class="mb-6 grid gap-6 md:grid-cols-2">
                 <!-- Manga KeyName -->
@@ -49,7 +54,7 @@
                 <!-- updateAt  -->
                 <div>
                   <label for="updateAt" class="mb-2 block   font-medium  text-xl  ">Ngày cập nhật</label>
-                  {{form.updateAt(class="block w-full rounded-lg border text-black p-2.5 ",placehoder="Ngày cập nhật")}}
+                  {{ form.updateAt(class="block w-full rounded-lg border text-black p-2.5 ") }}
                 </div>
                 <!-- updateAt  -->
               </div>
@@ -62,15 +67,19 @@
               <div class="mb-6 grid gap-6 md:grid-cols-3">
                 <div class="mb-6 text-white col-span-1">
                   <label for="" class="mb-2 block   font-medium  text-xl   ">Ảnh Index</label>
-                  <input type="file" class="block w-full   file:mr-4 file:rounded-full file:border-0 file:bg-violet-50 file:py-2 file:px-4  file:font-semibold hover:file:bg-slate-200" />
+                  {{form.imgIndex(class="block w-full   file:mr-4 file:rounded-full file:border-0 file:bg-violet-50 file:py-2 file:px-4  file:font-semibold hover:file:bg-slate-200")}}
                 </div>
                 <div class="mb-6 text-white col-span-1">
                   <label for="" class="mb-2 block   font-medium  text-xl   ">Ảnh Main</label>
-                  <input type="file" class="block w-full   file:mr-4 file:rounded-full file:border-0 file:bg-violet-50 file:py-2 file:px-4   file:font-semibold hover:file:bg-slate-200" />
+                  {{form.imgMain(class="block w-full   file:mr-4 file:rounded-full file:border-0 file:bg-violet-50 file:py-2 file:px-4  file:font-semibold hover:file:bg-slate-200")}}
                 </div>
                 <div class="mb-6 text-white col-span-1">
                   <label for="" class="mb-2 block   font-medium  text-xl   ">Ảnh Cover</label>
-                  <input type="file" class="block w-full   file:mr-4 file:rounded-full file:border-0 file:bg-violet-50 file:py-2 file:px-4   file:font-semibold hover:file:bg-slate-200" />
+                  {{form.imgCover(class="block w-full   file:mr-4 file:rounded-full file:border-0 file:bg-violet-50 file:py-2 file:px-4  file:font-semibold hover:file:bg-slate-200")}}
+                </div>
+                <div class="mb-6 col-span-3 ">
+                  <label for="chapter" class="mb-2 block   font-medium text-xl    ">Chapter</label>
+                  {{form.chapter(class="block w-full rounded-lg border text-black p-2.5", placehoder="Chapter")}}
                 </div>
                 <div class="mb-6 text-white col-span-3">
                   <label for="" class="mb-2 block   font-medium  text-xl ">Ảnh Chapter</label>
@@ -86,7 +95,7 @@
                             <p class="mb-3 font-semibold text-black   flex flex-wrap justify-center">
                               <span>Drag and drop your</span>&nbsp;<span>files anywhere or</span>
                             </p>
-                            <input id="hidden-input" type="file" multiple class="hidden" />
+                            {{form.imgChapter(id="hidden-input",class="hidden")}}
                             <button id="button" class="text-black mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none">
                               Upload a file
                             </button>
