@@ -1,10 +1,24 @@
-from flask import Flask,Blueprint,render_template
+from flask import Flask,Blueprint,render_template,request,redirect
 
 admin = Blueprint('admin', __name__)
 
-@admin.route('/admin')
+@admin.route('/admin' ,methods =['GET','POST'])
 def login():
     title= "Otakime - Login"
+
+    if request.method == 'POST':
+        usernameRoot = "potato"
+        passwordRoot = "potato"
+        username = request.form.get('username')
+        password = request.form.get('password')
+        if username == usernameRoot and password == passwordRoot:
+            print(username)
+            print(password)
+            return redirect('/admin/create.html') 
+
+
+
+
     return render_template('admin/login.html')
 
 @admin.route('/admin/create')
@@ -12,6 +26,7 @@ def create():
     title= "Otakime - Admin - Create"
     return render_template(
         'admin/create.html',
+        title = title
        
     )
 

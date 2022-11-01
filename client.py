@@ -108,6 +108,7 @@ def chapterManga(url,urlChapter):
     chapterPrevious =""
     chapterNext = ""
     chapterPresent =""
+
     for item in getManga():
 
         if url == item.keyName.lower().replace(" ","-"):
@@ -126,7 +127,7 @@ def chapterManga(url,urlChapter):
                         chapterNext = _listChapter[indexPresent + 1 ] 
                     except IndexError:
                         chapterNext =""
-
+                
 
             _dict.update({
                 "keyName":item.keyName,
