@@ -3,6 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField
 admin = Blueprint('admin', __name__)
 
+
 @admin.route('/admin' ,methods =['GET','POST'])
 def login():
     title= "Otakime - Login"
