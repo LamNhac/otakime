@@ -26,7 +26,9 @@
       <div class="relative group " style="width:350px;">
         <div class="flex flex-col justify-end absolute w-full h-full text-white gap-8 hover:bg-gradient-to-t hover:from-black">
 
-          <div class="invisible group-hover:visible pl-4 text-3xl font-extrabold stroke-black stroke-2"><a href="{{url_for('client.detailManga', url= value.keyName.lower().replace(' ','-'))}}">{{value.nameManga}}</a></div>
+          <div class="invisible group-hover:visible pl-4 text-3xl font-extrabold stroke-black stroke-2">
+            <a href="{{url_for('client.detailManga', url= value.keyName.lower().replace(' ','-'))}}">{{value.nameManga}}</a>
+          </div>
           <div class="invisible group-hover:visible pl-4 font-light italic text-lg pb-6">{{value.tags}}</div>
 
         </div>

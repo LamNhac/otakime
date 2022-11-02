@@ -12,7 +12,8 @@
                 <span class="font-medium">Success alert!</span> Change a few things up and try submitting again.
               </div>
             {% endif%}
-            <form method="post">
+
+            <form method="post" enctype="multipart/form-data">
               <div class="mb-6 grid gap-6 md:grid-cols-2">
                 <!-- Manga KeyName -->
                 <div>
@@ -96,7 +97,7 @@
                               <span>Drag and drop your</span>&nbsp;<span>files anywhere or</span>
                             </p>
                             {{form.imgChapter(id="hidden-input",class="hidden")}}
-                            <button id="button" class="text-black mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none">
+                            <button class="text-black mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none">
                               Upload a file
                             </button>
                           </header>
