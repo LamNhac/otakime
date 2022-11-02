@@ -1,14 +1,94 @@
-from flask import Flask,Blueprint
+from flask import Flask,render_template,redirect,session,request
 from client import client
 from admin import admin
 from flask_session import Session
+from flask_mail import Mail,Message
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "a random string"
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
+
+
+mail_username='mail.otakime@gmail.com'
+mail_password='lpavozmbebtxdhbb'
+
+app.config.update(dict(
+    DEBUG = True,
+    MAIL_SERVER = 'smtp.gmail.com',
+    MAIL_PORT = 587,
+    MAIL_USE_TLS = True,
+    MAIL_USE_SSL = False,
+    MAIL_USERNAME = mail_username,
+    MAIL_PASSWORD = mail_password,
+))
+
+mail = Mail(app)
 app.register_blueprint(client)
 app.register_blueprint(admin)
 Session(app)
 
+
+@app.route('/admin/gmailcustom', methods =['GET','POST'])
+def gmailCustom():
+    if not session.get("name"):
+        return redirect("/admin")
+    
+    if request.method == "POST":
+
+        #emailTaker = request.form.get('emailTaker')
+        name = request.form.get('name')
+        email = request.form.get('email')
+        subject = request.form.get('subject')
+        title = request.form.get('title')
+        content = request.form.get('content')
+
+
+        content = [ item.rstrip() for item in content.split("\n")]
+
+        
+        msg = Message(
+            subject=f'{subject}',
+            sender= mail_username,
+            recipients=[email],
+            html = render_template('admin/mail/layout/mailCustomLayout.html', name = name, title=title, content=content)
+            #body= f'Name: {name}\nEmail: {email}\nMessage: {message}' 
+        )
+        mail.send(msg)
+        return render_template('admin/mail/mailCustom.html', success = True)
+    title= "Otakime - Admin - Gmail custom"
+    return render_template(
+        'admin/mail/mailCustom.html',
+       title = title
+    )
+
+@app.route('/admin/gmailhire', methods = ['GET','POST'])
+def gmailHire():
+    if not session.get("name"):
+        return redirect("/admin")
+
+
+    if request.method == "POST":
+        name = request.form.get('name')
+        email = request.form.get('email')
+        subject = request.form.get('subject')
+
+        msg = Message(
+                subject=f'{subject}',
+                sender= mail_username,
+                recipients=[email],
+                html = render_template('admin/mail/layout/mailHireLayout.html', name = name)
+                #body= f'Name: {name}\nEmail: {email}\nMessage: {message}' 
+            )
+
+        mail.send(msg)
+
+        return render_template('admin/mail/mailHire.html', success = True)
+    else:
+        print("Chua post")
+    title= "Otakime - Admin - Gmail hire"
+    return render_template(
+        'admin/mail/mailHire.html',
+        title = title
+    )
 if __name__ == '__main__':
 	app.run(debug=True)

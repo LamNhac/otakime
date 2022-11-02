@@ -7,7 +7,9 @@ from wtforms.validators import DataRequired,InputRequired
 
 from firebase import db,storage,user
 from model import getManga
+
 admin = Blueprint('admin', __name__)
+
 
 class CreateValidate(FlaskForm):
     manga = StringField("*Tên tiếng Nhật bằng chữ Latin như: Ore wo Aishisugiteru Shugoshin wa!, Asmodeus wa Akiramenai,...", validators=[InputRequired()])
@@ -232,19 +234,5 @@ def deleteManga():
        
     )
 
-@admin.route('/admin/gmailcustom')
-def gmailCustom():
-    title= "Otakime - Admin - Gmail custom"
-    return render_template(
-        'admin/gmailCustom.html',
-       
-    )
 
-@admin.route('/admin/gmailhire')
-def gmailHire():
-    title= "Otakime - Admin - Gmail hire"
-    return render_template(
-        'admin/gmailHire.html',
-       
-    )
 
