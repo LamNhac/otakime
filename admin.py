@@ -1,3 +1,4 @@
+import os
 from flask import Flask,Blueprint,render_template,request,redirect,session,url_for
 
 from flask_wtf import FlaskForm
@@ -8,6 +9,7 @@ from wtforms.validators import DataRequired,InputRequired
 from firebase import db,storage,user
 from model import getManga
 
+from datetime import datetime
 admin = Blueprint('admin', __name__)
 
 
@@ -133,6 +135,19 @@ def create():
         db.child(manga).child("chapter").update({
                 f"Chap {chapter}":[storage.child("manga").child(manga).child("chapter").child(f"{chapter}").child(item.filename).get_url(user['idToken']) for item in imgChapter]
             })
+        gitCommit = f"git commit -m \"Create {manga}\""
+        gitAdd = "git add *"
+        gitBranch = "git branch -M main"
+        gitRemote = "git remote add origin https://github.com/ND-Luan/otakime.git"
+        gitPush ="git push -u origin main"
+        with open("historyLogs.txt","a", encoding="utf-8") as file:
+            time = datetime.now()
+            file.writelines(f"{time} // {manga} - Create \n")
+            os.system(gitCommit)
+            os.system(gitAdd)
+            os.system(gitBranch)
+            os.system(gitRemote)
+            os.system(gitPush)
         return render_template("admin/create.html", form = form, success = True)
     else:
         print("Submit Yet!")
