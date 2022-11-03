@@ -24,7 +24,6 @@ def reload(isWant,manga):
     origin.push()
 
 
-
 class CreateValidate(FlaskForm):
     manga = StringField("*Tên tiếng Nhật bằng chữ Latin như: Ore wo Aishisugiteru Shugoshin wa!, Asmodeus wa Akiramenai,...", validators=[InputRequired()])
     nameManga = StringField("*Tên tiếng Việt của Manga", validators=[InputRequired()])
