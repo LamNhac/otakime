@@ -18,10 +18,11 @@ def reload(isWant,manga):
     repo.git.add(all=True)
     repo.git.commit("-m",f"{isWant} {manga}", author = "ngodinhluan567@gmail.com")
     origin  = repo.remote(name = "origin")
-    origin.push()
     with open("historyLogs.txt","a", encoding="utf-8") as file:
         time = datetime.now()
         file.writelines(f"{time} // {manga} - {isWant} \n")
+    origin.push()
+
 
 
 class CreateValidate(FlaskForm):
