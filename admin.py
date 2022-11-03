@@ -12,6 +12,20 @@ from model import getManga
 from datetime import datetime
 admin = Blueprint('admin', __name__)
 
+def reload(isWant,manga):
+    gitCommit = f"git commit -m \"{isWant} {manga}\""
+    gitAdd = "git add *"
+    gitBranch = "git branch -M main"
+    gitRemote = "git remote add origin https://github.com/ND-Luan/otakime.git"
+    gitPush ="git push -u origin main"
+    with open("historyLogs.txt","a", encoding="utf-8") as file:
+        time = datetime.now()
+        file.writelines(f"{time} // {manga} - Create \n")
+        os.system(gitAdd)
+        os.system(gitCommit)
+        os.system(gitBranch)
+        os.system(gitRemote)
+        os.system(gitPush)
 
 class CreateValidate(FlaskForm):
     manga = StringField("*Tên tiếng Nhật bằng chữ Latin như: Ore wo Aishisugiteru Shugoshin wa!, Asmodeus wa Akiramenai,...", validators=[InputRequired()])
@@ -134,21 +148,9 @@ def create():
             })
         db.child(manga).child("chapter").update({
                 f"Chap {chapter}":[storage.child("manga").child(manga).child("chapter").child(f"{chapter}").child(item.filename).get_url(user['idToken']) for item in imgChapter]
-            })
-        gitCommit = f"git commit -m \"Create {manga}\""
-        gitAdd = "git add *"
-        gitBranch = "git branch -M main"
-        gitRemote = "git remote add origin https://github.com/ND-Luan/otakime.git"
-        gitPush ="git push -u origin main"
-        with open("historyLogs.txt","a", encoding="utf-8") as file:
-            time = datetime.now()
-            file.writelines(f"{time} // {manga} - Create \n")
+            })  
 
-            os.system(gitAdd)
-            os.system(gitCommit)
-            os.system(gitBranch)
-            os.system(gitRemote)
-            os.system(gitPush)
+        reload("Create",manga)
         return render_template("admin/create.html", form = form, success = True)
     else:
         print("Submit Yet!")
@@ -186,6 +188,7 @@ def updateChapter():
         db.child(selectManga).child("chapter").update({
             f"Chap {chapter}": [storage.child("manga").child(selectManga).child("chapter").child(f"{chapter}").child(item.filename).get_url(user['idToken']) for item in imgChapter]
         })
+        reload("Update chapter",selectManga)
         return render_template(
             'admin/updateChapter.html',
             form=form,
@@ -216,7 +219,7 @@ def deleteChapter():
 
             
         db.child(selectManga).child("chapter").child(f"Chap {chapter}").remove(user['idToken'])
-
+        reload("Delelte chapter",selectManga)
         return render_template(
             'admin/deleteChapter.html',
             form = form,
@@ -247,7 +250,7 @@ def deleteManga():
             storage.delete(split, user['idToken'])
             
         db.child(manga).remove(user['idToken'])
-
+        reload("Delelte manga",manga)
         return render_template('admin/deleteManga.html',form = form,success = True) 
     title= "Otakime - Admin - Delete manga"
     return render_template(
