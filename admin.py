@@ -82,7 +82,7 @@ def create():
         nameManga = form.nameManga.data
         author = form.author.data
         otherName = form.otherName.data
-        tags = form.tags.data
+        tags = form.tags.data.split(",")
         updateAt = form.updateAt.data.strftime("%d/%m/%Y")
         description = form.description.data
         imgIndex = form.imgIndex.data
@@ -170,12 +170,18 @@ def updateChapter():
         db.child(selectManga).child("chapter").update({
             f"Chap {chapter}": [storage.child("manga").child(selectManga).child("chapter").child(f"{chapter}").child(item.filename).get_url(user['idToken']) for item in imgChapter]
         })
-    return render_template(
-        'admin/updateChapter.html',
-        form=form,
-        success = True
+        return render_template(
+            'admin/updateChapter.html',
+            form=form,
+            success = True
 
-    )
+        )
+    return render_template(
+    'admin/updateChapter.html',
+    form=form,
+
+
+    )   
 
 @admin.route('/admin/deletechapter', methods = ['GET','POST'])
 def deleteChapter():
