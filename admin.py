@@ -143,8 +143,9 @@ def create():
         with open("historyLogs.txt","a", encoding="utf-8") as file:
             time = datetime.now()
             file.writelines(f"{time} // {manga} - Create \n")
-            os.system(gitCommit)
+
             os.system(gitAdd)
+            os.system(gitCommit)
             os.system(gitBranch)
             os.system(gitRemote)
             os.system(gitPush)
