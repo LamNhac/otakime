@@ -8,24 +8,21 @@ from wtforms.validators import DataRequired,InputRequired
 
 from firebase import db,storage,user
 from model import getManga
-
+from git import Repo
 from datetime import datetime
 admin = Blueprint('admin', __name__)
 
 def reload(isWant,manga):
-    gitCommit = f"git commit -m \"{isWant} {manga}\""
-    gitAdd = "git add *"
-    gitBranch = "git branch -M main"
-    gitRemote = "git remote add origin https://github.com/ND-Luan/otakime.git"
-    gitPush ="git push -u origin main"
+
+    repo = Repo(".git")
+    repo.git.add(all=True)
+    repo.git.commit("-m",f"{isWant} {manga}", author = "ngodinhluan567@gmail.com")
+    origin  = repo.remote(name = "origin")
+    origin.push()
     with open("historyLogs.txt","a", encoding="utf-8") as file:
         time = datetime.now()
-        file.writelines(f"{time} // {manga} - Create \n")
-        os.system(gitAdd)
-        os.system(gitCommit)
-        os.system(gitBranch)
-        os.system(gitRemote)
-        os.system(gitPush)
+        file.writelines(f"{time} // {manga} - {isWant} \n")
+
 
 class CreateValidate(FlaskForm):
     manga = StringField("*Tên tiếng Nhật bằng chữ Latin như: Ore wo Aishisugiteru Shugoshin wa!, Asmodeus wa Akiramenai,...", validators=[InputRequired()])
