@@ -15,10 +15,6 @@ admin = Blueprint('admin', __name__)
 
 def reload(isWant,manga):
     print("Dang commit toi github")
-    repo = Repo(".git")
-    repo.git.add(all=True)
-    repo.git.commit("-m",f"{isWant} {manga}", author = "ngodinhluan567@gmail.com")
-    origin  = repo.remote(name = "origin")
     with open("historyLogs.txt","a", encoding="utf-8") as file:
         time = datetime.now()
         file.writelines(f"{time} // {manga} - {isWant} \n")
