@@ -16,7 +16,9 @@ def reload(isWant,manga):
     print("Dang commit toi github")
     repo = Repo(".git")
     repo.git.add(all=True)
+    print("Git add!")
     repo.git.commit("-m",f"{isWant} {manga}")
+    print("Git commit!")
     origin  = repo.remote(name = "origin")
     with open("historyLogs.txt","a", encoding="utf-8") as file:
         time = datetime.now()
