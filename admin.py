@@ -1,4 +1,4 @@
-import os
+
 from flask import Flask,Blueprint,render_template,request,redirect,session,url_for
 
 from flask_wtf import FlaskForm
@@ -10,18 +10,15 @@ from firebase import db,storage,user
 from model import getManga
 from git import Repo
 from datetime import datetime
+import os
 admin = Blueprint('admin', __name__)
 
 def reload(isWant,manga):
     print("Dang commit toi github")
-    repo = Repo(".git")
-    repo.git.add(all=True)
-    repo.git.commit("-m",f"{isWant} {manga}")
-    origin  = repo.remote(name = "origin")
     with open("historyLogs.txt","a", encoding="utf-8") as file:
         time = datetime.now()
         file.writelines(f"{time} // {manga} - {isWant} \n")
-    origin.push()
+    os.system("git push")
     print("Commit xong!")
 
 class CreateValidate(FlaskForm):
@@ -112,11 +109,13 @@ def create():
             if chapter[0] not in "0":
                 chapter = "0" + chapter
         #check img index co dc add khong?
-        if imgIndex == None:
+        print(imgIndex)
+        if imgIndex.filename == '':
             print("img index chua dc them")
             dbimgIndex= ""
-        else: 
-            
+        else:
+            print(manga) 
+            print(imgIndex)
             storage.child("manga").child(manga).child("logo").child(imgIndex.filename).put(imgIndex,user['idToken'])
             dbimgIndex = storage.child("manga").child(manga).child("logo").child(imgIndex.filename).get_url(user['idToken'])
             print("Add img index")
