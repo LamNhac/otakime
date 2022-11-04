@@ -13,7 +13,7 @@ from datetime import datetime
 admin = Blueprint('admin', __name__)
 
 def reload(isWant,manga):
-
+    print("Dang commit toi github")
     repo = Repo(".git")
     repo.git.add(all=True)
     repo.git.commit("-m",f"{isWant} {manga}", author = "ngodinhluan567@gmail.com")
@@ -22,7 +22,7 @@ def reload(isWant,manga):
         time = datetime.now()
         file.writelines(f"{time} // {manga} - {isWant} \n")
     origin.push()
-
+    print("Commit xong!")
 
 class CreateValidate(FlaskForm):
     manga = StringField("*Tên tiếng Nhật bằng chữ Latin như: Ore wo Aishisugiteru Shugoshin wa!, Asmodeus wa Akiramenai,...", validators=[InputRequired()])
@@ -73,9 +73,10 @@ def login():
         password = request.form.get('password')
         if username == usernameRoot and password == passwordRoot:
             session["name"] = username
+            print("Login Completed")
             return redirect('/admin/create') 
 
-    return render_template('admin/login.html')
+    return render_template('admin/login.html',title = title)
 
 @admin.route("/logout")
 def logtout():
@@ -118,18 +119,20 @@ def create():
             pass
             storage.child("manga").child(manga).child("logo").child(imgIndex.filename).put(imgIndex,user['idToken'])
             dbimgIndex = storage.child("manga").child(manga).child("logo").child(imgIndex.filename).get_url(user['idToken'])
+            print("Add img index")
         #add img banner va cover vao trong storage firebase
         storage.child("manga").child(manga).child("logo").child(imgMain.filename).put(imgMain,user['idToken'])
+        print("Add img Main vao Storage")
         storage.child("manga").child(manga).child("logo").child(imgCover.filename).put(imgCover,user['idToken'])
-
+        print("Add img Cover vao Storage")
 
         dbimgMain = storage.child("manga").child(manga).child("logo").child(imgMain.filename).get_url(user['idToken'])
         dbimgCover = storage.child("manga").child(manga).child("logo").child(imgCover.filename).get_url(user['idToken'])
 
         #add img chapter vao trong storage firebase
         for item in imgChapter:
-            print(item)
             storage.child("manga").child(manga).child("chapter").child(f"{chapter}").child(item.filename).put(item, user['idToken'])
+            print("Add img Chapter vào Storage: ",item)
 
          #add json manga realtime database
         db.child(manga).update({
@@ -143,11 +146,14 @@ def create():
                 "imgMain":dbimgMain,
                 "imgCover":dbimgCover,
             })
+        print("Add manga vao realtime")
         db.child(manga).child("chapter").update({
                 f"Chap {chapter}":[storage.child("manga").child(manga).child("chapter").child(f"{chapter}").child(item.filename).get_url(user['idToken']) for item in imgChapter]
             })  
-
+        print("Add img chapter vao realtime")
+       
         reload("Create",manga)
+
         return render_template("admin/create.html", form = form, success = True)
     else:
         print("Submit Yet!")
@@ -180,11 +186,12 @@ def updateChapter():
                 chapter = "0" + chapter
         for item in imgChapter:
             storage.child("manga").child(selectManga).child("chapter").child(f"{chapter}").child(item.filename).put(item, user['idToken'])
-            
+            print("Add img chapter vo Storage: ",item)
 
         db.child(selectManga).child("chapter").update({
             f"Chap {chapter}": [storage.child("manga").child(selectManga).child("chapter").child(f"{chapter}").child(item.filename).get_url(user['idToken']) for item in imgChapter]
         })
+        print("Add img chapter vo Realtime")
         reload("Update chapter",selectManga)
         return render_template(
             'admin/updateChapter.html',
@@ -213,9 +220,10 @@ def deleteChapter():
         for item in listStorageChapter:
             split = item.name
             storage.delete(split, user['idToken'])
-
+            print(f"Xoa img chapter {selectManga} ra khoi Storage")
             
         db.child(selectManga).child("chapter").child(f"Chap {chapter}").remove(user['idToken'])
+        print(f"Xoa img chapter {selectManga} ra khoi Realtime")
         reload("Delelte chapter",selectManga)
         return render_template(
             'admin/deleteChapter.html',
@@ -239,14 +247,17 @@ def deleteManga():
         for item in listStorageLogo:
             split = item.name
             storage.delete(split, user['idToken'])
+            print(f"Xoa {manga}/logo ra khoi Storage")
 
 
         listStorageChapter = storage.list_files(f"manga/{manga}/chapter/")            
         for item in listStorageChapter:
             split = item.name
             storage.delete(split, user['idToken'])
+            print(f"Xoa {manga}/chapter ra khoi Storage")
             
         db.child(manga).remove(user['idToken'])
+        print(f"Xoa {manga} ra khoi Realtime")
         reload("Delelte manga",manga)
         return render_template('admin/deleteManga.html',form = form,success = True) 
     title= "Otakime - Admin - Delete manga"
