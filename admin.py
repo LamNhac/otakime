@@ -16,7 +16,7 @@ def reload(isWant,manga):
     print("Dang commit toi github")
     repo = Repo(".git")
     repo.git.add(all=True)
-    repo.git.commit("-m",f"{isWant} {manga}", author = "ngodinhluan567@gmail.com")
+    repo.git.commit("-m",f"{isWant} {manga}")
     origin  = repo.remote(name = "origin")
     with open("historyLogs.txt","a", encoding="utf-8") as file:
         time = datetime.now()
@@ -116,7 +116,7 @@ def create():
             print("img index chua dc them")
             dbimgIndex= ""
         else: 
-            pass
+            
             storage.child("manga").child(manga).child("logo").child(imgIndex.filename).put(imgIndex,user['idToken'])
             dbimgIndex = storage.child("manga").child(manga).child("logo").child(imgIndex.filename).get_url(user['idToken'])
             print("Add img index")
