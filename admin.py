@@ -18,8 +18,12 @@ def reload(isWant,manga):
     with open("historyLogs.txt","a", encoding="utf-8") as file:
         time = datetime.now()
         file.writelines(f"{time} // {manga} - {isWant} \n")
+    os.system("git add *")
+    print("Git add")
+    os.system(f"git commit -m \"{isWant} {manga}\"")
+    print("git commit")
     os.system("git push")
-    print("Commit xong!")
+    print("push xong!")
 
 class CreateValidate(FlaskForm):
     manga = StringField("*Tên tiếng Nhật bằng chữ Latin như: Ore wo Aishisugiteru Shugoshin wa!, Asmodeus wa Akiramenai,...", validators=[InputRequired()])
