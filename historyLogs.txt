@@ -1,3 +1,4 @@
 2022-11-05 09:30:49.038879 // KeyManga - Create 
 2022-11-05 09:34:25.281409 // KeyManga - Create 
 2022-11-05 11:51:56.344854 // Manga lantin - Create 
+2022-11-05 11:57:47.129416 // Manga lantin - Delelte manga 
