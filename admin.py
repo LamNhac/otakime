@@ -8,7 +8,7 @@ from wtforms.validators import DataRequired,InputRequired
 
 from firebase import db,storage,user
 from model import getManga
-from git import Repo
+
 from datetime import datetime
 import os
 admin = Blueprint('admin', __name__)
