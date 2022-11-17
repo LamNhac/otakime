@@ -148,3 +148,7 @@ def chapterManga(url,urlChapter):
         description =description
         )
 
+@client.route('/wheel')
+def wheel():
+    
+    return render_template('client/wheel.html')
