@@ -32,8 +32,9 @@
         <input
           class="w-32  focus:shadow-outline appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
           id="codeSpin"  placeholder="ABCXYZ" />
-        <button class="hidden" id="btnSpin" onclick="javascript:alert('Hello World!')"> </button>
+        <button class="hidden" id="btnSpin"> </button>
         <p class="font-thin italic">Vui lòng nhập mã để quay!</p>
+        <p class="font-thin italic">*Code chỉ sử dụng 1 lần nên <span class=" font-semibold">cân nhắc trước khi quay.</span></p>
       </div>
     </div>
     <div class="flex-row justify-end">
@@ -60,6 +61,8 @@
 <script
   src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.1.0/chartjs-plugin-datalabels.min.js"></script>
 <!-- Script -->
-<script src="static/js/scriptWheel.js"></script>
-<script src="static/js/scriptTextInput.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script  type="text/javascript" src="static/js/scriptWheel.js"></script>
+<script  type="text/javascript" src="static/js/scriptTextInput.js"></script>
+<script type="application/json" src="static/json/wheel.json"></script>
 {% endblock%}

@@ -1,19 +1,25 @@
 //import CODE from "../../codeWheelTest";
 
-var input = document.getElementById("codeSpin")
+var input = document.getElementById("codeSpin");
 
+//var btn = document.getElementById("btnSpin")
 
-input.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-        console.log("enter")
-        // Cancel the default action, if needed
+$("#codeSpin").keypress(function (e) {
+  if (e.which == 13) {
+    $.getJSON("static/json/wheel.json", function (data) {
+      var codeArr = data["code"];
+      for (let i = 0; i < codeArr.length; i++) {
+        if (input.value == codeArr[i]) {
+          console.log("Ket qua chinh xac: ", codeArr[i]);
+          alert("Chúc mừng bạn đã nhập đúng! :D");
+          $(".wrapperWheel")
+            .addClass("enablebutton")
+            .removeClass("disabledbutton")
+            .removeClass("disableWrapper");
 
-        // Trigger the button element with a click
-        document.getElementById("btnSpin").click();
-
-        $('.wrapperWheel').addClass('enablebutton').removeClass('disabledbutton').removeClass("disableWrapper")
-    }
-}
-)
-
-
+          break;
+        }
+      }
+    });
+  }
+});
