@@ -1,25 +1,30 @@
 //import CODE from "../../codeWheelTest";
 
+
 var input = document.getElementById("codeSpin");
 
 //var btn = document.getElementById("btnSpin")
 
 $("#codeSpin").keypress(function (e) {
   if (e.which == 13) {
-    $.getJSON("static/json/wheel.json", function (data) {
-      var codeArr = data["code"];
-      for (let i = 0; i < codeArr.length; i++) {
-        if (input.value == codeArr[i]) {
-          console.log("Ket qua chinh xac: ", codeArr[i]);
-          alert("Chúc mừng bạn đã nhập đúng! :D");
+    const dbRef = firebase.database().ref().child('wheel').child('code')
+    dbRef.on('value', function (data) {
+      var snapshot = data.val()
+      for (let i = 0; i < snapshot.length; i++) {
+
+        if (input.value == snapshot[i]) {
+          alert("Chúc mừng bạn đã nhập thành công! :D")
           $(".wrapperWheel")
             .addClass("enablebutton")
             .removeClass("disabledbutton")
             .removeClass("disableWrapper");
 
-          break;
+            snapshot[i].set(null)
+
         }
       }
-    });
+    })
+
+
   }
 });

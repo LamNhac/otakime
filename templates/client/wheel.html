@@ -5,7 +5,7 @@
     <div class="wrapperWheel disabledbutton disableWrapper">
       <div class="containerWheel h-full w-full">
         <canvas id="wheel"></canvas>
-        <button id="spin-btn" >Spin</button>
+        <button id="spin-btn">Spin</button>
         <img class="imgSpin" src="static/assets/spinner-arrow-.svg" alt="spinner-arrow" />
       </div>
       <div id="final-value">
@@ -29,20 +29,29 @@
       </div>
       <div class="grid place-content-center gap-2">
         <p class="text-lg">Nhập mã</p>
+
         <input
           class="w-32  focus:shadow-outline appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
-          id="codeSpin"  placeholder="ABCXYZ" />
-        <button class="hidden" id="btnSpin"> </button>
+          name="codeSpin" id="codeSpin" placeholder="ABCXYZ" />
+        <button class="hidden" id="btnSpin" name="btnSpin"> </button>
+
         <p class="font-thin italic">Vui lòng nhập mã để quay!</p>
-        <p class="font-thin italic">*Code chỉ sử dụng 1 lần nên <span class=" font-semibold">cân nhắc trước khi quay.</span></p>
+        <p class="font-thin italic">*Code chỉ sử dụng 1 lần nên <span class=" font-semibold">cân nhắc trước khi
+            quay.</span></p>
       </div>
     </div>
     <div class="flex-row justify-end">
       <div class="flex flex-row justify-between p-4 w-full">
         <div class="flex flex-row gap-5">
-          <a href="{{url_for('client.home')}}" class=""><h1 class=" font-medium "> <i class="fa-solid fa-house-chimney fa-xl"></i> Home</h1></a>
-          <a href="{{url_for('client.about')}}"><h1 class=" font-medium"><i class="fa-solid fa-circle-info fa-xl"></i> About</h1></a>
-          <a href="{{url_for('client.manga')}}"><h1 class=" font-medium"><i class="fa-solid fa-book fa-xl"></i> Manga</h1></a>
+          <a href="{{url_for('client.home')}}" class="">
+            <h1 class=" font-medium "> <i class="fa-solid fa-house-chimney fa-xl"></i> Home</h1>
+          </a>
+          <a href="{{url_for('client.about')}}">
+            <h1 class=" font-medium"><i class="fa-solid fa-circle-info fa-xl"></i> About</h1>
+          </a>
+          <a href="{{url_for('client.manga')}}">
+            <h1 class=" font-medium"><i class="fa-solid fa-book fa-xl"></i> Manga</h1>
+          </a>
           <!-- <a href="https://tinyurl.com/dangki-otakime"><h1 class=" font-medium"><i class="fa-solid fa-people-roof fa-xl"></i> Be Staff</h1></a> -->
         </div>
         <div class="flex flex-row justify-around pl-2 gap-5">
@@ -55,14 +64,18 @@
 
   </div>
 </div>
+<script defer src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+<script type="module" src="static/js/firebase.js"></script>
 <!-- Chart JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 <!-- Chart JS Plugin for displaying text over chart -->
 <script
   src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.1.0/chartjs-plugin-datalabels.min.js"></script>
 <!-- Script -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script  type="text/javascript" src="static/js/scriptWheel.js"></script>
-<script  type="text/javascript" src="static/js/scriptTextInput.js"></script>
-<script type="application/json" src="static/json/wheel.json"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript" src="static/js/scriptWheel.js"></script>
+<script type="text/javascript" src="static/js/scriptTextInput.js"></script>
+
+<script></script>
 {% endblock%}

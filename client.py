@@ -1,5 +1,5 @@
 
-from flask import Blueprint,render_template
+from flask import Blueprint,render_template,request
 from model import getManga,Manga
 client = Blueprint('client', __name__)
 
@@ -146,21 +146,26 @@ def chapterManga(url,urlChapter):
         description =description
         )
 
-@client.route('/wheel')
+@client.route('/wheel', methods = ['GET','POST'])
 def wheel():
+
     return render_template('client/wheel.html')
 
 @client.route('/movie')
 def movie():
+    title=""
+    description=""
     url = "yuru-camp"
     return render_template('client/movie/movie.html',            
         url = url
     )
 @client.route('/movie/<urlMovie>')
 def movieDetail(urlMovie):
+    title=""
+    description=""
     url = "yuru-camp"
     src = "https://streamtape.com/e/0J4ARDrK4vCbozm/"
-    print(urlMovie, url)
+
     if urlMovie == url:
         return render_template('client/movie/movieScreen.html',
             src =src,
