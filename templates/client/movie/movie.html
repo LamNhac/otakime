@@ -1,0 +1,45 @@
+{% extends 'base.html'%}
+{%block main%}
+{% include 'client/navbar/header.html'%}
+<div class=" bg-manga-index  h-screen  bg-no-repeat bg-cover bg-center text-center text-xl text-white sm:text-xl">
+
+
+    <div class="flex h-screen flex-col justify-center gap-4 ">
+        <h1 class="font-semibold">Chào mừng bạn tới Otakime</h1>
+        <div>
+            <div class="inline-flex text-lg font-thin italic">
+                <p>Ở đây chúng tôi làm mọi thứ !</p>
+                <div class="pl-3">
+                    <div class="h-6 w-6 animate-bounce bg-white rounded-xl"><i class="fa-solid fa-arrow-down"
+                            style="color:black"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="bg-black text-white">
+    <div class="container mx-auto flex flex-col gap-28 p-4">
+      <div class="flex gap-10 flex-col sm:gap-28  p-4 shadow-lg shadow-slate-100 rounded-xl  sm:flex-row">
+        <img width="400px" src="https://images.pexels.com/photos/1459505/pexels-photo-1459505.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+        <div class="flex flex-col gap-5">
+          <div class="h-0.5 w-48 rounded border-0 bg-gray-100 dark:bg-gray-700"></div>
+          <h1 class="text-4xl font-semibold">Dã ngoại thảnh thơi</h1>
+          <div class="h-0.5 w-48 rounded border-0 bg-gray-100 dark:bg-gray-700"></div>
+          <h1 class="text-lg">Tên khác: ゆるキャン△</h1>
+          <h1 class="text-lg">Tác giả:</h1>
+          <h1 class="text-lg">Ngày đăng:</h1>
+          <h1 class="text-lg">Mô tả:</h1>
+          <a href="{{url_for('client.movieDetail', urlMovie = url )}}">
+            <div class="grid h-14 w-24 place-content-center bg-white text-black duration-700 hover:bg-[#4c4c4c] hover:text-white">
+              <p class="font-light">Xem ngay</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
+{%endblock%}

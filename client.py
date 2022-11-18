@@ -74,7 +74,7 @@ def manga():
         index+=1
 
     return render_template(
-            'client/manga.html',
+            'client/manga/manga.html',
             db = _manga,
             title = title,
             description = description
@@ -82,8 +82,6 @@ def manga():
 
 @client.route('/<url>')
 def detailManga(url):
-
-
     for item in getManga():
         if url == item.keyName.lower().replace(" ","-"):
             title = f"Otakime - {item.keyName}"
@@ -91,7 +89,7 @@ def detailManga(url):
             index = list(item.chapter)[0].lower().replace('chap ','')
             print(item.tags)
             return render_template(
-                'client/detailManga.html',
+                'client/manga/detailManga.html',
                 indexFirst = index,
                 db = item,
                 dbChapter = item.chapter.keys(),
@@ -139,7 +137,7 @@ def chapterManga(url,urlChapter):
 
 
     return render_template(
-        'client/chapterManga.html',
+        'client/manga/chapterManga.html',
 
         db = _dict,
         dbIMG = img,
@@ -150,5 +148,21 @@ def chapterManga(url,urlChapter):
 
 @client.route('/wheel')
 def wheel():
-    
     return render_template('client/wheel.html')
+
+@client.route('/movie')
+def movie():
+    url = "yuru-camp"
+    return render_template('client/movie/movie.html',            
+        url = url
+    )
+@client.route('/movie/<urlMovie>')
+def movieDetail(urlMovie):
+    url = "yuru-camp"
+    src = "https://streamtape.com/e/0J4ARDrK4vCbozm/"
+    print(urlMovie, url)
+    if urlMovie == url:
+        return render_template('client/movie/movieScreen.html',
+            src =src,
+
+            )
