@@ -1,6 +1,6 @@
 
 from flask import Blueprint,render_template,request
-from model import getManga,Manga
+from model import getManga,getMovie
 client = Blueprint('client', __name__)
 
 @client.route('/')
@@ -155,19 +155,38 @@ def wheel():
 def movie():
     title=""
     description=""
-    url = "yuru-camp"
+    _movie = {}
+
+    for item in getMovie():
+       _movie.update({
+            "keyName":item.keyName,
+            "nameMovie":item.nameMovie,
+            "description":item.description,
+            "otherName":item.otherName,
+            "updateAt": item.updateAt,
+            "imgMain":item.imgMain,
+            "author": item.author,
+            "tags" : ", ".join(item.tags)
+       })
+    for key,value in _movie.items():
+        print(key, value)
     return render_template('client/movie/movie.html',            
-        url = url
+        db = _movie
     )
 @client.route('/movie/<urlMovie>')
-def movieDetail(urlMovie):
+def movieScreen(urlMovie):
     title=""
-    description=""
-    url = "yuru-camp"
-    src = "https://streamtape.com/e/0J4ARDrK4vCbozm/"
-
-    if urlMovie == url:
-        return render_template('client/movie/movieScreen.html',
-            src =src,
-
+    description=""   
+    _movie = {}
+    for item in getMovie():
+        if urlMovie == item.keyName.lower().replace(' ','-'):
+            _movie.update({
+                "keyName":item.keyName,
+                "src" : item.src,
+            }) 
+            print(_movie['src'])
+            return render_template('client/movie/movieScreen.html',
+            db =_movie,
             )
+
+       

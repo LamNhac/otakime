@@ -8,20 +8,20 @@ var input = document.getElementById("codeSpin");
 $("#codeSpin").keypress(function (e) {
   if (e.which == 13) {
     const dbRef = firebase.database().ref().child('wheel').child('code')
-    dbRef.on('value', function (data) {
-      var snapshot = data.val()
-      for (let i = 0; i < snapshot.length; i++) {
 
-        if (input.value == snapshot[i]) {
-          alert("Chúc mừng bạn đã nhập thành công! :D")
+    dbRef.once('value', async (data) => {
+      var snapshot = await data.val()
+     
+      for (const [key, value] of Object.entries(snapshot)) {
+        if (input.value == value) {
+          alert("Chúc mừng bạn đã nhập thành công !")
           $(".wrapperWheel")
             .addClass("enablebutton")
             .removeClass("disabledbutton")
             .removeClass("disableWrapper");
 
-            snapshot[i].set(null)
-
-        }
+            dbRef.child(key).remove()
+        } 
       }
     })
 

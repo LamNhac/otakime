@@ -19,9 +19,9 @@ class Manga:
         self.chapter= chapter 
 
 class Movie: 
-    def __init__(self,keyName, nameManga, otherName, author, updateAt, description, tags, src, imgMain, imgCover, imgIndex):
+    def __init__(self,keyName, nameMovie, otherName, author, updateAt, description, tags, src, imgMain, imgCover, imgIndex):
         self.keyName= keyName
-        self.nameManga= nameManga
+        self.nameMovie= nameMovie
         self.otherName= otherName
         self.author= author
         self.updateAt= updateAt
@@ -59,7 +59,7 @@ def getMovie():
         DICT.append( 
             Movie(
                 keyName=key,
-                nameManga= value['nameMovie'],
+                nameMovie= value['nameMovie'],
                 otherName= value['otherName'],
                 author= value['author'],
                 updateAt= value['updateAt'],
@@ -72,7 +72,6 @@ def getMovie():
             )
         )
     return DICT
-
 
 
 

@@ -25,20 +25,19 @@
         <img width="400px" src="https://images.pexels.com/photos/1459505/pexels-photo-1459505.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
         <div class="flex flex-col gap-5">
           <div class="h-0.5 w-48 rounded border-0 bg-gray-100 dark:bg-gray-700"></div>
-          <h1 class="text-4xl font-semibold">Dã ngoại thảnh thơi</h1>
+          <h1 class="text-4xl font-semibold">{{db.nameMovie}}</h1>
           <div class="h-0.5 w-48 rounded border-0 bg-gray-100 dark:bg-gray-700"></div>
-          <h1 class="text-lg">Tên khác: ゆるキャン△</h1>
-          <h1 class="text-lg">Tác giả:</h1>
-          <h1 class="text-lg">Ngày đăng:</h1>
-          <h1 class="text-lg">Mô tả:</h1>
-          <a href="{{url_for('client.movieDetail', urlMovie = url )}}">
+          <h1 class="text-lg">Tên khác: {{db.otherName}}</h1>
+          <h1 class="text-lg">Tác giả: {{db.author}}</h1>
+          <h1 class="text-lg">Ngày đăng: {{db.updateAt}}</h1>
+          <h1 class="text-lg">Mô tả: {{db.descriotion}}</h1>
+          <a href="{{url_for('client.movieScreen', urlMovie = db.keyName.lower().replace(' ','-') )}}">
             <div class="grid h-14 w-24 place-content-center bg-white text-black duration-700 hover:bg-[#4c4c4c] hover:text-white">
               <p class="font-light">Xem ngay</p>
             </div>
           </a>
         </div>
       </div>
-
     </div>
   </div>
   
