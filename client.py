@@ -163,10 +163,12 @@ def movie():
             "nameMovie":item.nameMovie,
             "description":item.description,
             "otherName":item.otherName,
-            "updateAt": item.updateAt,
+            "director": item.director,
+            "studio":item.studio,
+            "writer":item.writer,
             "imgMain":item.imgMain,
-            "author": item.author,
-            "tags" : ", ".join(item.tags)
+            "stars" :item.stars
+  
        })
     for key,value in _movie.items():
         print(key, value)
@@ -184,7 +186,7 @@ def movieScreen(urlMovie):
                 "keyName":item.keyName,
                 "src" : item.src,
             }) 
-            print(_movie['src'])
+            #print(_movie['src'])
             return render_template('client/movie/movieScreen.html',
             db =_movie,
             )

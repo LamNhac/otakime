@@ -8,7 +8,7 @@
         <h1 class="font-semibold">Chào mừng bạn tới Otakime</h1>
         <div>
             <div class="inline-flex text-lg font-thin italic">
-                <p>Ở đây chúng tôi làm mọi thứ !</p>
+                <p>Ở đây chúng tôi chiếu phim !</p>
                 <div class="pl-3">
                     <div class="h-6 w-6 animate-bounce bg-white rounded-xl"><i class="fa-solid fa-arrow-down"
                             style="color:black"></i></div>
@@ -27,10 +27,12 @@
           <div class="h-0.5 w-48 rounded border-0 bg-gray-100 dark:bg-gray-700"></div>
           <h1 class="text-4xl font-semibold">{{db.nameMovie}}</h1>
           <div class="h-0.5 w-48 rounded border-0 bg-gray-100 dark:bg-gray-700"></div>
+          <h1 class="text-lg">Đạo diễn: {{db.director}}</h1>
+          <h1 class="text-lg">Diễn viên: {{db.stars}}</h1>
+          <h1 class="text-lg">Studio: {{db.studio}}</h1>
+          <h1 class="text-lg">Biên kịch: {{db.writer}}</h1>
           <h1 class="text-lg">Tên khác: {{db.otherName}}</h1>
-          <h1 class="text-lg">Tác giả: {{db.author}}</h1>
-          <h1 class="text-lg">Ngày đăng: {{db.updateAt}}</h1>
-          <h1 class="text-lg">Mô tả: {{db.descriotion}}</h1>
+          <h1 class="text-lg">Mô tả: {{db.description}}</h1>
           <a href="{{url_for('client.movieScreen', urlMovie = db.keyName.lower().replace(' ','-') )}}">
             <div class="grid h-14 w-24 place-content-center bg-white text-black duration-700 hover:bg-[#4c4c4c] hover:text-white">
               <p class="font-light">Xem ngay</p>

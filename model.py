@@ -19,14 +19,15 @@ class Manga:
         self.chapter= chapter 
 
 class Movie: 
-    def __init__(self,keyName, nameMovie, otherName, author, updateAt, description, tags, src, imgMain, imgCover, imgIndex):
+    def __init__(self,keyName, writer,studio, stars, nameMovie, otherName, director, description, src, imgMain, imgCover, imgIndex):
         self.keyName= keyName
         self.nameMovie= nameMovie
         self.otherName= otherName
-        self.author= author
-        self.updateAt= updateAt
+        self.stars =stars
+        self.studio =studio
+        self.director= director
+        self.writer = writer
         self.description= description
-        self.tags= tags
         self.imgIndex= imgIndex
         self.imgMain= imgMain
         self.imgCover= imgCover
@@ -61,10 +62,11 @@ def getMovie():
                 keyName=key,
                 nameMovie= value['nameMovie'],
                 otherName= value['otherName'],
-                author= value['author'],
-                updateAt= value['updateAt'],
+                director= value['director'],
+                stars = value['stars'],
+                writer = value['writer'],
                 description= value['description'],
-                tags= value['tags'],
+                studio= value['studio'],
                 src= value['src'],
                 imgIndex= value['imgIndex'],
                 imgMain= value['imgMain'],
