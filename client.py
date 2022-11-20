@@ -159,7 +159,7 @@ def wheel():
 
 @client.route('/movie')
 def movie():
-    title=""
+    title="Otakime - Movie"
     description=""
     _movie = {}
 
@@ -176,18 +176,20 @@ def movie():
             "stars" :item.stars
   
        })
-    for key,value in _movie.items():
-        print(key, value)
+
     return render_template('client/movie/movie.html',            
-        db = _movie
+        db = _movie,
+        title= title,
+        description = description
     )
 @client.route('/movie/<urlMovie>')
 def movieScreen(urlMovie):
-    title=""
-    description=""   
+
     _movie = {}
     for item in getMovie():
         if urlMovie == item.keyName.lower().replace(' ','-'):
+            title=f"Otakime - {item.keyName}"
+            description= item.description   
             _movie.update({
                 "keyName":item.keyName,
                 "src" : item.src,
@@ -195,6 +197,8 @@ def movieScreen(urlMovie):
             #print(_movie['src'])
             return render_template('client/movie/movieScreen.html',
             db =_movie,
+            title = title,
+            description= description
             )
 
        
