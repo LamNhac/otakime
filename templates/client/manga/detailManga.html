@@ -19,7 +19,7 @@
         <h1 class="">Thể loại: {{tagString}} </h1>
         <h1 class="">Mô tả: {{db.description}}</h1>
         <div class="pt-5">
-
+        
           <a href="{{url_for('client.chapterManga', url = db.keyName.lower().replace(' ','-'), urlChapter = indexFirst) }}">
             <div class="grid h-14 w-24 place-content-center bg-white text-black duration-700 hover:bg-[#4c4c4c] hover:text-white">
              
@@ -31,6 +31,10 @@
       </div>
     </div>
   </div>
+  <!--  Ads !-->
+  <a href="{{url_for('client.movieScreen', urlMovie = urlMovie)}}">
+    <img class=" h-full w-full pt-4" src="{{imgAds}}">
+  </a>
   <div class="container mx-auto p-4" style="padding:1.98em">
     <div class="border text-white">
       <h1 class="p-6 text-2xl">Chapter</h1>

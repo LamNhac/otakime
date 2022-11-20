@@ -82,19 +82,24 @@ def manga():
 
 @client.route('/<url>')
 def detailManga(url):
+    imgAds = "https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/logo%2Fyuru-camp-movie-ad.jpg?alt=media&token=66bc426f-e92d-4934-837a-7987197e95ec"
+    urlMovie = "yuru-camp"
+
     for item in getManga():
         if url == item.keyName.lower().replace(" ","-"):
             title = f"Otakime - {item.keyName}"
             description = f"{item.description}"
             index = list(item.chapter)[0].lower().replace('chap ','')
-            print(item.tags)
+            
             return render_template(
                 'client/manga/detailManga.html',
                 indexFirst = index,
                 db = item,
                 dbChapter = item.chapter.keys(),
                 title = title,
-                description=description
+                description=description,
+                imgAds = imgAds,
+                urlMovie = urlMovie
             )
 
     return render_template('404.html')
@@ -106,7 +111,7 @@ def chapterManga(url,urlChapter):
     chapterPrevious =""
     chapterNext = ""
     chapterPresent =""
-
+   
     for item in getManga():
 
         if url == item.keyName.lower().replace(" ","-"):
@@ -143,7 +148,8 @@ def chapterManga(url,urlChapter):
         dbIMG = img,
         chapterPresent = chapterPresent,
         title = title,
-        description =description
+        description =description,
+       
         )
 
 @client.route('/wheel', methods = ['GET','POST'])
