@@ -1,22 +1,18 @@
 {% extends 'base.html'%}
 {%block main%}
 {% include 'client/navbar/header.html'%}
-<div class=" bg-manga-index  h-screen  bg-no-repeat bg-cover bg-center text-center text-xl text-white sm:text-xl">
-
-
-    <div class="flex h-screen flex-col justify-center gap-4 ">
-        <h1 class="font-semibold sm:text-4xl">Chào mừng bạn tới OTAKIME</h1>
-        <div>
-            <div class="inline-flex  font-thin italic">
-                <p class="sm:text-2xl">Ở đây chúng tôi chiếu phim !</p>
-                <div class="pl-3">
-                    <div class="h-6 w-6 animate-bounce bg-white rounded-xl"><i class="fa-solid fa-arrow-down"
-                            style="color:black"></i></div>
-                </div>
-            </div>
-        </div>
+<div class="relative">
+  {% include 'client/navbar/header.html'%}
+  <div class="absolute flex h-full w-full flex-col items-center justify-center gap-5 bg-gradient-to-t from-black text-white">
+    <h1 class="font-semibold sm:text-4xl">Chào mừng bạn tới OTAKIME</h1>
+    <div class="flex flex-row">
+      <p class="pr-3 sm:text-2xl">Ở đây chúng tôi chiếu phim !</p>
+      <div class="h-6 w-6 animate-bounce rounded-xl bg-white " style="padding-left: 6.5px;"><i class="fa-solid fa-arrow-down" style="color:black"></i></div>
     </div>
-
+  </div>
+  <video loop autoplay class="">
+    <source type="video/webm" src="https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/logo%2FSlide.webm?alt=media&token=3784ca07-8066-4e5f-9f0e-4eec4081d76f" />
+  </video>
 </div>
 
 <div class="bg-black text-white">
@@ -38,7 +34,7 @@
               <p class="font-light">Xem ngay</p>
             </div>
           </a>
-          <p class=" italic">*Phim có thể có nhiều <span class=" font-semibold">quảng cáo</span> và để tránh chúng, bạn có thể xài AdBlock. Xin lỗi vì những bất tiện này!</p>
+          <p class=" italic">*Phim có thể có nhiều <span class=" font-semibold">quảng cáo</span> tụi mình khuyên nên xài AdBlock!</p>
 
         </div>
       </div>

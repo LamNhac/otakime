@@ -3,42 +3,46 @@
 
 
 {% include 'client/navbar/header.html'%}
-    <div class=" bg-manga-index  h-screen  bg-no-repeat bg-cover bg-center text-center text-xl text-white sm:text-xl">
+<div class=" bg-manga-index  h-screen  bg-no-repeat bg-cover bg-center text-center text-xl text-white sm:text-xl">
 
 
-        <div class="flex h-screen flex-col justify-center gap-4 ">
-          <h1 class="font-semibold sm:text-4xl">Chào mừng bạn tới OTAKIME</h1>
-          <div>
-            <div class="inline-flex text-lg font-thin italic">
-              <p class="sm:text-2xl">Ở đây chúng tôi làm Manga !</p>
-              <div class="pl-3">
-                <div class="h-6 w-6 animate-bounce bg-white rounded-xl"><i class="fa-solid fa-arrow-down" style="color:black"></i></div>
-              </div>
-            </div>
-          </div>
+  <div class="flex h-screen flex-col justify-center gap-4 ">
+    <h1 class="font-semibold sm:text-4xl">Chào mừng bạn tới OTAKIME</h1>
+    <div>
+      <div class="inline-flex text-lg font-thin italic">
+        <p class="sm:text-2xl">Ở đây chúng tôi làm Manga !</p>
+        <div class="pl-3">
+          <div class="h-6 w-6 animate-bounce bg-white rounded-xl"><i class="fa-solid fa-arrow-down"
+              style="color:black"></i></div>
         </div>
-
+      </div>
     </div>
-    <div class="bg-black ">
-    <div class="container mx-auto p-4 ">
-  <div class=" relative grid grid-cols-1 place-items-center gap-7  text-white sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-    {% for key, value in db.items()%}
+  </div>
+
+</div>
+<div class="bg-black ">
+  <div class="container mx-auto p-4 ">
+    <div
+      class=" relative grid grid-cols-1 place-items-center gap-7  text-white sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      {% for key, value in db.items()%}
       <div class="relative group " style="width:350px;">
-        <div class="flex flex-col justify-end absolute w-full h-full text-white gap-8 hover:bg-gradient-to-t hover:from-black">
+        <div
+          class="flex flex-col justify-end absolute w-full h-full text-white gap-8 hover:bg-gradient-to-t hover:from-black">
 
           <div class="invisible group-hover:visible pl-4 text-3xl font-extrabold stroke-black stroke-2">
-            <a href="{{url_for('client.detailManga', url= value.keyName.lower().replace(' ','-'))}}">{{value.nameManga}}</a>
+            <a
+              href="{{url_for('client.detailManga', url= value.keyName.lower().replace(' ','-'))}}">{{value.nameManga}}</a>
           </div>
           <div class="invisible group-hover:visible pl-4 font-light italic text-lg pb-6">{{value.tags}}</div>
 
         </div>
         <img src="{{value.imgMain}}" />
-        
+
       </div>
-    {%endfor%}
-    
-  </div>
+      {%endfor%}
+
     </div>
+  </div>
 </div>
 <!-- 
 {% include 'client/navbar/footer.html'%}
