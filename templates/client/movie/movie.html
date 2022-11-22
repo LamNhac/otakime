@@ -27,7 +27,7 @@
           <h1 class="text-lg"><span class="font-semibold">Biên kịch:</span> {{db.writer}}</h1>
           <h1 class="text-lg"><span class="font-semibold">Tên khác:</span> {{db.otherName}}</h1>
           <h1 class="text-lg"><span class="font-semibold">Mô tả:</span> {{db.description}}</h1>
-          <a href="{{url_for('client.movieScreen', urlMovie = db.keyName.lower().replace(' ','-') )}}">
+          <a href="{{db.src}}">
             <div class="grid h-14 w-24 place-content-center bg-white text-black duration-700 hover:bg-[#4c4c4c] hover:text-white">
               <p class="font-light">Xem ngay</p>
             </div>

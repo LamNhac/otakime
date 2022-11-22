@@ -173,7 +173,8 @@ def movie():
             "studio":item.studio,
             "writer":item.writer,
             "imgMain":item.imgMain,
-            "stars" :item.stars
+            "stars" :item.stars,
+            "src" : item.src
   
        })
 
@@ -182,23 +183,26 @@ def movie():
         title= title,
         description = description
     )
+"""
 @client.route('/movie/<urlMovie>')
 def movieScreen(urlMovie):
 
     _movie = {}
     for item in getMovie():
-        if urlMovie == item.keyName.lower().replace(' ','-'):
-            title=f"Otakime - {item.keyName}"
-            description= item.description   
-            _movie.update({
-                "keyName":item.keyName,
-                "src" : item.src,
-            }) 
-            #print(_movie['src'])
-            return render_template('client/movie/movieScreen.html',
+
+        title=f"Otakime - {item.keyName}"
+        description= item.description   
+
+        _movie.update({
+            "keyName":item.keyName,
+            "src" : item.src,
+        }) 
+
+        #print(_movie['src'])
+        return render_template('client/movie/movieScreen.html',
             db =_movie,
             title = title,
             description= description
-            )
+        )
 
-       
+"""
