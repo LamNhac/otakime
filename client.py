@@ -82,8 +82,8 @@ def manga():
 
 @client.route('/<url>')
 def detailManga(url):
+    urlMovie = "https://animevietsub.cc/phim/yuru-camp-movie-a4813/xem-phim-88141.html"
     imgAds = "https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/logo%2Fyuru-camp-movie-ad.jpg?alt=media&token=66bc426f-e92d-4934-837a-7987197e95ec"
-    urlMovie = "yuru-camp"
 
     for item in getManga():
         if url == item.keyName.lower().replace(" ","-"):
@@ -149,7 +149,7 @@ def chapterManga(url,urlChapter):
         chapterPresent = chapterPresent,
         title = title,
         description =description,
-       
+
         )
 
 @client.route('/wheel', methods = ['GET','POST'])
