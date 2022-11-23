@@ -42,7 +42,7 @@
       <div class=" grid grid-cols-1 gap-4 p-6 lg:grid-cols-6 place-items-center md:grid-cols-4  ">
         {%for item in dbChapter%}
         <a href="{{url_for('client.chapterManga',url = db.keyName.lower().replace(' ','-'), urlChapter = item.lower().replace('chap ','') )}}">
-          <button class="h-20 bg-slate-400 hover:bg-slate-500 duration-500">
+          <button class="h-20 bg-white text-black hover:bg-[#4c4c4c] hover:text-white duration-500" >
             <p class="text-lg">{{item}}</p>
             <p class="p-1 italic">Ngày đăng: ##/##/####</p>
           </button>
