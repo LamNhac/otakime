@@ -138,7 +138,7 @@ def create():
             print("Add img Chapter vào Storage: ",item)
 
          #add json manga realtime database
-        db.child(manga).update({
+        db.child("manga").child(manga).update({
                 "nameManga":nameManga,
                 "author":author,
                 "otherName":otherName,
@@ -150,7 +150,7 @@ def create():
                 "imgCover":dbimgCover,
             })
         print("Add manga vao realtime")
-        db.child(manga).child("chapter").update({
+        db.child("manga").child(manga).child("chapter").update({
                 f"Chap {chapter}":[storage.child("manga").child(manga).child("chapter").child(f"{chapter}").child(item.filename).get_url(user['idToken']) for item in imgChapter]
             })  
         print("Add img chapter vao realtime")
@@ -191,7 +191,7 @@ def updateChapter():
             storage.child("manga").child(selectManga).child("chapter").child(f"{chapter}").child(item.filename).put(item, user['idToken'])
             print("Add img chapter vo Storage: ",item)
 
-        db.child(selectManga).child("chapter").update({
+        db.child("manga").child(selectManga).child("chapter").update({
             f"Chap {chapter}": [storage.child("manga").child(selectManga).child("chapter").child(f"{chapter}").child(item.filename).get_url(user['idToken']) for item in imgChapter]
         })
         print("Add img chapter vo Realtime")
@@ -225,7 +225,7 @@ def deleteChapter():
             storage.delete(split, user['idToken'])
             print(f"Xoa img chapter {selectManga} ra khoi Storage")
             
-        db.child(selectManga).child("chapter").child(f"Chap {chapter}").remove(user['idToken'])
+        db.child("manga").child(selectManga).child("chapter").child(f"Chap {chapter}").remove(user['idToken'])
         print(f"Xoa img chapter {selectManga} ra khoi Realtime")
         reload("Delelte chapter",selectManga)
         return render_template(
@@ -259,7 +259,7 @@ def deleteManga():
             storage.delete(split, user['idToken'])
             print(f"Xoa {manga}/chapter ra khoi Storage")
             
-        db.child(manga).remove(user['idToken'])
+        db.child("manga").child(manga).remove(user['idToken'])
         print(f"Xoa {manga} ra khoi Realtime")
         reload("Delelte manga",manga)
         return render_template('admin/deleteManga.html',form = form,success = True) 
