@@ -1,5 +1,14 @@
 <div class="absolute right-0 p-7 z-30">
-    <a href="{{ url_for('client.home')}}"><i class=" sticky fa-solid fa-arrow-left fa-2xl" style="color:white"></i></a>
+    <a href="{{ url_for('client.home')}}">
+        <button data-tooltip-target="tooltip-default" type="button">
+            <i class=" sticky fa-solid fa-arrow-left fa-2xl" style="color:white"></i>
+        </button>
+        <div id="tooltip-default" role="tooltip"
+          class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 tooltip">
+          Quay lại
+          <div class="tooltip-arrow" data-popper-arrow></div>
+        </div>
+    </a>
     
 </div>
 
