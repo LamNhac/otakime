@@ -27,6 +27,9 @@ app.register_blueprint(client)
 app.register_blueprint(admin)
 Session(app)
 
+@app.route('/dieukhoan')
+def terms():
+    return render_template('client/TermandConditions.html')
 
 @app.route('/admin/gmailcustom', methods =['GET','POST'])
 def gmailCustom():

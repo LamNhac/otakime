@@ -695,6 +695,10 @@ video {
   margin: -0.25rem;
 }
 
+.m-3 {
+  margin: 0.75rem;
+}
+
 .m-4 {
   margin: 1rem;
 }
@@ -1029,12 +1033,12 @@ video {
   gap: 1.75rem;
 }
 
-.gap-4 {
-  gap: 1rem;
-}
-
 .gap-2 {
   gap: 0.5rem;
+}
+
+.gap-4 {
+  gap: 1rem;
 }
 
 .gap-5 {
@@ -1417,6 +1421,11 @@ video {
   line-height: 2rem;
 }
 
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -1425,11 +1434,6 @@ video {
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
-}
-
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
 }
 
 .text-4xl {
@@ -1645,9 +1649,9 @@ video {
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-\[\#4c4c4c\]:hover {
+.hover\:bg-\[\#494949\]:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(76 76 76 / var(--tw-bg-opacity));
+  background-color: rgb(73 73 73 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-gradient-to-t:hover {

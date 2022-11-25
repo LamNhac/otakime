@@ -21,7 +21,7 @@
         <div class="pt-5">
         
           <a href="{{url_for('client.chapterManga', url = db.keyName.lower().replace(' ','-'), urlChapter = indexFirst) }}">
-            <div class="grid h-14 w-24 place-content-center bg-white text-black duration-700 hover:bg-[#4c4c4c] hover:text-white">
+            <div class="grid h-14 w-24 place-content-center bg-white text-black duration-700 hover:bg-[#494949] hover:text-white">
              
                 <p class="font-light ">Đọc ngay</p>          
 
@@ -42,7 +42,7 @@
       <div class=" grid grid-cols-1 gap-4 p-6 lg:grid-cols-6 place-items-center md:grid-cols-4  ">
         {%for item in dbChapter%}
         <a href="{{url_for('client.chapterManga',url = db.keyName.lower().replace(' ','-'), urlChapter = item.lower().replace('chap ','') )}}">
-          <button class="h-20 bg-white text-black hover:bg-[#4c4c4c] hover:text-white duration-500" >
+          <button class="h-20 bg-white text-black hover:bg-[#494949] hover:text-white duration-500" >
             <p class="text-lg">{{item}}</p>
             <p class="p-1 italic">Ngày đăng: ##/##/####</p>
           </button>
@@ -51,6 +51,7 @@
       </div>
     </div>
   </div>
+  {% include 'client/navbar/footer.html'%}
 </div>
 
 {%endblock%}
