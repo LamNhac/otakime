@@ -183,7 +183,7 @@ def movie():
         title= title,
         description = description
     )
-"""
+
 @client.route('/movie/<urlMovie>')
 def movieScreen(urlMovie):
 
@@ -192,18 +192,18 @@ def movieScreen(urlMovie):
 
         title=f"Otakime - {item.keyName}"
         description= item.description   
+        if  urlMovie ==item.keyName.lower().replace(' ','-'):
+            _movie.update({
+                "keyName":item.keyName,
+                "src" : item.src,
+            }) 
 
-        _movie.update({
-            "keyName":item.keyName,
-            "src" : item.src,
-        }) 
+            #print(_movie['src'])
+            return render_template('client/movie/movieScreen.html',
+                db =_movie,
+                title = title,
+                description= description
+            )
 
-        #print(_movie['src'])
-        return render_template('client/movie/movieScreen.html',
-            db =_movie,
-            title = title,
-            description= description
-        )
 
-"""
 
