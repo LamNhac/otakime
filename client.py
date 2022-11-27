@@ -1,7 +1,18 @@
 
-from flask import Blueprint,render_template,request
+
+from flask import Blueprint,render_template,request,current_app
 from model import getManga,getMovie
+
+
+from flask_session import Session
+from flask_mail import Mail,Message
+
+from app import mail_password,mail_username
+
 client = Blueprint('client', __name__)
+
+
+mail = Mail(current_app)
 
 @client.route('/')
 def home():
@@ -184,7 +195,7 @@ def movie():
         description = description
     )
 
-@client.route('/movie/<urlMovie>')
+@client.route('/movie/<urlMovie>', methods=['GET','POST'])
 def movieScreen(urlMovie):
 
     _movie = {}
@@ -197,13 +208,35 @@ def movieScreen(urlMovie):
                 "keyName":item.keyName,
                 "src" : item.src,
             }) 
+            if request.method =='POST':
+                email = request.form.get('email')
+                messageCheckbox = request.form.getlist('messageCheckbox')
+                
+                subject = "Khảo sát Movie Website"
+                message = ", ".join(messageCheckbox)
+                msg = Message(
+                        subject=f'{subject}',
+                        sender= email,
+                        recipients=[mail_username],
+                    
+                        body= f'Email: {email}\nMessage: {message}' 
+                    )
+                mail.send(msg)
 
+                return render_template('client/movie/movieScreen.html',
+                    db =_movie,
+                    title = title,
+                    description= description,
+                    success = True
+                )
+                
             #print(_movie['src'])
             return render_template('client/movie/movieScreen.html',
                 db =_movie,
                 title = title,
                 description= description
             )
+    
 
 
 

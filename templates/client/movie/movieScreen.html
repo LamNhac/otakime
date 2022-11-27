@@ -11,8 +11,81 @@
             right: 0;
             width: 100%;
             height: 100%;
-            border: none;" src="{{db.src}}"  allowfullscreen
-            allowtransparency allow="autoplay" scrolling="no" frameborder="0"></iframe>
+            border: none;" src="{{db.src}}" allowfullscreen allowtransparency allow="autoplay" scrolling="no"
+            frameborder="0">
+        </iframe>
+
+        <button data-popover-target="popover-default" type="button"
+            class="absolute w-12 h-12 bg-white rounded-full right-5 bottom-24 sm:right-10 sm:bottom-32 ">
+            <div class="flex w-full h-full justify-center items-center">
+                <i class="fa-solid fa-message fa-xl "></i>
+            </div>
+        </button>
+        <div data-popover id="popover-default" role="tooltip"
+            class="absolute z-10 invisible inline-block w-60 sm:w-80 text-sm font-light  transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+            <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg ">
+                <h3 class="font-semibold text-black  text-lg">Khảo sát Movie Website</h3>
+            </div>
+            <div class="px-3 py-2 text-gray-400">
+                {% if success%}
+                <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+                    role="alert">
+                    <span class="font-medium">Cảm ơn bạn đã cho ý kiến!</span>
+                </div>
+                {% endif%}
+                <form action="#" method="post">
+                    <div>
+                        <label for="small-input" class="block mb-2  font-medium text-gray-900  text-base">Email</label>
+                        <input name="email" type="text" id="small-input" placeholder="Email của bạn..."
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs  focus:ring-black  ">
+                    </div>
+                    <div class="mt-2 mb-2 text-black text-base">Tốc độ của web</div>
+                    <ul
+                        class="w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
+                            <div class="flex items-center pl-3">
+                                <input name="messageCheckbox" id="vue-checkbox" type="checkbox"
+                                    value="Phim chạy quá chậm"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                <label for="vue-checkbox"
+                                    class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Phim
+                                    chạy quá chậm</label>
+                            </div>
+                        </li>
+                        <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
+                            <div class="flex items-center pl-3">
+                                <input name="messageCheckbox" id="react-checkbox" type="checkbox"
+                                    value="Player bị lỗi ko hiển thị"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                <label for="react-checkbox"
+                                    class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Player
+                                    bị lỗi ko hiển thị</label>
+                            </div>
+                        </li>
+                        <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
+                            <div class="flex items-center pl-3">
+                                <input name="messageCheckbox" id="angular-checkbox" type="checkbox"
+                                    value="Quảng cáo quá nhiều"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                <label for="angular-checkbox"
+                                    class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Quảng
+                                    cáo quá nhiều</label>
+                            </div>
+                        </li>
+
+                    </ul>
+                    <div class="w-full flex justify-center mt-2">
+                        <div class="w-10 h-8 bg-black text-white rounded-md">
+                            <button class="grid place-content-center w-full h-full" type="submit">Gửi</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div data-popper-arrow></div>
+        </div>
 
     </div>
 </div>
