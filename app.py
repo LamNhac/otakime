@@ -30,7 +30,9 @@ with app.app_context():
     app.register_blueprint(admin)
     Session(app)
 
-
+    @app.route('/test')
+    def test():
+        return render_template('test.html')
     @app.route('/dieukhoan')
     def terms():
         return render_template('client/TermandConditions.html')
