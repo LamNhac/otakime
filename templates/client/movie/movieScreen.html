@@ -1,8 +1,8 @@
 {%extends 'base.html'%}
 {% block main%}
-<div class="grid place-content-center h-screen  ">
+<div class="grid place-content-center h-screen bg-black ">
     <div class="shadow-xl hover:shadow-2xl shadow-slate-600">
-
+        <!--
         <iframe style="  
         position: absolute;
             top: 0;
@@ -14,19 +14,20 @@
             border: none;" src="{{db.src}}" allowfullscreen allowtransparency allow="autoplay" scrolling="no"
             frameborder="0">
         </iframe>
-
-        <button data-popover-target="popover-default" type="button"
+-->
+        <button data-popover-trigger="click" data-popover-target="popover-default" type="button"
             class="absolute w-12 h-12 bg-white rounded-full right-5 bottom-24 sm:right-10 sm:bottom-32 ">
             <div class="flex w-full h-full justify-center items-center">
                 <i class="fa-solid fa-message fa-xl "></i>
             </div>
         </button>
-        <div data-popover id="popover-default" role="tooltip"
+        <div data-popover id="popover-default" id="" role="tooltip"
             class="absolute z-10 invisible inline-block w-60 sm:w-80 text-sm font-light  transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
             <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg ">
                 <h3 class="font-semibold text-black  text-lg">Khảo sát Movie Website</h3>
+
             </div>
-            <div class="px-3 py-2 text-gray-400">
+            <div class="px-3 py-2 text-gray-400" id="popoverScript">
                 {% if success%}
                 <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
                     role="alert">
@@ -89,4 +90,5 @@
 
     </div>
 </div>
+
 {%endblock%}
