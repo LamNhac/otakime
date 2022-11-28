@@ -141,28 +141,30 @@ def chapterManga(url,urlChapter):
                         chapterNext = _listChapter[indexPresent + 1 ] 
                     except IndexError:
                         chapterNext =""
+                      
                 
 
-            _dict.update({
-                "keyName":item.keyName,
-                "nameManga": item.nameManga,
-                "chapterDropdown": item.chapter.keys(),
-                "chapterPrevious": chapterPrevious,
-                "chapterNext": chapterNext
-            })
+                    _dict.update({
+                        "keyName":item.keyName,
+                        "nameManga": item.nameManga,
+                        "chapterDropdown": item.chapter.keys(),
+                        "chapterPrevious": chapterPrevious,
+                        "chapterNext": chapterNext
+                    })
+        
 
+                    return render_template(
+                        'client/manga/chapterManga.html',
 
-    return render_template(
-        'client/manga/chapterManga.html',
+                        db = _dict,
+                        dbIMG = img,
+                        chapterPresent = chapterPresent,
+                        title = title,
+                        description =description,
 
-        db = _dict,
-        dbIMG = img,
-        chapterPresent = chapterPresent,
-        title = title,
-        description =description,
-
-        )
-
+                        )
+    else:
+        return render_template('404.html')
 @client.route('/wheel', methods = ['GET','POST'])
 def wheel():
 
@@ -236,7 +238,11 @@ def movieScreen(urlMovie):
                 title = title,
                 description= description
             )
-    
+    else:
+        return render_template('404.html')
 
-
+@client.errorhandler(404)
+def page_not_found(e):
+  
+    return render_template('404.html'), 404
 
