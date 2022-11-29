@@ -216,6 +216,7 @@ def movieScreen(urlMovie):
                 
                 subject = "Khảo sát Movie Website"
                 message = ", ".join(messageCheckbox)
+
                 msg = Message(
                         subject=f'{subject}',
                         sender= email,
