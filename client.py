@@ -191,6 +191,8 @@ def movie():
   
        })
 
+
+
     return render_template('client/movie/movie.html',            
         db = _movie,
         title= title,
@@ -199,17 +201,21 @@ def movie():
 
 @client.route('/movie/<urlMovie>', methods=['GET','POST'])
 def movieScreen(urlMovie):
+    server = request.args.get('server')
 
     _movie = {}
+    print(server)
+ 
     for item in getMovie():
-
+        print(item.src[f'{server}'],)
         title=f"Otakime - {item.keyName}"
         description= item.description   
-        if  urlMovie ==item.keyName.lower().replace(' ','-'):
+        if  urlMovie ==item.keyName.lower().replace(' ','-') :
             _movie.update({
                 "keyName":item.keyName,
-                "src" : item.src,
+                "src" : item.src[f'{server}'],
             }) 
+           
             if request.method =='POST':
                 email = request.form.get('email')
                 messageCheckbox = request.form.getlist('messageCheckbox')
@@ -232,13 +238,12 @@ def movieScreen(urlMovie):
                     description= description,
                     success = True
                 )
-                
-            #print(_movie['src'])
             return render_template('client/movie/movieScreen.html',
                 db =_movie,
                 title = title,
                 description= description
-            )
+            )    
+       
     else:
         return render_template('404.html')
 
