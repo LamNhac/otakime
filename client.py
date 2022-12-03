@@ -204,8 +204,7 @@ def movieScreen(urlMovie):
     server = request.args.get('server')
 
     _movie = {}
-    print(server)
- 
+
     for item in getMovie():
         print(item.src[f'{server}'],)
         title=f"Otakime - {item.keyName}"
@@ -224,7 +223,7 @@ def movieScreen(urlMovie):
                 message = ", ".join(messageCheckbox)
 
                 msg = Message(
-                        subject=f'{subject}',
+                        subject=f'{subject} của {server.title()}',
                         sender= email,
                         recipients=[mail_username],
                     
