@@ -15,8 +15,8 @@
             frameborder="0">
         </iframe>
 
-        <button onclick="functionPopover()" data-popover-trigger="click" data-popover-target="popover-content" type="button"
-            class="absolute w-12 h-12 bg-white rounded-full right-5 bottom-24 sm:right-10 sm:bottom-32 ">
+        <button onclick="functionPopover()" data-popover-trigger="click" data-popover-target="popover-content"
+            type="button" class="absolute w-12 h-12 bg-white rounded-full right-5 bottom-24 sm:right-10 sm:bottom-32 ">
             <div class="flex w-full h-full justify-center items-center">
                 <i class="fa-solid fa-message fa-xl "></i>
             </div>
@@ -78,15 +78,15 @@
                     <div class="w-full flex justify-evenly items-center mt-2">
                         <div class="w-10 h-8 bg-black text-white rounded-md">
                             <button class="grid place-content-center w-full h-full" type="submit">Gửi</button>
-                          
+
                         </div>
-                        
+
                     </div>
 
                 </form>
                 <div class="absolute w-10 h-8 bg-black text-white rounded-md right-3 bottom-2">
                     <button class="grid place-content-center w-full h-full" onclick="functionClick()">Close</button>
-                  
+
                 </div>
             </div>
 
@@ -96,11 +96,11 @@
     </div>
 </div>
 <script>
-    function functionClick(){
+    function functionClick() {
 
-       $("#popover-content").hide()
+        $("#popover-content").hide()
     }
-    function functionPopover(){
+    function functionPopover() {
         $("#popover-content").show()
     }
 </script>
