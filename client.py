@@ -113,7 +113,7 @@ def detailManga(url):
                 urlMovie = urlMovie
             )
 
-    return render_template('404.html')
+    return render_template('404.html', title="Otakime - 404" , description = "Có thể bạn đi nhầm đâu đó...")
 
 @client.route('/<url>/<urlChapter>')
 def chapterManga(url,urlChapter):
@@ -164,7 +164,7 @@ def chapterManga(url,urlChapter):
 
                         )
     else:
-        return render_template('404.html')
+        return render_template('404.html' ,title="Otakime - 404" , description = "Có thể bạn đi nhầm đâu đó...")
 @client.route('/wheel', methods = ['GET','POST'])
 def wheel():
 
@@ -244,7 +244,7 @@ def movieScreen(urlMovie):
             )    
        
     else:
-        return render_template('404.html')
+        return render_template('404.html', title="Otakime - 404" , description = "Có thể bạn đi nhầm đâu đó...")
 
 
 
