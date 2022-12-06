@@ -191,8 +191,6 @@ def movie():
   
        })
 
-
-
     return render_template('client/movie/movie.html',            
         db = _movie,
         title= title,
@@ -201,20 +199,17 @@ def movie():
 
 @client.route('/movie/<urlMovie>', methods=['GET','POST'])
 def movieScreen(urlMovie):
-    server = request.args.get('server')
 
     _movie = {}
-
     for item in getMovie():
-        print(item.src[f'{server}'],)
+
         title=f"Otakime - {item.keyName}"
         description= item.description   
-        if  urlMovie ==item.keyName.lower().replace(' ','-') :
+        if  urlMovie ==item.keyName.lower().replace(' ','-'):
             _movie.update({
                 "keyName":item.keyName,
-                "src" : item.src[f'{server}'],
+                "src" : item.src,
             }) 
-           
             if request.method =='POST':
                 email = request.form.get('email')
                 messageCheckbox = request.form.getlist('messageCheckbox')
@@ -223,7 +218,7 @@ def movieScreen(urlMovie):
                 message = ", ".join(messageCheckbox)
 
                 msg = Message(
-                        subject=f'{subject} của {server.title()}',
+                        subject=f'{subject}',
                         sender= email,
                         recipients=[mail_username],
                     
@@ -237,12 +232,13 @@ def movieScreen(urlMovie):
                     description= description,
                     success = True
                 )
+                
+            #print(_movie['src'])
             return render_template('client/movie/movieScreen.html',
                 db =_movie,
                 title = title,
                 description= description
-            )    
-       
+            )
     else:
         return render_template('404.html', title="Otakime - 404" , description = "Có thể bạn đi nhầm đâu đó...")
 
