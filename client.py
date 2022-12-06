@@ -199,7 +199,7 @@ def movie():
 
 @client.route('/movie/<urlMovie>', methods=['GET','POST'])
 def movieScreen(urlMovie):
-
+    server = request.args.get('server')
     _movie = {}
     for item in getMovie():
 
@@ -208,13 +208,13 @@ def movieScreen(urlMovie):
         if  urlMovie ==item.keyName.lower().replace(' ','-'):
             _movie.update({
                 "keyName":item.keyName,
-                "src" : item.src,
+                "src" : item.src[f'{server}'],
             }) 
             if request.method =='POST':
                 email = request.form.get('email')
                 messageCheckbox = request.form.getlist('messageCheckbox')
                 
-                subject = "Khảo sát Movie Website"
+                subject = f"Khảo sát Movie Website của {server}"
                 message = ", ".join(messageCheckbox)
 
                 msg = Message(
