@@ -21,21 +21,22 @@
 
 <div class="bg-black text-white">
   <div class="container mx-auto flex flex-col gap-28 p-4">
+    {%for item in db%}
     <div
       class="flex gap-5 flex-col sm:gap-10  p-8 duration-75 hover:border-2 hover:shadow-2xl hover:shadow-white rounded-xl md:p-4  sm:flex-row">
-      <img class="w-96" src="{{db.imgMain}}" />
+      <img class="w-96" src="{{item.imgMain}}" />
       <div class="flex flex-col gap-5 sm:gap-2">
         <div class="h-0.5 w-48 rounded border-0 bg-gray-100 dark:bg-gray-700"></div>
-        <h1 class="text-4xl font-semibold">{{db.nameMovie}}</h1>
+        <h1 class="text-4xl font-semibold">{{item.nameMovie}}</h1>
         <div class="h-0.5 w-48 rounded border-0 bg-gray-100 dark:bg-gray-700"></div>
-        <h1 class="text-lg "><span class="font-semibold">Đạo diễn:</span> {{db.director}}</h1>
-        <h1 class="text-lg"><span class="font-semibold">Diễn viên:</span> {{db.stars}}</h1>
-        <h1 class="text-lg"><span class="font-semibold">Studio:</span> {{db.studio}}</h1>
-        <h1 class="text-lg"><span class="font-semibold">Biên kịch:</span> {{db.writer}}</h1>
-        <h1 class="text-lg"><span class="font-semibold">Tên khác:</span> {{db.otherName}}</h1>
-        <h1 class="text-lg"><span class="font-semibold">Mô tả:</span> {{db.description}}</h1>
+        <h1 class="text-lg "><span class="font-semibold">Đạo diễn:</span> {{item.director}}</h1>
+        <h1 class="text-lg"><span class="font-semibold">Diễn viên:</span> {{item.stars}}</h1>
+        <h1 class="text-lg"><span class="font-semibold">Studio:</span> {{item.studio}}</h1>
+        <h1 class="text-lg"><span class="font-semibold">Biên kịch:</span> {{item.writer}}</h1>
+        <h1 class="text-lg"><span class="font-semibold">Tên khác:</span> {{item.otherName}}</h1>
+        <h1 class="text-lg"><span class="font-semibold">Mô tả:</span> {{item.description}}</h1>
 
-        
+
         <button id="dropdownRightButton" data-dropdown-toggle="dropdownRight" data-dropdown-placement="right"
           class="flex h-14 w-32 justify-center items-center bg-white text-black duration-700 hover:bg-[#494949] hover:text-white"
           type="button">Xem ngay<svg class="ml-2 w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
@@ -51,11 +52,11 @@
           class="hidden z-10 w-40 bg-white rounded divide-y divide-gray-100 shadow absolute top-60">
           <ul class="py-1 px-2 text-sm text-gray-700 " aria-labelledby="dropdownRightButton">
             <li>
-              <a href="{{url_for('client.movieScreen', urlMovie = db.keyName.lower().replace(' ','-'), server = 'abyss'    )}}"
+              <a href="{{url_for('client.movieScreen', urlMovie = item.keyName.lower().replace(' ','-'), server = 'abyss'    )}}"
                 class="block py-2 px-2 hover:bg-gray-100  ">Xem bằng Abyss</a>
             </li>
             <li>
-              <a href="{{url_for('client.movieScreen', urlMovie = db.keyName.lower().replace(' ','-'), server = 'filemoon'    )}}"
+              <a href="{{url_for('client.movieScreen', urlMovie = item.keyName.lower().replace(' ','-'), server = 'filemoon'    )}}"
                 class="block py-2 px-2 hover:bg-gray-100  ">Xem bằng Filemoon</a>
             </li>
 
@@ -65,6 +66,7 @@
 
       </div>
     </div>
+    {%endfor%}
 
   </div>
 </div>

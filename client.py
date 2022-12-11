@@ -175,7 +175,8 @@ def movie():
     title="Otakime - Movie"
     description=""
     _movie = {}
-
+    db = getMovie()
+    """
     for item in getMovie():
        _movie.update({
             "keyName":item.keyName,
@@ -190,11 +191,12 @@ def movie():
             "src" : item.src
   
        })
-
+    """
     return render_template('client/movie/movie.html',            
-        db = _movie,
+        db = getMovie(),
         title= title,
-        description = description
+        description = description,
+        
     )
 
 @client.route('/movie/<urlMovie>', methods=['GET','POST'])

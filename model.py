@@ -19,7 +19,7 @@ class Manga:
         self.chapter= chapter 
 
 class Movie: 
-    def __init__(self,keyName, writer,studio, stars, nameMovie, otherName, director, description, src, imgMain, imgCover, imgIndex):
+    def __init__(self,keyName, writer,studio, stars, nameMovie, otherName, director, description, src, imgMain ):
         self.keyName= keyName
         self.nameMovie= nameMovie
         self.otherName= otherName
@@ -28,9 +28,9 @@ class Movie:
         self.director= director
         self.writer = writer
         self.description= description
-        self.imgIndex= imgIndex
+    
         self.imgMain= imgMain
-        self.imgCover= imgCover
+
         self.src= src 
     
 def getManga():
@@ -68,9 +68,9 @@ def getMovie():
                 description= value['description'],
                 studio= value['studio'],
                 src= value['src'],
-                imgIndex= value['imgIndex'],
+             
                 imgMain= value['imgMain'],
-                imgCover= value['imgCover']
+              
             )
         )
     return DICT
