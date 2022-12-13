@@ -94,7 +94,7 @@ def manga():
 @client.route('/<url>')
 def detailManga(url):
     urlMovie = "https://animevietsub.cc/phim/yuru-camp-movie-a4813/xem-phim-88141.html"
-    imgAds = "https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/logo%2Fyuru-camp-movie-ad.jpg?alt=media&token=66bc426f-e92d-4934-837a-7987197e95ec"
+    imgAds = "https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/movie%2FTakagi%2Ftakagi_movie_ad.jpg?alt=media&token=1eafb380-848e-4306-9515-06d8b2e13f73"
 
     for item in getManga():
         if url == item.keyName.lower().replace(" ","-"):
