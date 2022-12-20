@@ -75,12 +75,3 @@ def getMovie():
         )
     return DICT
 
-
-
-
-
-
-for item in getMovie():
-    if item.keyName == "":
-        print(item.src)
-

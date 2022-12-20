@@ -174,11 +174,11 @@ def wheel():
 def movie():
     title="Otakime - Movie"
     description=""
-    _movie = {}
-    db = getMovie()
-    """
+    _movie = []
+
+
     for item in getMovie():
-       _movie.update({
+       _movie.append({
             "keyName":item.keyName,
             "nameMovie":item.nameMovie,
             "description":item.description,
@@ -189,11 +189,11 @@ def movie():
             "imgMain":item.imgMain,
             "stars" :item.stars,
             "src" : item.src
-  
+
        })
-    """
+
     return render_template('client/movie/movie.html',            
-        db = getMovie(),
+        db = _movie,
         title= title,
         description = description,
         
@@ -203,11 +203,13 @@ def movie():
 def movieScreen(urlMovie):
     server = request.args.get('server')
     _movie = {}
+
     for item in getMovie():
 
         title=f"Otakime - {item.keyName}"
         description= item.description   
-        if  urlMovie ==item.keyName.lower().replace(' ','-'):
+        if  urlMovie == item.keyName.lower().replace(' ','-'):
+
             _movie.update({
                 "keyName":item.keyName,
                 "src" : item.src[f'{server}'],
@@ -236,6 +238,9 @@ def movieScreen(urlMovie):
                 )
                 
             #print(_movie['src'])
+          
+           
+          
             return render_template('client/movie/movieScreen.html',
                 db =_movie,
                 title = title,
