@@ -173,7 +173,7 @@ def wheel():
 @client.route('/movie')
 def movie():
     title="Otakime - Movie"
-    description=""
+    description="Xem những dự án dịch phim do Otakime và những đối tác thực hiện"
     _movie = []
 
 
