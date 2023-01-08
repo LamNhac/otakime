@@ -1,6 +1,23 @@
 {% extends 'base.html'%}
 {% block main %}
+<div id="ads">
+  <div class="relative z-40 ">
+    <div class="absolute h-screen w-screen bg-black opacity-50"></div>
+    <div class="absolute h-screen w-screen flex justify-center items-center ">
 
+      <div class="relative">
+        <img width="350" height="350" class="blur-none"
+          src="https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/logo%2FOffline_Official.jpg?alt=media&token=7d50046b-91c2-4dc3-9cc8-1dc88ebc817f" />
+        <button onclick="btn()"><i class="fa-regular fa-circle-xmark fa-xl absolute text-white top-6 "
+            style="left: 19.5rem;"></i></button>
+      </div>
+
+
+    </div>
+
+
+  </div>
+</div>
 <div id="indicators-carousel" class="relative font-mavenpro " data-carousel="slide">
 
   <!-- Carousel wrapper -->
@@ -87,6 +104,7 @@
       <!-- <h1 style="font-weight:800"><a href="{{ url_for('client.wheel') }}">WHEEL</a></h1> !-->
       <h1 style="font-weight:800"><a target="_blank" href="https://tinyurl.com/dangki-otakime">BE STAFF</a></h1>
     </div>
+
   </div>
 
   <!-- Slider indicators -->
@@ -105,7 +123,8 @@
       <a href="https://www.facebook.com/Otakime3.0">
         <button data-tooltip-target="tooltip-default" type="button"> <i
             class="fa-brands fa-discord fa-xl duration-300 text-[#ECE8D9] hover:text-white"></i></button>
-        <div id="tooltip-default" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 tooltip">
+        <div id="tooltip-default" role="tooltip"
+          class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 tooltip">
           Click vô đây join Discord
           <div class="tooltip-arrow" data-popper-arrow></div>
         </div>
@@ -115,7 +134,7 @@
             class="fa-brands fa-facebook fa-xl duration-300 text-[#ECE8D9]  hover:text-white"></i></button>
         <div id="tooltip-light" role="tooltip"
           class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 tooltip">
-          Click vô đây vào Page 
+          Click vô đây vào Page
           <div class="tooltip-arrow" data-popper-arrow></div>
         </div>
       </a>
@@ -125,5 +144,11 @@
 
 </div>
 
+<script>
+  btn = () => {
+    var elem = document.querySelector('#ads');
+    elem.parentNode.removeChild(elem);
+  }
 
+</script>
 {% endblock %}
