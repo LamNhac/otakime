@@ -1,10 +1,14 @@
 {%extends 'base.html'%}
 {% block main%}
+
+
+
 <div class="grid place-content-center h-screen bg-black ">
     <div class="shadow-xl hover:shadow-2xl shadow-slate-600">
 
         <iframe style="  
         position: absolute;
+
             top: 0;
             left: 0;
             bottom: 0;
@@ -113,6 +117,10 @@
         </div>
     </div>
 </div>
+{% if db.src == ""%}
+<button id="alertSrc" class="hidden" onclick="alert('Hiện tại chưa có phim ở Server này!')"> </button>
+
+{%endif%}
 <script>
     function functionClick() {
 
@@ -121,5 +129,8 @@
     function functionPopover() {
         $("#popover-content").show()
     }
+</script>
+<script>
+    document.getElementById("alertSrc").click();
 </script>
 {%endblock%}

@@ -237,8 +237,8 @@ def movieScreen(urlMovie):
                     success = True
                 )
                 
-            #print(_movie['src'])
-          
+            print(_movie['src'])
+            print(_movie['keyName'])
            
           
             return render_template('client/movie/movieScreen.html',
