@@ -1,13 +1,13 @@
 
 
 from flask import Blueprint,render_template,request,current_app
-from model import getManga,getMovie
+from api.model import getManga,getMovie
 
 
 from flask_session import Session
 from flask_mail import Mail,Message
 
-from app import mail_password,mail_username
+from api.app import mail_password,mail_username
 
 client = Blueprint('client', __name__)
 

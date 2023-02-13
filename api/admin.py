@@ -6,8 +6,8 @@ from flask_wtf.file import FileRequired
 from wtforms import StringField,MultipleFileField,DateField,SelectField,FileField
 from wtforms.validators import DataRequired,InputRequired
 
-from firebase import db,storage,user
-from model import getManga
+from api.firebase import db,storage,user
+from api.model import getManga
 
 from datetime import datetime
 import os

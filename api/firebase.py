@@ -1,4 +1,4 @@
-from pyrebaseLib.pyrebase import pyrebase
+from api.pyrebaseLib.pyrebase import pyrebase
 
 config = {
   "apiKey": "AIzaSyBsWfL_ws_g-lu_PJin0cG48yH_M38PhX4",

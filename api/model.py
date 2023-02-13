@@ -1,4 +1,4 @@
-from firebase import db,storage,user
+from api.firebase import db,storage,user
 import json
 
 DBFirebaseManga = db.get().val()['manga']
