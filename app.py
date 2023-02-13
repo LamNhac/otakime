@@ -26,8 +26,10 @@ with app.app_context():
 
     from client import client
     from admin import admin
+    from shortLink import shortlink
     app.register_blueprint(client, )
     app.register_blueprint(admin)
+    app.register_blueprint(shortlink)
     Session(app)
 
     @app.route('/test')

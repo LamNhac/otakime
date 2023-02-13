@@ -1,0 +1,12 @@
+{% extends 'base.html'%}
+{% block main%}
+
+<div>
+    <p> Short link</p>
+    <form method="POST">
+        <input type="text" name="link"/>
+        <h1>{{shortened_url}}</h1>
+        <button type="submit" class=" bg-black w-10 h-10"> Submit </button>
+    </form>
+</div>
+{% endblock%}
