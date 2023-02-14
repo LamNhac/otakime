@@ -1,9 +1,9 @@
-from flask import current_app,Flask,render_template,redirect,session,request
+from flask import current_app,Flask,render_template,redirect,session,request,url_for
 
 from flask_session import Session
 from flask_mail import Mail,Message
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 with app.app_context():
     app.config['SECRET_KEY'] = "a random string"
     app.config["SESSION_PERMANENT"] = False
@@ -36,9 +36,14 @@ with app.app_context():
     @app.route('/test')
     def test():
         return render_template('test.html')
+    """
+    @app.route('/ads.txt')
+    def ads():
+        return  render_template('ads.html')
+    """
     @app.route('/dieukhoan')
     def terms():
-        return render_template('client/TermandConditions.html')
+        return render_template('client/TermandConditions.html'  )
 
     @app.route('/admin/gmailcustom', methods =['GET','POST'])
     def gmailCustom():
