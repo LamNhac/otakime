@@ -2,6 +2,7 @@ from flask import current_app,Flask,render_template,redirect,session,request
 
 from flask_session import Session
 from flask_mail import Mail,Message
+
 app = Flask(__name__)
 with app.app_context():
     app.config['SECRET_KEY'] = "a random string"
@@ -24,8 +25,8 @@ with app.app_context():
 
     mail = Mail(app)
 
-    from api.client import client
-    from api.admin import admin
+    from api.Client import client
+    from api.Admin import admin
     from api.shortLink import shortlink
     app.register_blueprint(client, )
     app.register_blueprint(admin)

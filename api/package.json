@@ -1,4 +1,7 @@
 {
+  "scripts":{
+    "build" : "py app.py"
+  },
   "devDependencies": {
     "tailwindcss": "^3.2.1"
   },
