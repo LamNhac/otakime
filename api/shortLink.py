@@ -19,7 +19,5 @@ def shortLink():
         regex = random_string_generator()
         link = request.form.get('link')
         s = Shortener()
-        
-        print(regex)
-        return render_template('shortlink/shortLink.html', shortened_url =s.tinyurl.short('http://www.google.com'))
+        return render_template('shortlink/shortLink.html', shortened_url =s.tinyurl.short(link))
     return render_template('shortlink/shortLink.html')
