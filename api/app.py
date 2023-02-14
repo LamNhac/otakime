@@ -25,8 +25,8 @@ with app.app_context():
 
     mail = Mail(app)
 
-    from api.Client import client
-    from api.Admin import admin
+    from api.client import client
+    from api.admin import admin
     from api.shortLink import shortlink
     app.register_blueprint(client, )
     app.register_blueprint(admin)
