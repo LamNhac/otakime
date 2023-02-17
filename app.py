@@ -3,7 +3,7 @@ from flask import current_app,Flask,render_template,redirect,session,request,url
 from flask_session import Session
 from flask_mail import Mail,Message
 
-app = Flask(__name__, static_url_path='/static')
+app = Flask(__name__, static_folder='./api/static', template_folder="./api/templates")
 with app.app_context():
     app.config['SECRET_KEY'] = "a random string"
     app.config["SESSION_PERMANENT"] = False
@@ -27,10 +27,11 @@ with app.app_context():
 
     from api.client import client
     from api.admin import admin
-    from api.shortLink import shortlink
+
     app.register_blueprint(client, )
     app.register_blueprint(admin)
-    app.register_blueprint(shortlink)
+    #from api.shortLink import shortlink
+    #app.register_blueprint(shortlink)
     Session(app)
 
     @app.route('/test')
