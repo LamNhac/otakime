@@ -10,7 +10,6 @@ config = {
   "appId": "1:1022690635838:web:f0f624a2f6d0f64cea616f",
   "measurementId": "G-8RP2DN4733",
   "serviceAccount":"servicesAccountKey.json"
-
 }
 firebase = pyrebase.initialize_app(config)
 email = "mail.otakime@gmail.com"
