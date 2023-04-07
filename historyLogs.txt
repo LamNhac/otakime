@@ -1,9 +1,0 @@
-2023-02-17 15:16:49.051211 // potato - Create 
-2023-02-17 15:18:29.377174 // potato - Delelte manga 
-2023-02-20 10:43:20.644019 // Tokedase Mizore-chan - Update chapter 
-2023-02-22 10:49:21.650970 // Ore no Kokan wa Bishoujo Datta no ka - Update chapter 
-2023-02-27 11:12:07.419398 // Italiajin no Onnanoko ga Isourou Suru Koto ni Natta - Update chapter 
-2023-03-02 21:05:59.525212 // Italiajin no Onnanoko ga Isourou Suru Koto ni Natta - Update chapter 
-2023-03-05 10:01:47.238153 // Italiajin no Onnanoko ga Isourou Suru Koto ni Natta - Update chapter 
-2023-03-06 16:25:51.956422 // Toaru Meoto no Nichijou - Update chapter 
-2023-03-28 22:29:00.000000 // Fix backend 
