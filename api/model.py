@@ -7,7 +7,7 @@ DBFirebaseMovie = db.get().val()['movie']
 
 class Manga:
     def __init__(self, id, keyName, nameManga, otherName, author, updateAt, description, tags, chapter, imgMain, imgCover, imgIndex):
-        self.id = id if id is not None else ''
+        self.id = id
         self.keyName = keyName
         self.nameManga = nameManga
         self.otherName = otherName
@@ -23,7 +23,7 @@ class Manga:
 
 class Movie:
     def __init__(self, keyName, id, writer, studio, stars, nameMovie, otherName, director, description, src, imgMain):
-        self.id = id if id is not None else ''
+        self.id = id
         self.keyName = keyName
         self.nameMovie = nameMovie
         self.otherName = otherName
@@ -44,6 +44,7 @@ def getManga():
         DICT.append(
             Manga(
                 keyName=key,
+                id=value['id'],
                 nameManga=value['nameManga'],
                 otherName=value['otherName'],
                 author=value['author'],
@@ -65,6 +66,7 @@ def getMovie():
         DICT.append(
             Movie(
                 keyName=key,
+                id=value['id'],
                 nameMovie=value['nameMovie'],
                 otherName=value['otherName'],
                 director=value['director'],
