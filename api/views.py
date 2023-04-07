@@ -22,7 +22,7 @@ class Manga(APIView):
 
 
 class MangaDetail(APIView):
-    def get(self, request, id, chapter=None):
+    def get(self, request, id):
         # Lấy thông tin user theo ID từ Firebase
         DBFirebaseManga = db.get().val()['manga']
         _dict = {}
