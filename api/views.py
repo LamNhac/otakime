@@ -5,7 +5,19 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from firebase import db
+from firebase import db, user
+
+import uuid
+
+DBFirebaseManga = db.get().val()['manga']
+DBFirebaseMovie = db.get().val()['movie']
+manga_list = len(db.child("manga").get(
+    user['idToken']).val())  # in ra phan tu trong manga
+_dict = {
+    "isSuccess": any,
+    "message": any,
+    "data": any
+}
 
 
 def home(request):
@@ -14,47 +26,128 @@ def home(request):
 
 class Manga(APIView):
     def get(self, request):
-        DBFirebaseManga = db.get().val()['manga']
-        return Response(data=DBFirebaseManga, template_name='api.html')
+        _dict['isSuccess'] = any
+        _dict['message'] = any
+        _dict['data'] = any
+        if _dict['data']:
+
+            _dict['isSuccess'] = True
+            _dict['message'] = "Thành công"
+            _dict['data'] = DBFirebaseManga
+            return Response(data=_dict, status=status.HTTP_200_OK)
+        else:
+            _dict['isSuccess'] = False
+            _dict['message'] = "Thất bại"
+            _dict['data'] = None
+            return Response(data=_dict, status=status.HTTP_404_NOT_FOUND)
+
+    def post(self, request):
+        _dict['isSuccess'] = any
+        _dict['message'] = any
+        _dict['data'] = any
+
+        getDatafromPost = request.data
+        try:
+            db.child("manga").child(manga_list).update({
+                "id": str(uuid.uuid4()),
+                "nameMovie": getDatafromPost["nameMovie"],
+                "author": getDatafromPost['author']
+            }, user['idToken'])
+
+            _dict['data'] = {}
+            _dict['isSuccess'] = True
+            _dict['message'] = "Thành công"
+            return Response(data=_dict, status=status.HTTP_200_OK)
+        except:
+            _dict['isSuccess'] = False
+            _dict['message'] = "Thất bại"
+            _dict['data'] = None
+            return Response(data=_dict, status=status.HTTP_404_NOT_FOUND)
+    def delete(self, request):
+        _dict['isSuccess'] = any
+        _dict['message'] = any
+        _dict['data'] = any
+
 
 
 class MangaDetail(APIView):
     def get(self, request, id):
-        # Lấy thông tin user theo ID từ Firebase
-        DBFirebaseManga = db.get().val()['manga']
-        _dict = {}
-        for key, value in DBFirebaseManga.items():
-            if value['id'] == id:
-                _dict.update(value)
-        return Response(data=_dict)
+        _dict['isSuccess'] = any
+        _dict['message'] = any
+        _dict['data'] = any
+
+        for item in DBFirebaseManga:
+            if item['id'] == id:
+                _dict['data'] = item
+                _dict['isSuccess'] = True
+                _dict['message'] = "Thành công"
+                return Response(data=_dict, status=status.HTTP_200_OK)
+        else:
+            _dict['isSuccess'] = False
+            _dict['message'] = "Thất bại"
+            _dict['data'] = None
+            return Response(data=_dict, status=status.HTTP_404_NOT_FOUND)
+
+    def delete(self, request, id):
+        pass
 
 
 class MangaChapter(APIView):
     def get(self, request, id, chapter):
         # Lấy thông tin user theo ID từ Firebase
-        DBFirebaseManga = db.get().val()['manga']
-        _list = []
-        for key, value in DBFirebaseManga.items():
-            if value['id'] == id:
-                for keyChapter, valueChapter in value['chapter'].items():
+        _dict['isSuccess'] = any
+        _dict['message'] = any
+        _dict['data'] = any
+        for item in DBFirebaseManga:
+            if item['id'] == id:
+                for keyChapter, valueChapter in item['chapter'].items():
                     if chapter == keyChapter:
-                        _list = valueChapter
+                        _dict['data'] = {
+                            "chapter": keyChapter,
+                            "imgChapter": valueChapter
+                        }
+                        _dict['isSuccess'] = True
+                        _dict['message'] = "Thành công"
+                        return Response(data=_dict, status=status.HTTP_200_OK)
 
-        return Response(data=_list)
+        _dict['isSuccess'] = False
+        _dict['message'] = "Thất bại"
+        _dict['data'] = None
+        return Response(data=_dict, status=status.HTTP_404_NOT_FOUND)
 
 
 class Movie(APIView):
     def get(self, request):
-        DBFirebaseMovie = db.get().val()['movie']
-        return Response(data=DBFirebaseMovie)
+        _dict['isSuccess'] = any
+        _dict['message'] = any
+        _dict['data'] = any
+        if _dict['data']:
+
+            _dict['isSuccess'] = True
+            _dict['message'] = "Thành công"
+            _dict['data'] = DBFirebaseMovie
+            return Response(data=_dict, status=status.HTTP_200_OK)
+        else:
+            _dict['isSuccess'] = False
+            _dict['message'] = "Thất bại"
+            _dict['data'] = None
+            return Response(data=_dict, status=status.HTTP_404_NOT_FOUND)
 
 
 class MovieDetail(APIView):
     def get(self, request, id):
-        # Lấy thông tin user theo ID từ Firebase
-        DBFirebaseMovie = db.get().val()['movie']
-        _dict = {}
-        for key, value in DBFirebaseMovie.items():
-            if value['id'] == id:
-                _dict.update(value)
-        return Response(data=_dict)
+        _dict['isSuccess'] = any
+        _dict['message'] = any
+        _dict['data'] = any
+
+        for item in DBFirebaseMovie:
+            if item['id'] == id:
+                _dict['data'] = item
+                _dict['isSuccess'] = True
+                _dict['message'] = "Thành công"
+                return Response(data=_dict, status=status.HTTP_200_OK)
+        else:
+            _dict['isSuccess'] = False
+            _dict['message'] = "Thất bại"
+            _dict['data'] = None
+            return Response(data=_dict, status=status.HTTP_404_NOT_FOUND)
