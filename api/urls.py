@@ -1,16 +1,12 @@
-from django.urls import path
-from django.conf import settings
-from django.conf.urls.static import static
-from .views import Manga, MangaDetail, Movie, MovieDetail, index
+from django.urls import path, include
+from .views import Manga, MangaDetail, Movie, MovieDetail, home
+from rest_framework import routers, viewsets
+
 
 urlpatterns = [
-    # path('', views.home, name="home"),
-    path('api', index, name="api"),
+    path('api', home, name="api"),
     path('api/manga', Manga.as_view(), name="api manga "),
     path('api/manga/<id>', MangaDetail.as_view(), name="api manga id"),
-
     path('api/movie', Movie.as_view(), name="api movie "),
     path('api/movie/<id>/', MovieDetail.as_view(), name="api movie id ")
-    # path('', views.index, name="manga"),
-    # path('', views.index, name="about")
 ]

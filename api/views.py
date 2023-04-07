@@ -4,14 +4,12 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+
 from firebase import db
 
-# Create your views here.
 
-
-def index(request):
-    _status = status.HTTP_200_OK
-    return Response(data="Thành công", status=_status)
+def home(request):
+    return render(request=request, template_name='api.html')
 
 
 class Manga(APIView):
