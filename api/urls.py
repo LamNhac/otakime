@@ -4,7 +4,7 @@ from rest_framework import routers, viewsets
 
 
 urlpatterns = [
-    path('api', home, name="api"),
+    path('api/', home, name="api"),
     path('api/manga', Manga.as_view(), name="api manga "),
     path('api/manga/<id>', MangaDetail.as_view(), name="api manga id"),
     path('api/manga/<id>/<chapter>', MangaChapter.as_view(), name="api manga id"),
