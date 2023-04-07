@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="{{ url_for('static',filename= 'css/main.css') }}" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;800&displaqy=swap" rel="stylesheet">
+  <meta name="google-site-verification" content="WSZ3aJ4-l7krcUwD5Kc4tlDgGAYtxD2jzmQpLbK3LQo" />
+
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+  <link rel="shortcut icon" type="image/x-icon"
+    href="https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/logo%2Ficon.ico?alt=media&token=19e7fcc3-e26e-4c79-b5f6-6bb6bc7c788e" />
+
+  <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.4/dist/flowbite.min.css" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4283677548996674"
+    crossorigin="anonymous"></script>
+  <!--
+  <link rel="stylesheet" href="static/css/wheelCss.css">
+  -->
+
+</head>
+
+<body class="font-maven">
+  {% block main %}
+
+  {% endblock %}
+</body>
+
+<script src="https://unpkg.com/flowbite@1.5.4/dist/flowbite.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/251b9b612d.js" crossorigin="anonymous"></script>
+
+</html>

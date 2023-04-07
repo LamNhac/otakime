@@ -1,6 +1,6 @@
 import datetime
 import json
-import jwt
+# import jwt
 from pyrebaseLib.pyrebase import pyrebase
 
 config = {

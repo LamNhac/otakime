@@ -1,5 +1,7 @@
 from django.urls import path
-from .views import Manga, MangaDetail, Movie,MovieDetail, index
+from django.conf import settings
+from django.conf.urls.static import static
+from .views import Manga, MangaDetail, Movie, MovieDetail, index
 
 urlpatterns = [
     # path('', views.home, name="home"),

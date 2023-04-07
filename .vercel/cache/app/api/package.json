@@ -1,0 +1,11 @@
+{
+  "scripts":{
+    "build" : "py app.py"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.2.1"
+  },
+  "dependencies": {
+    "tailwind-scrollbar-hide": "^1.1.7"
+  }
+}

@@ -1,0 +1,81 @@
+{% extends 'base.html'%}
+{% block main%}
+<div class="flex flex-col gap-4 justify-between h-screen">
+  <div class="h-full grid place-items-center">
+    <div class="wrapperWheel disabledbutton disableWrapper">
+      <div class="containerWheel h-full w-full">
+        <canvas id="wheel"></canvas>
+        <button id="spin-btn">Spin</button>
+        <img class="imgSpin" src="static/assets/spinner-arrow-.svg" alt="spinner-arrow" />
+      </div>
+      <div id="final-value">
+        <p class="text-lg">Nhấn nút Spin để bắt đầu !</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class=" border-2 rounded-md shadow-2xl">
+
+    <div class=" container mx-auto flex flex-row justify-between p-4">
+      <div>
+        <h1 class="text-2xl font-semibold">Phần thưởng</h1>
+        <ul class="list-disc pl-5">
+          <li>1. Card hologram</li>
+          <li>2. Poster a4</li>
+          <li>3. Poster a3</li>
+          <li>4. Chúc bạn may mắn lần sau</li>
+        </ul>
+      </div>
+      <div class="grid place-content-center gap-2">
+        <p class="text-lg">Nhập mã</p>
+
+        <input
+          class="w-32  focus:shadow-outline appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+          name="codeSpin" id="codeSpin" placeholder="ABCXYZ" />
+        <button class="hidden" id="btnSpin" name="btnSpin"> </button>
+
+        <p class="font-thin italic">Vui lòng nhập mã để quay!</p>
+        <p class="font-thin italic">*Code chỉ sử dụng 1 lần nên <span class=" font-semibold">cân nhắc trước khi
+            quay.</span></p>
+      </div>
+    </div>
+    <div class="flex-row justify-end">
+      <div class="flex flex-row justify-between p-4 w-full">
+        <div class="flex flex-row gap-5">
+          <a href="{{url_for('client.home')}}" class="">
+            <h1 class=" font-medium "> <i class="fa-solid fa-house-chimney fa-xl"></i> Home</h1>
+          </a>
+          <a href="{{url_for('client.about')}}">
+            <h1 class=" font-medium"><i class="fa-solid fa-circle-info fa-xl"></i> About</h1>
+          </a>
+          <a href="{{url_for('client.manga')}}">
+            <h1 class=" font-medium"><i class="fa-solid fa-book fa-xl"></i> Manga</h1>
+          </a>
+          <!-- <a href="https://tinyurl.com/dangki-otakime"><h1 class=" font-medium"><i class="fa-solid fa-people-roof fa-xl"></i> Be Staff</h1></a> -->
+        </div>
+        <div class="flex flex-row justify-around pl-2 gap-5">
+          <a><i class="fa-brands fa-facebook fa-xl"></i></a>
+          <a><i class="fa-brands fa-discord fa-xl"></i></a>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+<script defer src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/7.24.0/firebase-database.js"></script>
+<script type="module" src="static/js/firebase.js"></script>
+<!-- Chart JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<!-- Chart JS Plugin for displaying text over chart -->
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.1.0/chartjs-plugin-datalabels.min.js"></script>
+<!-- Script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript" src="static/js/scriptWheel.js"></script>
+<script type="text/javascript" src="static/js/scriptTextInput.js"></script>
+
+<script></script>
+{% endblock%}

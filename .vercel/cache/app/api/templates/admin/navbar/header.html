@@ -1,0 +1,33 @@
+<div class="flex h-14 justify-between bg-slate-400">
+
+    <div class="grid place-content-center p-4">
+      <a href="{{url_for('client.home')}}">
+        <img class="p-2" width="250px" src="https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/logo%2Fotakime_logo.png?alt=media&token=1d3a37bb-fd34-42fd-be41-c9cf1424f472"/>
+      </a></div>
+
+    <div class="grid place-content-center p-4">
+        <button type="button" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+        <span class="sr-only">Open user menu</span>
+        <img class="w-8 h-8 rounded-full" src="https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/logo%2Ficon.ico?alt=media&token=19e7fcc3-e26e-4c79-b5f6-6bb6bc7c788e" alt="user photo">
+        </button>
+      <!-- Dropdown menu -->
+      <div class="hidden z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+        <div class="py-3 px-4">
+          {% if session.name %}
+          <span class="block text-sm text-gray-900 dark:text-white">{{session.name}}</span>
+          <span class="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">abc@gmail.com</span>
+          {% endif %}
+        </div>
+        <ul class="py-1" aria-labelledby="user-menu-button">
+
+          <li>
+            <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
+          </li>
+            
+          <li>
+            <a href="/logout" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+</div>

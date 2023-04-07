@@ -1,0 +1,71 @@
+<div class="col-span-1 flex flex-col gap-4 p-4">
+  <a href="{{url_for('admin.create')}}">
+    <div class="grid h-14 place-content-center rounded-xl bg-black">Create</div>
+  </a>
+    <div class="grid h-14 place-content-center rounded-xl bg-black">Read</div>
+    <!-- Dropdown update -->
+    <button style="background-color: black;"  id="dropdownDefault" data-dropdown-toggle="dropdown" class="text-white h-14  place-content-center    rounded-lg  px-4 py-2.5 text-center inline-flex items-center " type="button">
+        <p class="">Update</p>
+        <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+
+            </path>
+        </svg>
+    </button>
+
+    <div id="dropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
+        <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
+          <li>
+            <a href="{{url_for('admin.updateChapter')}}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Update chapter </a>
+          </li>
+
+        </ul>
+    </div>
+    <!-- End Dropdown update -->
+
+
+    <!-- Dropdown menu -->
+    <button  style="background-color: black;" id="dropdownLargeButton" data-dropdown-toggle="dropdownLarge" class="place-content-center inline-flex items-center py-3 px-5 mb-3 text-center text-white rounded-lg md:mb-0 " type="button">
+      Delete
+      <svg class="ml-2 w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+    </button>
+
+    <!-- Dropdown menu -->
+    <div id="dropdownLarge" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+
+        <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownLargeButton">
+          <li>
+            <a href="{{url_for('admin.deleteManga')}}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete manga</a>
+          </li>
+          <li>
+            <a href="{{url_for('admin.deleteChapter')}}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete chapter</a>
+          </li>
+         
+        </ul>
+
+    </div>
+    <!-- End Dropdown menu -->
+
+    <!-- Dropdown menu -->
+    <button style="background-color: black;" id="dropdownDividerButton" data-dropdown-toggle="dropdownDivider" class="h-14 place-content-center  text-white    rounded-lg px-4 py-2.5 text-center inline-flex items-center " type="button">
+        Gmail
+        <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+    </button>
+
+
+    <div id="dropdownDivider" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow ">
+    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDividerButton">
+        <li>
+        <a href="{{url_for('gmailCustom')}}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Gmail custom</a>
+        </li>
+        <li>
+        <a href="{{url_for('gmailHire')}}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Gmail hire</a>
+        </li>
+
+    </ul>
+
+    </div>
+  </div>

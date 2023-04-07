@@ -1,0 +1,96 @@
+{% extends 'base.html'%}
+{%block main%}
+<div class="fixed bottom-0 right-0 duration-500">
+  <a href="#top" onclick="return screenTop();" id="screenTop">
+    <div class="m-4 sm:m-8 rounded-xl bg-slate-500">
+      <div class="grid h-12 w-12 place-content-center"><i class="fa-solid fa-arrow-up fa-lg" style="color:white"></i>
+      </div>
+    </div>
+  </a>
+</div>
+<div class="bg-black p-5 text-black">
+  <div class="container mx-auto bg-white p-4">
+
+    <div class="flex flex-col gap-2">
+      <h1 class="text-2xl font-bold">Home / {{db.nameManga}} / {{chapterPresent}}</h1>
+      <div class="h-0.5 w-48 rounded border-0 bg-black dark:bg-gray-700"></div>
+      <h1 class="text-xl ">
+        <a class="hover:text-2xl duration-300 "
+          href="{{url_for('client.detailManga',url = db.keyName.lower().replace(' ','-'))}}">
+          <span class="">{{db.nameManga}} / </span>
+        </a>
+        <a class="hover:text-2xl duration-300 "
+          href="{{url_for('client.chapterManga',url = db.keyName.lower().replace(' ','-'), urlChapter = chapterPresent.lower().replace('chap ',''))}}">
+          <span class="">{{chapterPresent}}</span>
+        </a>
+
+      </h1>
+      <p class="font-light italic ">Bạn có thể bấm phím <i class="fa-solid fa-arrow-right fa-sm"></i> hoặc <i
+          class="fa-solid fa-arrow-left fa-sm"></i> để chuyển chap</p>
+      <p></p>
+    </div>
+  </div>
+</div>
+
+<div class="grid place-content-center bg-black">
+  <div class="sticky top-0 flex h-14 justify-center gap-5 bg-slate-800 text-white mt-4 mb-4">
+    <div class="grid place-content-center">
+      <a href="{{url_for('client.detailManga', url = db.keyName.lower().replace(' ','-'))}}">
+        <i class="fa-solid fa-circle-info fa-xl"></i>
+      </a>
+    </div>
+    {% set chapterNext = db.indexPresent %}
+    <div class="grid place-content-center">
+      <a
+        href="{{url_for('client.chapterManga', url = db.keyName.lower().replace(' ','-'), urlChapter = db.chapterPrevious.lower().replace('chap ',''))}}">
+        <i class="fa-solid fa-arrow-left fa-xl"></i>
+      </a>
+    </div>
+    <div class="grid place-content-center">
+      <button id="dropdownUsersButton" data-dropdown-toggle="dropdownUsers" data-dropdown-placement="bottom"
+        class="h-12 bg-gray-500 text-white  font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center  "
+        type="button">
+        {{chapterPresent}}
+        <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+          </path>
+        </svg>
+      </button>
+    </div>
+    <!-- Dropdown menu -->
+    <div id="dropdownUsers" class="hidden z-10 w-60 bg-white rounded shadow">
+      <ul class="overflow-y-auto py-1 h-48 text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUsersButton">
+        {% for item in db.chapterDropdown %}
+        <li>
+          <a href="{{url_for('client.chapterManga', url = db.keyName.lower().replace(' ','-'), urlChapter = item.lower().replace('chap ',''))}}"
+            class=" text-base flex items-center py-2 px-4 hover:bg-gray-100 ">
+
+            {{item}}
+          </a>
+        </li>
+        {%endfor%}
+
+      </ul>
+
+    </div>
+
+    <div class="grid place-content-center">
+      <a
+        href="{{url_for('client.chapterManga', url = db.keyName.lower().replace(' ','-'), urlChapter = db.chapterNext.lower().replace('chap ',''))}}">
+        <i class="fa-solid fa-arrow-right fa-xl"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="grid place-items-center">
+    {% for item in dbIMG%}
+    {% for i in item%}
+    <img width="800" src="{{i}}" />
+    {%endfor%}
+    {%endfor%}
+  </div>
+</div>
+{% include 'client/navbar/footer.html'%}
+
+{%endblock%}

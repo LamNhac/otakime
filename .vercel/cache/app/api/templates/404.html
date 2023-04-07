@@ -1,0 +1,22 @@
+{% extends 'base.html'%}
+{% block main%}
+<div class="flex h-screen flex-col items-center justify-center gap-10 sm:flex-row">
+    <h1 class="text-9xl font-semibold">404</h1>
+    <div class="flex flex-col gap-2">
+        <span class="text-xl">Oh no! Có thể bạn đã đi nhầm đâu đó...</span>
+        <div class="flex flex-row items-center justify-center gap-3">
+            <h1 class="text-lg">Quay trở về nhé!</h1>
+            <a href="{{url_for('client.home')}}">
+
+                <button class="flex h-10 w-16 items-center justify-center rounded-md border-2 duration-300 hover:bg-slate-500 text-black hover:text-white" data-tooltip-target="tooltip-light" data-tooltip-style="light" type="button">Home</button>
+                <div id="tooltip-light" role="tooltip"
+                class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 tooltip">
+                Quay lại đi năn nỉ đó!
+                <div class="tooltip-arrow" data-popper-arrow></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock%}
