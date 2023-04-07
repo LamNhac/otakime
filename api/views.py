@@ -7,11 +7,8 @@ from rest_framework import status
 
 from firebase import db
 
-import requests
-
 
 def home(request):
-
     return render(request=request, template_name='api.html')
 
 
