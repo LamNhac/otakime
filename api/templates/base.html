@@ -1,44 +1,201 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      href="{{ url_for('static',filename= 'css/main.css') }}"
+      rel="stylesheet"
+    />
 
-  <link href="{{ url_for('static',filename= 'css/main.css') }}" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;800&displaqy=swap"
+      rel="stylesheet"
+    />
+    <meta
+      name="google-site-verification"
+      content="WSZ3aJ4-l7krcUwD5Kc4tlDgGAYtxD2jzmQpLbK3LQo"
+    />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;800&displaqy=swap" rel="stylesheet">
-  <meta name="google-site-verification" content="WSZ3aJ4-l7krcUwD5Kc4tlDgGAYtxD2jzmQpLbK3LQo" />
+    <title>{{title}}</title>
+    <meta name="description" content="{{description}}" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/logo%2Ficon.ico?alt=media&token=19e7fcc3-e26e-4c79-b5f6-6bb6bc7c788e"
+    />
 
-  <title>{{title}}</title>
-  <meta name="description" content="{{description}}">
-  <link rel="shortcut icon" type="image/x-icon"
-    href="https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/logo%2Ficon.ico?alt=media&token=19e7fcc3-e26e-4c79-b5f6-6bb6bc7c788e" />
-
-  <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.4/dist/flowbite.min.css" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4283677548996674"
-    crossorigin="anonymous"></script>
-  <!--
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/flowbite@1.5.4/dist/flowbite.min.css"
+    />
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4283677548996674"
+      crossorigin="anonymous"
+    ></script>
+    <!--
   <link rel="stylesheet" href="static/css/wheelCss.css">
-  -->
+  --></head>
 
-</head>
+  <body class="font-maven">
+    {% block main %} {% endblock %}
+  </body>
 
-<body class="font-maven">
-  {% block main %}
+  <script src="https://form.jotform.com/s/umd/latest/for-cardform-feedback-embed.js"></script>
+  <script>
+    new JF_FeedbackEmbedButton({
+      buttonIcon: "default",
+      buttonFontColor: "#FFFFFF",
+      buttonBackgroundColor: "#292626",
+      formId: 92629468572471,
+      buttonText: "Đăng ký thành viên",
+      buttonSide: "Bottom",
+      buttonAlign: "Right",
+      base: "https://form.jotform.com/",
+    });
+  </script>
+  <script type="text/javascript">
+    var _id = document.getElementsByClassName("jfFeedbackButton")[0].id;
+    document.getElementById(_id).setAttribute("style", "margin-bottom:2rem");
+    var ifr = document.getElementById("lightbox-92629468572471");
+    if (ifr) {
+      var src = ifr.src;
+      var iframeParams = [];
+      if (window.location.href && window.location.href.indexOf("?") > -1) {
+        iframeParams = iframeParams.concat(
+          window.location.href
+            .substr(window.location.href.indexOf("?") + 1)
+            .split("&")
+        );
+      }
+      if (src && src.indexOf("?") > -1) {
+        iframeParams = iframeParams.concat(
+          src.substr(src.indexOf("?") + 1).split("&")
+        );
+        src = src.substr(0, src.indexOf("?"));
+      }
+      iframeParams.push("isIframeEmbed=1");
+      ifr.src = src + "?" + iframeParams.join("&");
+    }
+    window.handleIFrameMessage = function (e) {
+      if (typeof e.data === "object") {
+        return;
+      }
+      var args = e.data.split(":");
+      if (args.length > 2) {
+        iframe = document.getElementById("lightbox-" + args[args.length - 1]);
+      } else {
+        iframe = document.getElementById("lightbox");
+      }
+      if (!iframe) {
+        return;
+      }
+      switch (args[0]) {
+        case "scrollIntoView":
+          iframe.scrollIntoView();
+          break;
+        case "setHeight":
+          iframe.style.height = args[1] + "px";
+          if (
+            !isNaN(args[1]) &&
+            parseInt(iframe.style.minHeight) > parseInt(args[1])
+          ) {
+            iframe.style.minHeight = args[1] + "px";
+          }
+          break;
+        case "collapseErrorPage":
+          if (iframe.clientHeight > window.innerHeight) {
+            iframe.style.height = window.innerHeight + "px";
+          }
+          break;
+        case "reloadPage":
+          window.location.reload();
+          break;
+        case "loadScript":
+          if (!window.isPermitted(e.origin, ["jotform.com", "jotform.pro"])) {
+            break;
+          }
+          var src = args[1];
+          if (args.length > 3) {
+            src = args[1] + ":" + args[2];
+          }
+          var script = document.createElement("script");
+          script.src = src;
+          script.type = "text/javascript";
+          document.body.appendChild(script);
+          break;
+        case "exitFullscreen":
+          if (window.document.exitFullscreen) window.document.exitFullscreen();
+          else if (window.document.mozCancelFullScreen)
+            window.document.mozCancelFullScreen();
+          else if (window.document.mozCancelFullscreen)
+            window.document.mozCancelFullScreen();
+          else if (window.document.webkitExitFullscreen)
+            window.document.webkitExitFullscreen();
+          else if (window.document.msExitFullscreen)
+            window.document.msExitFullscreen();
+          break;
+      }
+      var isJotForm = e.origin.indexOf("jotform") > -1 ? true : false;
+      if (
+        isJotForm &&
+        "contentWindow" in iframe &&
+        "postMessage" in iframe.contentWindow
+      ) {
+        var urls = {
+          docurl: encodeURIComponent(document.URL),
+          referrer: encodeURIComponent(document.referrer),
+        };
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ type: "urls", value: urls }),
+          "*"
+        );
+      }
+    };
+    window.isPermitted = function (originUrl, whitelisted_domains) {
+      var url = document.createElement("a");
+      url.href = originUrl;
+      var hostname = url.hostname;
+      var result = false;
+      if (typeof hostname !== "undefined") {
+        whitelisted_domains.forEach(function (element) {
+          if (
+            hostname.slice(-1 * element.length - 1) === ".".concat(element) ||
+            hostname === element
+          ) {
+            result = true;
+          }
+        });
+        return result;
+      }
+    };
+    if (window.addEventListener) {
+      window.addEventListener("message", handleIFrameMessage, false);
+    } else if (window.attachEvent) {
+      window.attachEvent("onmessage", handleIFrameMessage);
+    }
+  </script>
 
-  {% endblock %}
-</body>
+  <script src="https://unpkg.com/flowbite@1.5.4/dist/flowbite.js"></script>
 
-<script src="https://unpkg.com/flowbite@1.5.4/dist/flowbite.js"></script>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/251b9b612d.js" crossorigin="anonymous"></script>
-
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://kit.fontawesome.com/251b9b612d.js"
+    crossorigin="anonymous"
+  ></script>
 </html>
