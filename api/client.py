@@ -45,7 +45,7 @@ def home():
                 "imgIndex": item.imgIndex,
             })
 
-    srcLogo = "https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/logo%2FLogo_2023.png?alt=media&token=bcc4e3d1-afe9-43ea-922d-16af9ddadfc1"
+    srcLogo = "https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/logo%2Fotakime_logo.png?alt=media&token=1d3a37bb-fd34-42fd-be41-c9cf1424f472"
     return render_template(
         'client/home.html',
         srcLogo = srcLogo,
