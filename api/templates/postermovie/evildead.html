@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="{{ url_for('static',filename= 'css/main.css') }}"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <title>{{title}}</title>
+    <meta name="description" content="{{description}}" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/logo%2Ficon.ico?alt=media&token=19e7fcc3-e26e-4c79-b5f6-6bb6bc7c788e"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/flowbite@1.5.4/dist/flowbite.min.css"
+    />
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4283677548996674"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      @font-face {
+        font-family: "SuplexComicTB";
+        src: url("static/fonts/000SuplexComicTB-Regular.ttf");
+      }
+    </style>
+  </head>
+
+  <body style="font-family: 'SuplexComicTB'">
+    <!-- drawer init and toggle -->
+    <div class="text-center fixed right-0 top-5">
+      <button
+        class="hover:text-white text-black bg-white hover:bg-[#8f1005] duration-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+        type="button"
+        data-drawer-target="drawer-right-example"
+        data-drawer-show="drawer-right-example"
+        data-drawer-placement="right"
+        aria-controls="drawer-right-example"
+        data-drawer-backdrop="true"
+      >
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+    <!-- drawer component -->
+    <div
+      id="drawer-right-example"
+      class="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-black w-52 sm:w-80 text-white"
+      tabindex="-1"
+      aria-labelledby="drawer-right-label"
+    >
+      <a href="https://otakime.vercel.app/" target="_blank">
+        <img
+          width="250"
+          class="pr-5"
+          src="https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/logo%2Fotakime_logo.png?alt=media&token=1d3a37bb-fd34-42fd-be41-c9cf1424f472"
+      /></a>
+      <div class="flex h-full justify-evenly  flex-col">
+        <div
+          class="flex flex-col pt-10 gap-10 text-center sm:text-xl justify-between"
+        >
+          <a href="#poster">POSTER</a>
+          <a href="#promotion">PROMOTION</a>
+          <a href="#plot">PLOT</a>
+          <a href="#trailer">TRAILER</a>
+        </div>
+        <div class="text-center text-xl bg-black text-white w-full bottom-0">
+          © Copyright OTAKIME 2023
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="poster"
+      class="flex h-screen w-full flex-col items-center justify-end bg-evildead-movie bg-cover bg-center"
+    >
+      <div
+        class="grid h-[30rem] w-[20rem] bg-evildead-logo bg-cover bg-center sm:h-[35rem] sm:w-[20rem]"
+      ></div>
+      <a target="_blank" href="https://discord.com/invite/4UZCUCnUMR"
+        ><div
+          class="grid h-[2rem] w-[17rem] place-content-center rounded-3xl bg-[#8f1005] text-sm font-bold text-white sm:h-[3rem] sm:w-[20rem] sm:text-xl"
+        >
+          <p class="text-lg">XEM NGAY TẠI DISCORD</p>
+        </div></a
+      >
+
+      <div class="flex flex-row gap-10 p-10 text-sm text-white sm:text-xl">
+        <a target="_blank" href="https://otakime.vercel.app/dieukhoan"
+          ><p>ĐIỀU KHOẢN</p></a
+        >
+        <button onclick="handleSlideUp()">
+          <p>TIÊU ĐỀ & PHÂN LOẠI PHIM</p>
+        </button>
+        <a href="mailto:mail.otakime@gmail.com"><p>LIÊN HỆ OTAKIME</p></a>
+      </div>
+      <div class="w-full bg-black pt-4" id="billingBlock" style="display: none">
+        <button
+          class="border-2 border-white p-2 absolute right-0 mr-5 sm:mr-10"
+          onclick="handleSlideDown()"
+        >
+          <i class="fa-solid fa-chevron-down text-white"></i>
+        </button>
+        <div class="flex justify-center pb-4">
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/poster%20movie%2Fevil%20dead%2Fbillingblock.png?alt=media&token=3a00921e-c5f3-4f74-8781-fd0a075a6162"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      id="promotion"
+      class="flex h-screen w-full flex-col items-center justify-center gap-5 bg-black bg-evildead-promo-cheese bg-no-repeat p-5 bg-blend-hard-light sm:bg-contain sm:bg-promo-center"
+    >
+      <img
+        class="sm:pr-[20rem]"
+        src="https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/poster%20movie%2Fevil%20dead%2Fpromo_text_1.png?alt=media&token=ccd1059a-9893-4b51-92a0-7afe402d2480"
+      />
+      <a
+        href="https://discord.com/invite/4UZCUCnUMR"
+        target="_blank"
+        class="w-[15rem] h-[3rem] rounded-lg bg-[#8f1005] text-lg grid place-content-center font-bold"
+        >THAM GIA PHIM NGAY</a
+      >
+
+      <div class="text-[#8f1005] text-xl text-center">
+        <p>Áp dụng khi theo dõi hết phim trong suốt buổi chiếu.</p>
+        <p>
+          Người chiến thắng được công bố ngay sau khi kết thúc phim và thực hiện
+          quay số may mắn.
+        </p>
+        <p>Hình ảnh mang tính chất minh họa.</p>
+      </div>
+    </div>
+    <div
+      id="plot"
+      class="w-full sm:w-full sm:h-screen p-10 sm:p-40 bg-[#1f1f1f] bg-cover bg-center sm:gap-20 flex justify-center items-center flex-col sm:flex-row"
+    >
+      <img
+        src="https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/poster%20movie%2Fevil%20dead%2FCritic_tagline.png?alt=media&token=0d9a1a92-a5e8-41fa-bdf3-48db1e28dde9"
+      />
+      <div class="text-lg font-bold text-[#8f1005] sm:text-3xl">
+        Hãng phim New Line Cinema và Renaissance Pictures hân hạnh mang đến sự
+        trở lại của chuỗi phim kinh dị biểu tượng, “MA CÂY TRỖI DẬY”. Được chỉ
+        đạo bởi Biên kịch/Đạo diễn Lee Cronin (“Hố tử thần”) với sự góp mặt của
+        Lily Sullivan (“I Met a Girl,” “Barkskins”), Alyssa Sutherland (“The
+        Mist,” “Vikings”), Morgan Davies (“Storm Boy,” “The End”), Gabrielle
+        Echols (“Reminiscence”) và giới thiệu Nell Fisher (“Northspur”). Tạm xa
+        cánh rừng và tiến vào thành phố, “MA CÂY TRỖI DẬY” mang đến câu chuyện
+        về hai chị em xa cách nhau (đóng bởi Sutherland và Sullivan), đoàn tụ
+        chưa lâu thì đã bị gián đoạn bởi thế lực quỷ ám thể xác. Họ buộc phải
+        tham gia trận chiến sống còn cũng như đối diện với phiên bản ác mộng của
+        tình gia đình.
+      </div>
+    </div>
+
+    <div
+      id="trailer"
+      class="bg-black flex h-screen w-full flex-col items-center justify-center gap-5 sm:gap-10 text-[#8f1005]"
+    >
+      <div class="text-3xl sm:text-[4rem] font-bold pt-10">XEM TRAILER</div>
+
+      <video
+        class="w-[350px] h-[300px] sm:w-[1000px] sm:h-[560px]"
+        controls
+        onended="videoEnded(this)"
+        poster="https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/poster%20movie%2Fevil%20dead%2Fbg.jpg?alt=media&token=6a14163b-b77c-47bd-acfa-e149e5ee48b4"
+      >
+        <source
+          src="https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/poster%20movie%2Fevil%20dead%2FEVIL_DEAD_RISE_-_Quotes_Spot_vietsub.mp4?alt=media&amp;token=2263bf26-99a0-40b0-876e-f76ee3b7d188"
+          type="video/mp4"
+        />
+      </video>
+    </div>
+    <div class="text-center text-xl bg-black text-white w-full">
+      © Copyright OTAKIME 2023
+    </div>
+  </body>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var links = document.querySelectorAll('a[href^="#"]');
+      links.forEach(function (link) {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          var target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.classList.add("active");
+            target.scrollIntoView({
+              behavior: "smooth",
+            });
+            setTimeout(function () {
+              target.classList.remove("active");
+            }, 1000);
+          }
+        });
+      });
+    });
+
+    function handleSlideUp() {
+      var billingBlock = document.getElementById("billingBlock");
+      billingBlock.style.position = "fixed";
+      $("#billingBlock").slideDown("slow");
+    }
+    function handleSlideDown() {
+      var billingBlock = document.getElementById("billingBlock");
+      billingBlock.style.display = "none";
+      $("#billingBlock").slideUp("slow");
+    }
+    function videoEnded(video) {
+      // video.load();
+    }
+  </script>
+
+  <script src="https://unpkg.com/flowbite@1.5.4/dist/flowbite.js"></script>
+
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://kit.fontawesome.com/251b9b612d.js"
+    crossorigin="anonymous"
+  ></script>
+</html>

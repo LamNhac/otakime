@@ -2,15 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-
-.scale-mobile{
-    height: 400px;
+.scale-mobile {
+  height: 400px;
 }
 
 video {
-    object-fit: cover;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-  }
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+
+.section {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.section.active {
+  opacity: 1;
+}
