@@ -18,3 +18,4 @@
 2023-06-15 12:27:58.099504 // Italiajin no Onnanoko ga Isourou Suru Koto ni Natta - Update chapter 
 2023-06-17 10:24:03.571105 // Sonouchi kekkon made ikukedo ima wa mada - Update chapter 
 2023-06-19 08:31:00.000000 // Trường id trong realtime của phim natsuton bị thiếu 
+2023-07-08 13:33:00.000000 // Thêm ảnh shiraisan
