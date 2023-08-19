@@ -12,6 +12,7 @@ import {
 } from "antd";
 import moment from "moment";
 import { useContext, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import Config from "../../../../config";
 import {
   getDocument,
@@ -19,8 +20,6 @@ import {
   uploadFile,
 } from "../../../../services/firebaseService";
 import MangaPageContext from "../MangaPageContext";
-import { v4 as uuidv4 } from "uuid";
-import { updatePerChapter } from "../../../../utils/func";
 const normFile = (e) => {
   if (Array.isArray(e)) {
     return e;
@@ -54,6 +53,9 @@ function ModalAddDetailManga() {
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
   const handlePreview = async (file) => {
+    if (file.imgUrl) {
+      return window.open(file.imgUrl);
+    }
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }

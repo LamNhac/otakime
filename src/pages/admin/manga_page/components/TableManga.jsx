@@ -101,7 +101,9 @@ function TableManga() {
         return (
           <Space wrap size="small">
             {text.map((e, index) => (
-              <Tag color="blue" key={index}>{e.label}</Tag>
+              <Tag color="blue" key={index}>
+                {e.label}
+              </Tag>
             ))}
           </Space>
         );
@@ -131,15 +133,7 @@ function TableManga() {
         return <Image src={text} width={80} />;
       },
     },
-    {
-      key: "imgIndex",
-      dataIndex: "imgIndex",
-      title: "imgIndex",
-      align: "center",
-      render: (text, record, index) => {
-        return <Image src={text} width={80} />;
-      },
-    },
+
     {
       key: "thaotac",
       dataIndex: "thaotac",

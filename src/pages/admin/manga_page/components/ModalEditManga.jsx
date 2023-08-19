@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { PlusOutlined } from "@ant-design/icons";
+import { UploadOutlined } from "@ant-design/icons";
 import {
+  Button,
   Col,
   DatePicker,
   Form,
@@ -15,37 +16,25 @@ import moment from "moment";
 import { useContext, useEffect, useState } from "react";
 import { SelectTag } from "../../../../components";
 import Config from "../../../../config";
-import { addDocument, uploadFile } from "../../../../services/firebaseService";
+import {
+  addDocument,
+  updateDocument,
+  uploadFile,
+} from "../../../../services/firebaseService";
 import MangaPageContext from "../MangaPageContext";
-
-// function base64ToFile(base64, filename, mimeType) {
-//   const arr = base64.split(",");
-//   const byteString = atob(arr[1]);
-
-//   let ab = new ArrayBuffer(byteString.length);
-//   let ia = new Uint8Array(ab);
-
-//   for (let i = 0; i < byteString.length; i++) {
-//     ia[i] = byteString.charCodeAt(i);
-//   }
-
-//   const file = new File([ab], filename, { type: mimeType });
-//   file.base64Data = base64; // Thêm dữ liệu base64 vào tệp
-//   return file;
-// }
+const getBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
 const normFile = (e) => {
   if (Array.isArray(e)) {
     return e;
   }
   return e?.fileList;
 };
-// const getBase64 = (file) =>
-//   new Promise((resolve, reject) => {
-//     const reader = new FileReader();
-//     reader.readAsDataURL(file);
-//     reader.onload = () => resolve(reader.result);
-//     reader.onerror = (error) => reject(error);
-//   });
 
 function ModalEditManga(props) {
   const context = useContext(MangaPageContext);
@@ -65,11 +54,8 @@ function ModalEditManga(props) {
   const [previewTitle, setPreviewTitle] = useState("");
 
   const handlePreview = async (file) => {
-    console.log("File to preview:", file.imgUrl);
-
     if (!file.url && !file.preview) {
-      file.preview = file.imgUrl; // Sử dụng dữ liệu base64 cho việc xem trước
-      // file.preview = await getBase64(file.originFileObj);
+      file.preview = await getBase64(file.originFileObj);
     }
 
     console.log(file.preview);
@@ -89,16 +75,9 @@ function ModalEditManga(props) {
   useEffect(() => {
     if (dataEdit && isShowModalEdit) {
       dataEdit.updateAt = moment(dataEdit.updateAt, Config.dateFormat);
-      if (
-        typeof dataEdit.imgMainFile === "string" ||
-        typeof dataEdit.imgCoverFile === "string"
-      ) {
-        dataEdit.imgMainFile = JSON.parse(dataEdit.imgMainFile);
-        dataEdit.imgCoverFile = JSON.parse(dataEdit.imgCoverFile);
-      }
-      console.log(dataEdit);
-      setFileListMain(dataEdit.imgMainFile);
-      setFileListCover(dataEdit.imgCoverFile);
+
+      dataEdit.imgMainUrl = [];
+      dataEdit.imgCoverUrl = [];
       form.setFieldsValue(dataEdit);
     }
   }, [dataEdit, isShowModalEdit]);
@@ -122,26 +101,24 @@ function ModalEditManga(props) {
       <Form
         form={form}
         onFinish={async (values) => {
+          console.log(values);
           setIsLoading(true);
           values.updateAt = moment(values.updateAt).format(Config.dateFormat);
-          values.imgMain = await uploadFile(
-            values.imgMain[0].originFileObj,
-            `manga/${values.nameManga}/${values.imgMain[0].name}`
+          console.log(values);
+          values.imgMainUrl = await uploadFile(
+            values.imgMainFile[0].originFileObj,
+            `manga/${values.nameManga}/${values.imgMainFile[0].name}`
           );
-          values.imgCover = await uploadFile(
-            values.imgCover[0].originFileObj,
-            `manga/${values.nameManga}/${values.imgCover[0].name}`
+          values.imgCoverUrl = await uploadFile(
+            values.imgCoverFile[0].originFileObj,
+            `manga/${values.nameManga}/${values.imgCoverFile[0].name}`
           );
-
-          if (values.imgIndex !== undefined) {
-            values.imgIndex = await uploadFile(
-              values.imgIndex[0].originFileObj,
-              `manga/${values.nameManga}/${values.imgIndex[0].name}`
-            );
-          }
-          addDocument(`manga`, values).finally(() => setIsLoading(false));
-          setIsShowModalEdit(false);
-          loadManga();
+          updateDocument("manga", dataEdit.id, values)
+            .then(() => {
+              loadManga();
+              setIsLoading(false);
+            })
+            .finally(() => setIsShowModalEdit(false));
         }}
       >
         <Row align="middle" gutter={[12, 12]}>
@@ -288,8 +265,8 @@ function ModalEditManga(props) {
         <Row align="middle" gutter={[12, 12]}>
           <Col span={8}>
             <Form.Item
-              name="imgMainFile"
-              label="imgMainFile"
+              name="imgMainUrl"
+              label="imgMainUrl"
               valuePropName="fileList"
               getValueFromEvent={normFile}
               required
@@ -301,26 +278,23 @@ function ModalEditManga(props) {
               ]}
             >
               <Upload
-                listType="picture-card"
                 fileList={fileListMain}
                 onPreview={handlePreview}
                 onChange={handleChangeMain}
                 maxCount={1}
                 customRequest={dummyRequest}
+                className="upload-list-inline"
               >
                 {fileListMain.length === 0 ? (
-                  <div>
-                    <PlusOutlined />
-                    <div style={{ marginTop: 8 }}>Upload</div>
-                  </div>
+                  <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>
                 ) : null}
               </Upload>
             </Form.Item>
           </Col>
           <Col span={8}>
             <Form.Item
-              name="imgCoverFile"
-              label="imgCoverFile"
+              name="imgCoverUrl"
+              label="imgCoverUrl"
               valuePropName="fileList"
               getValueFromEvent={normFile}
               required
@@ -332,18 +306,15 @@ function ModalEditManga(props) {
               ]}
             >
               <Upload
-                listType="picture-card"
                 fileList={fileListCover}
                 onPreview={handlePreview}
                 onChange={handleChangeCover}
                 maxCount={1}
                 customRequest={dummyRequest}
+                className="upload-list-inline"
               >
                 {fileListCover.length === 0 ? (
-                  <div>
-                    <PlusOutlined />
-                    <div style={{ marginTop: 8 }}>Upload</div>
-                  </div>
+                  <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>
                 ) : null}
               </Upload>
             </Form.Item>

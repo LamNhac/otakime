@@ -13,6 +13,7 @@ import MangaPage from "./pages/admin/manga_page/MangaPage";
 import MailPage from "./pages/admin/mail_page/MailPage";
 import CategoryTagPage from "./pages/admin/category_tag_page/CategoryTagPage";
 import "../src/css/output.css";
+import UploadImagePage from "./pages/admin/upload_image_page/UploadImagePage";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
             <Route path="manga" element={<MangaPage />}></Route>
             <Route path="movie" element={<MoviePage />}></Route>
             <Route path="mail" element={<MailPage />}></Route>
+            <Route path="upload-manga" element={<UploadImagePage />}></Route>
             <Route path="tags" element={<CategoryTagPage />}></Route>
           </Route>
         </Route>

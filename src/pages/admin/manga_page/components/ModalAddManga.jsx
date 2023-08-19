@@ -1,5 +1,6 @@
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import {
+  Button,
   Col,
   DatePicker,
   Form,
@@ -86,61 +87,26 @@ function ModalAddManga(props) {
           values.updateAt = moment(values.updateAt).format(Config.dateFormat);
 
           values.imgMainUrl = await uploadFile(
-            values.imgMainFile[0].originFileObj,
-            `manga/${values.nameManga}/imgBanner/${values.imgMainFile[0].name}`
+            values.imgMainUrl[0].originFileObj,
+            `manga/${values.nameManga}/imgBanner/${values.imgMainUrl[0].name}`
           );
           values.imgCoverUrl = await uploadFile(
-            values.imgCoverFile[0].originFileObj,
-            `manga/${values.nameManga}/imgBanner/${values.imgCoverFile[0].name}`
+            values.imgCoverUrl[0].originFileObj,
+            `manga/${values.nameManga}/imgBanner/${values.imgCoverUrl[0].name}`
           );
-          //Truyền base64 vào trong File
 
-          values.imgMainFile[0].imgUrl = values.imgMainUrl;
-          values.imgCoverFile[0].imgUrl = values.imgCoverUrl;
-
-          // values.imgMainFile = JSON.stringify(values.imgMainFile);
-          // values.imgCoverFile = JSON.stringify(values.imgCoverFile);
           values.chapter = []; //Tạo trường chapter cho manga
-          // console.log(values);
-          async function fetchImageAndConvertToFile(imageUrl) {
-            try {
-              const response = await fetch(imageUrl);
-              const blob = await response.blob();
-
-              // Tạo đối tượng File từ blob
-              const file = new File([blob], "imageName.jpg", {
-                type: "image/jpeg",
-              });
-
-              return file;
-            } catch (error) {
-              console.error("Error fetching image:", error);
-              return null;
-            }
-          }
-
-          const imageUrl =
-            "https://firebasestorage.googleapis.com/v0/b/test-54333.appspot.com/o/manga%2Fadasd%2FimgBanner%2FBECK10_000(2).jpg?alt=media&token=c0e4e2b1-30e6-4578-93f6-2cf24a3f5f64";
-
-          fetchImageAndConvertToFile(imageUrl).then(async (file) => {
-            if (file) {
-              console.log("Converted image to File:", await getBase64(file));
-              // Sử dụng file theo nhu cầu của bạn, ví dụ: upload vào Firestore hoặc lưu trữ
-            }
-          });
-
-          setIsLoading(false);
-          // addDocument(`manga`, values)
-          //   .then((data) => {
-          //     setIsLoading(false);
-          //     message.success(
-          //       <span>
-          //         Thêm manga <b>{values.nameManga}</b> thành công!
-          //       </span>
-          //     );
-          //     loadManga();
-          //   })
-          //   .finally(() => setIsShowModalAdd(false));
+          addDocument(`manga`, values)
+            .then((data) => {
+              setIsLoading(false);
+              message.success(
+                <span>
+                  Thêm manga <b>{values.nameManga}</b> thành công!
+                </span>
+              );
+              loadManga();
+            })
+            .finally(() => setIsShowModalAdd(false));
         }}
       >
         <Row align="middle" gutter={[12, 12]}>
@@ -300,18 +266,15 @@ function ModalAddManga(props) {
               ]}
             >
               <Upload
-                listType="picture-card"
                 fileList={fileListMain}
                 onPreview={handlePreview}
                 onChange={handleChangeMain}
                 maxCount={1}
                 customRequest={dummyRequest}
+                className="upload-list-inline"
               >
                 {fileListMain.length === 0 ? (
-                  <div>
-                    <PlusOutlined />
-                    <div style={{ marginTop: 8 }}>Upload</div>
-                  </div>
+                  <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>
                 ) : null}
               </Upload>
             </Form.Item>
@@ -331,18 +294,15 @@ function ModalAddManga(props) {
               ]}
             >
               <Upload
-                listType="picture-card"
                 fileList={fileListCover}
                 onPreview={handlePreview}
                 onChange={handleChangeCover}
                 maxCount={1}
                 customRequest={dummyRequest}
+                className="upload-list-inline"
               >
                 {fileListCover.length === 0 ? (
-                  <div>
-                    <PlusOutlined />
-                    <div style={{ marginTop: 8 }}>Upload</div>
-                  </div>
+                  <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>
                 ) : null}
               </Upload>
             </Form.Item>

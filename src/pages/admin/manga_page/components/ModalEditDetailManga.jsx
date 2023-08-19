@@ -90,7 +90,7 @@ function ModalEditDetailManga(props) {
             onChange={handleChangeMain}
             customRequest={dummyRequest}
           >
-            {fileList.length === 0 ? (
+            {fileList.length > 0 ? (
               <div>
                 <PlusOutlined />
                 <div style={{ marginTop: 8 }}>Upload</div>
