@@ -7,16 +7,18 @@ import {
   getDoc,
   getDocs,
   getFirestore,
+  orderBy,
+  query,
   updateDoc,
 } from "firebase/firestore";
 import { app } from "./firebase";
 
 import {
+  getBlob,
   getDownloadURL,
   getStorage,
   ref as storageReference,
   uploadBytes,
-  getBlob,
 } from "firebase/storage";
 
 const storage = getStorage(app);
@@ -64,10 +66,9 @@ const getAllDocuments = async (collectionPath) => {
   return new Promise(async (resolve, reject) => {
     try {
       let arr = [];
+      let q = query(collection(firestore, collectionPath));
 
-      const querySnapshot = await getDocs(
-        collection(firestore, collectionPath)
-      );
+      const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         arr.push(doc.data());
       });
@@ -82,7 +83,6 @@ const getAllDocuments = async (collectionPath) => {
     }
   });
 };
-
 // Update (Cập nhật dữ liệu)
 const updateDocument = (collectionPath, docId, newData) => {
   return new Promise(async (resolve, reject) => {
@@ -120,7 +120,7 @@ const uploadFile = async (file, path) => {
 
     // Get the download URL after successful upload
     const downloadURL = await getFileDownloadURL(path);
-    getBlob(storageRef)
+    getBlob(storageRef);
     return downloadURL;
   } catch (error) {
     console.error("Error uploading file:", error);

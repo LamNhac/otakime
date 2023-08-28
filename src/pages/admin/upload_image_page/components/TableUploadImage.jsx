@@ -1,3 +1,4 @@
+import { UploadOutlined } from "@ant-design/icons";
 import { Button, Image, Space, Table } from "antd";
 import { useContext } from "react";
 import UploadImageContext from "../UploadImageContext";
@@ -9,18 +10,23 @@ function TableUploadImage() {
     isLoadingTable,
     setIsModalChapter,
     setIsModalImage,
-    setDataChapter,
     setDataImage,
+    loadMangaChapter,
+    loadManga,
+    setDataMangaObj,
   } = context;
+
   const columns = [
+    {
+      title: "#",
+      dataIndex: "id",
+      render: (text, record, index) => index + 1,
+    },
     {
       title: "Tên manga",
       dataIndex: "nameManga",
     },
-    {
-      title: "Chapter",
-      dataIndex: "chapter",
-    },
+
     {
       title: "imgMain",
       dataIndex: "imgMain",
@@ -33,22 +39,27 @@ function TableUploadImage() {
     },
     {
       title: "Thao tác",
+      align: "right",
       render: (text, record, index) => {
         return (
           <Space wrap>
             <Button
               onClick={() => {
+                loadMangaChapter(record);
+                setDataMangaObj(record);
                 setIsModalChapter(true);
-                setDataChapter(record);
               }}
+              icon={<UploadOutlined />}
             >
               Chapter
             </Button>
             <Button
               onClick={() => {
                 setIsModalImage(true);
+                loadManga(record);
                 setDataImage(record);
               }}
+              icon={<UploadOutlined />}
             >
               Ảnh bìa
             </Button>
@@ -58,7 +69,12 @@ function TableUploadImage() {
     },
   ];
   return (
-    <Table dataSource={dataTable} columns={columns} loading={isLoadingTable} />
+    <Table
+      dataSource={dataTable}
+      columns={columns}
+      loading={isLoadingTable}
+      rowKey="id"
+    />
   );
 }
 export default TableUploadImage;

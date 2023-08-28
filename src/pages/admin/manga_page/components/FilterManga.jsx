@@ -1,25 +1,33 @@
-import { Button, Card, Input, Space } from "antd";
-import { SelectStatus } from "../../../../components";
-import { useContext } from "react";
+import { SearchOutlined } from "@ant-design/icons";
+import { Button, Card, Space } from "antd";
+import { useContext, useState } from "react";
+import { SelectManga, SelectStatus } from "../../../../components";
 import MangaPageContext from "../MangaPageContext";
 
 function FilterManga() {
   const context = useContext(MangaPageContext);
-  const { handleStatusChange, setFilter, setIsShowModalAdd } = context;
+  const { setFilter, setIsShowModalAdd } = context;
+  const [filterManga, setFilterManga] = useState(null);
+  const [filterStatus, setFilterStatus] = useState(0);
 
   return (
     <Card title="Tìm kiếm">
       <Space wrap>
-        <Input
-          placeholder="Tìm kiếm theo tên Manga"
-          onChange={(e) => {
-            setFilter(e.target.value);
+        <SelectManga onChange={setFilterManga} />
+        <SelectStatus onChange={setFilterStatus} />
+        <Button
+          type="primary"
+          ghost
+          icon={<SearchOutlined />}
+          onClick={() => {
+            setFilter({
+              nameManga: filterManga ?? "",
+              isStatusManga: filterStatus,
+            });
           }}
-          style={{ width: 500 }}
-          allowClear
-          addonBefore="Tìm kiếm"
-        />
-        <SelectStatus onChange={handleStatusChange} />
+        >
+          Tìm kiếm
+        </Button>
         <Button type="primary" ghost onClick={() => setIsShowModalAdd(true)}>
           Thêm manga
         </Button>

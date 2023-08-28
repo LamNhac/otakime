@@ -3,7 +3,6 @@ import {
   EditOutlined,
   ExclamationCircleFilled,
   RetweetOutlined,
-  UploadOutlined,
 } from "@ant-design/icons";
 import {
   Button,
@@ -27,10 +26,8 @@ function TableManga() {
   const {
     filteredData,
     isLoadingTable,
-    setIsShowModalUpload,
     setIsShowModalEdit,
     setDataEdit,
-    setDataUpload,
     loadManga,
   } = context;
 
@@ -115,24 +112,6 @@ function TableManga() {
       dataIndex: "description",
       title: "Mô tả",
     },
-    {
-      key: "imgMainUrl",
-      dataIndex: "imgMainUrl",
-      title: "imgMain",
-      align: "center",
-      render: (text, record, index) => {
-        return <Image src={text} width={80} />;
-      },
-    },
-    {
-      key: "imgCoverUrl",
-      dataIndex: "imgCoverUrl",
-      title: "imgCover",
-      align: "center",
-      render: (text, record, index) => {
-        return <Image src={text} width={80} />;
-      },
-    },
 
     {
       key: "thaotac",
@@ -142,29 +121,6 @@ function TableManga() {
       render: (text, record, index) => {
         return (
           <Space size="small">
-            <Button
-              type="link"
-              icon={<UploadOutlined />}
-              onClick={() => {
-                setIsShowModalUpload(true);
-                setDataUpload(record);
-              }}
-              size="small"
-            >
-              Upload
-            </Button>
-            <Button
-              type="link"
-              size="small"
-              icon={<EditOutlined />}
-              onClick={() => {
-                setIsShowModalEdit(true);
-                setDataEdit(record);
-              }}
-            >
-              Sửa
-            </Button>
-
             <Popconfirm
               title={record.nameManga}
               description={
@@ -192,6 +148,18 @@ function TableManga() {
                 CN Trạng thái
               </Button>
             </Popconfirm>
+
+            <Button
+              type="link"
+              size="small"
+              icon={<EditOutlined />}
+              onClick={() => {
+                setIsShowModalEdit(true);
+                setDataEdit(record);
+              }}
+            >
+              Sửa
+            </Button>
 
             <Button
               type="link"

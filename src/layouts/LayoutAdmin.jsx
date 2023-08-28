@@ -28,6 +28,14 @@ function LayoutAdmin() {
     ),
 
     getItem(
+      <Link to="/admin/upload" style={{ fontSize: 16 }}>
+        Upload
+      </Link>,
+      "upload",
+      <DashboardOutlined style={{ fontSize: 16 }} />
+    ),
+
+    getItem(
       <Link to="/admin/manga" style={{ fontSize: 16 }}>
         Manga
       </Link>,
@@ -35,20 +43,6 @@ function LayoutAdmin() {
       <DashboardOutlined style={{ fontSize: 16 }} />
     ),
 
-    getItem(
-      "Upload",
-      "upload",
-      <DashboardOutlined style={{ fontSize: 16 }} />,
-      [
-        getItem(
-          <Link to="/admin/upload-manga" style={{ fontSize: 16 }}>
-            Upload manga
-          </Link>,
-          "upload",
-          <DashboardOutlined style={{ fontSize: 16 }} />
-        ),
-      ]
-    ),
     getItem(
       <Link to="/admin/movie" style={{ fontSize: 16 }}>
         Movie

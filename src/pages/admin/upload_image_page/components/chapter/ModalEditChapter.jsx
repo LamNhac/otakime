@@ -1,5 +1,7 @@
-import { PlusOutlined } from "@ant-design/icons";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { UploadOutlined } from "@ant-design/icons";
 import {
+  Button,
   Col,
   DatePicker,
   Form,
@@ -11,15 +13,15 @@ import {
   message,
 } from "antd";
 import moment from "moment";
-import { useContext, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-import Config from "../../../../config";
+import { useContext, useEffect, useState } from "react";
+import Config from "../../../../../config";
 import {
-  getDocument,
+  addDocument,
   updateDocument,
   uploadFile,
-} from "../../../../services/firebaseService";
-import MangaPageContext from "../MangaPageContext";
+} from "../../../../../services/firebaseService";
+import UploadImageContext from "../../UploadImageContext";
+
 const normFile = (e) => {
   if (Array.isArray(e)) {
     return e;
@@ -33,17 +35,39 @@ const getBase64 = (file) =>
     reader.onload = () => resolve(reader.result);
     reader.onerror = (error) => reject(error);
   });
-function ModalAddDetailManga() {
+function ModalEditChapter() {
   const {
-    isShowModalAddDetailUpload,
-    setIsShowModalAddDetailUpload,
-    dataUpload,
+    isModalEditDetailChapter,
+    setIsModalEditDetailChapter,
+    dataMangaObj,
+    dataDetailChapter,
     loadMangaChapter,
-  } = useContext(MangaPageContext);
+  } = useContext(UploadImageContext);
+
+  useEffect(() => {
+    if (dataDetailChapter.imgChapterFile) {
+      const formatDATE = moment(
+        dataDetailChapter.updateChapterAt,
+        Config.dateFormat
+      );
+      dataDetailChapter.imgChapterFile = JSON.parse(
+        dataDetailChapter.imgChapterFile
+      );
+
+      form.setFieldsValue({
+        ...dataDetailChapter,
+        updateChapterAt: formatDATE,
+      });
+      dataDetailChapter.imgChapterFile = JSON.stringify(
+        dataDetailChapter.imgChapterFile
+      );
+    }
+  }, [dataDetailChapter]);
 
   const [form] = Form.useForm();
 
   const [isLoading, setIsLoading] = useState(false);
+
   const [fileList, setFileList] = useState([]);
 
   const handleChangeMain = ({ fileList: newFileList }) =>
@@ -71,81 +95,72 @@ function ModalAddDetailManga() {
       onSuccess("ok");
     }, 0);
   };
-
   return (
     <Modal
-      title="Thêm manga"
-      open={isShowModalAddDetailUpload}
-      onCancel={() => setIsShowModalAddDetailUpload(false)}
-      onOk={() => form.submit()}
-      okText="Lưu"
-      cancelText="Đóng"
-      confirmLoading={isLoading}
-      destroyOnClose={true}
+      title={
+        <span>
+          Sửa{" "}
+          <span className="text-[#4096ff]">
+            [{dataMangaObj?.nameManga} - Chapter{" "}
+            {dataDetailChapter?.nameChapter?.toString().padStart(2, "0")}]
+          </span>
+        </span>
+      }
+      open={isModalEditDetailChapter}
+      onCancel={() => setIsModalEditDetailChapter(false)}
       width={1024}
+      onOk={() => form.submit()}
     >
       <Form
         form={form}
         onFinish={async (values) => {
           setIsLoading(true);
-          values.nameChapter = values.nameChapter.toString().padStart(2, "0");
           values.updateChapterAt = moment(values.updateChapterAt).format(
             Config.dateFormat
           );
-          let isChapterExist = false;
-          const _data = await getDocument("manga", dataUpload.id); //Lấy dataChapter trong dataUpload
-          _data.chapter.forEach((e) => {
-            if (e.nameChapter === values.nameChapter) {
-              isChapterExist = true;
-            }
-          });
-          if (isChapterExist) {
-            setIsLoading(false);
-            return message.info(`Chapter ${values.nameChapter} đã tồn tại!`);
-          }
-          let updatedChapterArray = [..._data.chapter, values];
-
-          const promises = values.imgChapterFile.map(async (e) => {
-            e.imgChapterUrl = await uploadFile(
-              e.originFileObj,
-              `manga/${dataUpload.nameManga}/Chapter/${values.nameChapter
+          for (var i in values.imgChapterFile) {
+            const urlPromise = await uploadFile(
+              values.imgChapterFile[i].originFileObj,
+              `manga/${dataMangaObj.nameManga}/chapter/${values.imgChapterFile[
+                i
+              ].name
                 .toString()
-                .padStart(2, "0")}/${e.name}`
+                .padStart(2, "0")}`
             );
-            message.success(`Thêm ảnh vào database ${e.name}`);
-            return e.imgChapterUrl;
-          });
 
-          values.id = uuidv4(); //Tạo trường id
+            values.imgChapterFile[i] = {
+              ...values.imgChapterFile[i],
+              imgUrl: urlPromise,
+            };
+          }
 
-          updatedChapterArray.sort(
-            (a, b) => parseInt(a.nameChapter) - parseInt(b.nameChapter)
-          );
-
-          //Cover File sang String -> base64
-
-          console.log(updatedChapterArray);
-
-          Promise.all(promises)
-            .then((imgChapterUrls) => {
-              values.imgChapterUrl = imgChapterUrls;
+          Promise.all(values.imgChapterFile)
+            .then(() => {
               values.imgChapterFile = JSON.stringify(values.imgChapterFile);
-            })
-            .finally(() => {
-              console.log(values);
-
-              // updatePerChapter(dataUpload, updatedChapterArray);
-              updateDocument("manga", dataUpload.id, {
-                chapter: updatedChapterArray,
-              })
+              updateDocument(
+                `manga/${dataMangaObj.id}/chapter`,
+                dataDetailChapter.id,
+                values
+              )
                 .then(() => {
-                  message.success(
-                    `Thêm chapter ${values.nameChapter} thành công!`
-                  );
                   setIsLoading(false);
-                  loadMangaChapter(dataUpload.id);
+                  loadMangaChapter(dataMangaObj);
+                  message.success(
+                    <span>
+                      Sửa chapter{" "}
+                      <b>
+                        {values.nameChapter.toString().padStart(2, "0")} của{" "}
+                        {dataMangaObj.nameManga}
+                      </b>
+                    </span>
+                  );
                 })
-                .finally(() => setIsShowModalAddDetailUpload(false));
+                .finally(() => {
+                  setIsModalEditDetailChapter(false);
+                });
+            })
+            .catch((error) => {
+              console.error("Upload error:", error);
             });
         }}
       >
@@ -196,19 +211,14 @@ function ModalAddDetailManga() {
           ]}
         >
           <Upload
-            listType="picture-card"
             multiple
             fileList={fileList}
             onPreview={handlePreview}
             onChange={handleChangeMain}
             customRequest={dummyRequest}
+            className="upload-list-inline"
           >
-            {fileList.length >= 0 ? (
-              <div>
-                <PlusOutlined />
-                <div style={{ marginTop: 8 }}>Upload</div>
-              </div>
-            ) : null}
+            <Button icon={<UploadOutlined />}>Upload</Button>
           </Upload>
         </Form.Item>
       </Form>
@@ -229,4 +239,4 @@ function ModalAddDetailManga() {
     </Modal>
   );
 }
-export default ModalAddDetailManga;
+export default ModalEditChapter;

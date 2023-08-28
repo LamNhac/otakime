@@ -26,7 +26,7 @@ const App = () => {
             <Route path="manga" element={<MangaPage />}></Route>
             <Route path="movie" element={<MoviePage />}></Route>
             <Route path="mail" element={<MailPage />}></Route>
-            <Route path="upload-manga" element={<UploadImagePage />}></Route>
+            <Route path="upload" element={<UploadImagePage />}></Route>
             <Route path="tags" element={<CategoryTagPage />}></Route>
           </Route>
         </Route>
