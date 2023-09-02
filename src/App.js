@@ -13,6 +13,7 @@ import MangaPage from "./pages/admin/manga_page/MangaPage";
 import MailPage from "./pages/admin/mail_page/MailPage";
 import CategoryTagPage from "./pages/admin/category_tag_page/CategoryTagPage";
 import "../src/css/output.css";
+
 import UploadImagePage from "./pages/admin/upload_image_page/UploadImagePage";
 
 const App = () => {
