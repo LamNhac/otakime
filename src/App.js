@@ -4,17 +4,22 @@ import locale from "antd/lib/locale/vi_VN";
 import React from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import { LayoutAdmin, LayoutClient } from "./layouts";
-import HomePage from "./pages/client/home_page/HomePage";
 import LoginPage from "./pages/admin/login/LoginPage";
+import HomePage from "./pages/client/home_page/HomePage";
 
-import DashboardPage from "./pages/admin/dashboard_page/DashboardPage";
-import MoviePage from "./pages/admin/movie_page/MoviePage";
-import MangaPage from "./pages/admin/manga_page/MangaPage";
-import MailPage from "./pages/admin/mail_page/MailPage";
-import CategoryTagPage from "./pages/admin/category_tag_page/CategoryTagPage";
 import "../src/css/output.css";
+import CategoryTagPage from "./pages/admin/category_tag_page/CategoryTagPage";
+import DashboardPage from "./pages/admin/dashboard_page/DashboardPage";
+import MailPage from "./pages/admin/mail_page/MailPage";
+import MangaPage from "./pages/admin/manga_page/MangaPage";
+import MoviePage from "./pages/admin/movie_page/MoviePage";
 
 import UploadImagePage from "./pages/admin/upload_image_page/UploadImagePage";
+import AboutPage from "./pages/client/about_page/AboutPage";
+import DetailMangaPage from "./pages/client/detail_manga_page/DetailMangaPage";
+import MangaPageClient from "./pages/client/manga_page/MangaPageClient";
+import MoviePageClient from "./pages/client/movie_page/MoviePageClient";
+import DetailMoviePage from "./pages/client/detail_movie_page/DetailMoviePage";
 
 const App = () => {
   return (
@@ -34,6 +39,11 @@ const App = () => {
         <Route path="/" element={<Outlet />}>
           <Route element={<LayoutClient />}>
             <Route index element={<HomePage />} />
+            <Route path="about" element={<AboutPage />} />
+            <Route path="manga" element={<MangaPageClient />} />
+            <Route path="manga/:mangaId" element={<DetailMangaPage />} />
+            <Route path="movie" element={<MoviePageClient />} />
+            <Route path="movie/:movieId" element={<DetailMoviePage />} />
           </Route>
         </Route>
       </Routes>

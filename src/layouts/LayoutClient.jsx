@@ -11,10 +11,10 @@ function LayoutClient() {
 
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
+    // setIsLoading(true);
+    setIsLoading(false);
+    // setTimeout(() => {
+    // }, 3000);
   }, []);
   return (
     <AppContextClient.Provider value={state}>

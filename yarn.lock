@@ -3861,6 +3861,13 @@ arraybuffer.prototype.slice@^1.0.1:
     is-array-buffer "^3.0.2"
     is-shared-array-buffer "^1.0.2"
 
+artplayer@^5.0.9:
+  version "5.0.9"
+  resolved "https://registry.npmjs.org/artplayer/-/artplayer-5.0.9.tgz"
+  integrity sha512-IM/DShYdmKFEA9jl08LYbTK2Jfz9s7qIjEH0xWjnxvVArUKZZKcoqwr6i54U0c4grtc/Uvb4wtCd78kvtSVlgw==
+  dependencies:
+    option-validator "^2.0.6"
+
 asap@~2.0.6:
   version "2.0.6"
   resolved "https://registry.npmjs.org/asap/-/asap-2.0.6.tgz"
@@ -7905,7 +7912,7 @@ jsonpointer@^5.0.0:
     object.assign "^4.1.4"
     object.values "^1.1.6"
 
-kind-of@^6.0.2:
+kind-of@^6.0.2, kind-of@^6.0.3:
   version "6.0.3"
   resolved "https://registry.npmjs.org/kind-of/-/kind-of-6.0.3.tgz"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
@@ -8850,6 +8857,13 @@ open@^8.0.9, open@^8.4.0:
     define-lazy-prop "^2.0.0"
     is-docker "^2.1.1"
     is-wsl "^2.2.0"
+
+option-validator@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.npmjs.org/option-validator/-/option-validator-2.0.6.tgz"
+  integrity sha512-tmZDan2LRIRQyhUGvkff68/O0R8UmF+Btmiiz0SmSw2ng3CfPZB9wJlIjHpe/MKUZqyIZkVIXCrwr1tIN+0Dzg==
+  dependencies:
+    kind-of "^6.0.3"
 
 optionator@^0.9.3:
   version "0.9.3"

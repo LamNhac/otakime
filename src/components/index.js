@@ -11,6 +11,7 @@ import FooterClient from "./FooterClient";
 
 import LoadingScreen from "./LoadingScreen";
 
+import VideoPlayer from "./VideoPlayer";
 export {
   RowAction,
   SelectTag,
@@ -22,5 +23,5 @@ export {
   HeaderClient,
   FooterClient,
   LoadingScreen,
-
+  VideoPlayer
 };
