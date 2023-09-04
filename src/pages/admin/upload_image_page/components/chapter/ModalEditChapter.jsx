@@ -193,7 +193,7 @@ function ModalEditChapter() {
                 },
               ]}
             >
-              <DatePicker format={Config.dateFormat} />
+              <DatePicker allowClear format={Config.dateFormat} />
             </Form.Item>
           </Col>
         </Row>

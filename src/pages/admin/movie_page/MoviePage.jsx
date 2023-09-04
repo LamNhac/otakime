@@ -6,7 +6,10 @@ import {
   ModalEditMovie,
   TableMovie,
 } from "./components";
-import { getAllDocuments } from "../../../services/firebaseService";
+import {
+  getAllDocuments,
+  getDocument,
+} from "../../../services/firebaseService";
 
 function MoviePage() {
   const [isModalAdd, setIsModalAdd] = useState(false);
@@ -22,6 +25,9 @@ function MoviePage() {
       .then(setDataTable)
       .finally(() => setIsLoadingTable(false));
   };
+  const loadMovieId = (data) => {
+    getDocument("movie", data.id).then(setDataMovie);
+  };
 
   useEffect(() => {
     loadMovie();
@@ -36,8 +42,9 @@ function MoviePage() {
     loadMovie,
     isModalEdit,
     setIsModalEdit,
-    dataMovie,
     setDataMovie,
+    dataMovie,
+    loadMovieId,
   };
   return (
     <MovieContext.Provider value={state}>

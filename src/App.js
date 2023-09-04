@@ -21,6 +21,11 @@ import MangaPageClient from "./pages/client/manga_page/MangaPageClient";
 import MoviePageClient from "./pages/client/movie_page/MoviePageClient";
 import DetailMoviePage from "./pages/client/detail_movie_page/DetailMoviePage";
 
+import dayjs from "dayjs";
+import "dayjs/locale/vi";
+
+dayjs.locale("vi");
+
 const App = () => {
   return (
     <ConfigProvider locale={locale}>

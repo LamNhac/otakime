@@ -4,6 +4,9 @@ import MovieContext from "../MovieContext";
 import Config from "../../../../config";
 import moment from "moment";
 import { addDocument } from "../../../../services/firebaseService";
+
+import { SelectTag } from "../../../../components";
+
 function ModalAddMovie() {
   const { isModalAdd, setIsModalAdd, loadMovie } = useContext(MovieContext);
 
@@ -35,7 +38,7 @@ function ModalAddMovie() {
         }}
       >
         <Row gutter={[12, 12]}>
-          <Col span={12}>
+          <Col flex="auto">
             <Form.Item
               name="nameMovie"
               label="Tên phim"
@@ -50,10 +53,44 @@ function ModalAddMovie() {
               <Input allowClear />
             </Form.Item>
           </Col>
-          <Col span={12}>
+        </Row>
+        <Row gutter={[12, 12]}>
+          <Col flex="auto">
             <Form.Item
               name="otherName"
               label="Tên khác"
+              required
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng nhập ${label}",
+                },
+              ]}
+            >
+              <Input allowClear />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row gutter={[12, 12]}>
+          <Col span={12}>
+            <Form.Item
+              name="director"
+              label="Đạo diễn"
+              required
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng nhập ${label}",
+                },
+              ]}
+            >
+              <Input allowClear />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              name="studio"
+              label="Studio"
               required
               rules={[
                 {
@@ -82,38 +119,7 @@ function ModalAddMovie() {
               <Input allowClear />
             </Form.Item>
           </Col>
-          <Col span={12}>
-            <Form.Item
-              name="updateAt"
-              label="Ngày cập nhật"
-              required
-              rules={[
-                {
-                  required: true,
-                  message: "Vui lòng nhập ${label}",
-                },
-              ]}
-            >
-              <DatePicker allowClear format={Config.dateFormat} />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row gutter={[12, 12]}>
-          <Col span={12}>
-            <Form.Item
-              name="director"
-              label="Đạo diễn"
-              required
-              rules={[
-                {
-                  required: true,
-                  message: "Vui lòng nhập ${label}",
-                },
-              ]}
-            >
-              <Input allowClear />
-            </Form.Item>
-          </Col>
+
           <Col span={12}>
             <Form.Item
               name="writer"
@@ -133,8 +139,8 @@ function ModalAddMovie() {
         <Row gutter={[12, 12]}>
           <Col span={12}>
             <Form.Item
-              name="studio"
-              label="Studio"
+              name="tags"
+              label="Thể loại"
               required
               rules={[
                 {
@@ -143,9 +149,53 @@ function ModalAddMovie() {
                 },
               ]}
             >
-              <Input allowClear />
+              <SelectTag />
             </Form.Item>
           </Col>
+          <Col span={12}>
+            <Form.Item
+              name="updateAt"
+              label="Ngày cập nhật"
+              required
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng nhập ${label}",
+                },
+              ]}
+            >
+              <DatePicker allowClear format={Config.dateFormat} />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row gutter={[12, 12]}>
+          <Col span={12}>
+            <Form.Item
+              name="abyssSource"
+              label="Abyss"
+              required
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng nhập ${label}",
+                },
+                {
+                  validator: (rule, value) => {
+                    if (value && !/^https:\/\/.*/.test(value)) {
+                      return Promise.reject(
+                        "Vui lòng nhập URL bắt đầu bằng 'https://'"
+                      );
+                    }
+                    return Promise.resolve();
+                  },
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row gutter={[12, 12]}>
           <Col span={12}>
             <Form.Item
               name="isStatusMovie"
@@ -156,7 +206,6 @@ function ModalAddMovie() {
             </Form.Item>
           </Col>
         </Row>
-
         <Row gutter={[12, 12]}>
           <Col flex="auto">
             <Form.Item

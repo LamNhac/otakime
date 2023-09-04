@@ -1,23 +1,24 @@
-import { Button, Modal, Popconfirm, Space, Table, Tag, message } from "antd";
-import { useContext } from "react";
-import MovieContext from "../MovieContext";
+/* eslint-disable array-callback-return */
 import {
   DeleteOutlined,
   EditOutlined,
   ExclamationCircleFilled,
   RetweetOutlined,
 } from "@ant-design/icons";
+import { Button, Modal, Popconfirm, Space, Table, Tag, message } from "antd";
+import { useContext } from "react";
 import {
   deleteDocument,
   updateDocument,
 } from "../../../../services/firebaseService";
+import MovieContext from "../MovieContext";
 
 function TableMovie() {
-  const { dataTable, isLoadingTable, setIsModalEdit, setDataMovie, loadMovie } =
+  const { dataTable, isLoadingTable, setIsModalEdit, loadMovie, loadMovieId } =
     useContext(MovieContext);
   const columns = [
     {
-      dataIndex: "#",
+      dataIndex: "id",
       title: "#",
       render: (text, record, index) => index + 1,
     },
@@ -40,7 +41,21 @@ function TableMovie() {
         );
       },
     },
-
+    {
+      dataIndex: "tags",
+      title: "Thể loại",
+      render: (text, record, index) => {
+        return (
+          <Space wrap size="small">
+            {text.map((e, index) => (
+              <Tag color="blue" key={index}>
+                {e.label}
+              </Tag>
+            ))}
+          </Space>
+        );
+      },
+    },
     {
       dataIndex: "director",
       title: "Đạo diễn",
@@ -101,7 +116,7 @@ function TableMovie() {
               type="link"
               icon={<EditOutlined />}
               onClick={() => {
-                setDataMovie(record);
+                loadMovieId(record);
                 setIsModalEdit(true);
               }}
             >
@@ -132,7 +147,12 @@ function TableMovie() {
     },
   ];
   return (
-    <Table dataSource={dataTable} columns={columns} loading={isLoadingTable} />
+    <Table
+      dataSource={dataTable}
+      columns={columns}
+      loading={isLoadingTable}
+      rowKey="id"
+    />
   );
 }
 export default TableMovie;

@@ -5031,7 +5031,7 @@ data-urls@^2.0.0:
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
 
-dayjs@^1.11.1, dayjs@^1.8.15, "dayjs@>= 1.x":
+dayjs@^1.11.1, dayjs@^1.11.9, dayjs@^1.8.15, "dayjs@>= 1.x":
   version "1.11.9"
   resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.11.9.tgz"
   integrity sha512-QvzAURSbQ0pKdIye2txOzNaHmxtUBXerpY0FJsFXUMKbIZeFm5ht1LS/jFsrncjnmtv8HsG0W2g6c0zUjZWmpA==

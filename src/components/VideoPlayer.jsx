@@ -128,11 +128,11 @@ export default function VideoPlayer({ option, getInstance, ...rest }) {
           url: "/assets/sample/video.mp4",
         },
       ],
-      thumbnails: {
-        url: "/assets/sample/thumbnails.png",
-        number: 60,
-        column: 10,
-      },
+      // thumbnails: {
+      //   url: "/assets/sample/thumbnails.png",
+      //   number: 60,
+      //   column: 10,
+      // },
       subtitle: {
         url: "/assets/sample/subtitle.srt",
         type: "srt",

@@ -23,7 +23,7 @@ function LayoutClient() {
       ) : (
         <>
           <HeaderClient />
-          <Content className="container p-4">
+          <Content className="container p-4 min-w-full">
             <Outlet />
           </Content>
           <FooterClient />
