@@ -1,14 +1,18 @@
 /* eslint-disable react/jsx-no-target-blank */
 import { Image, Layout } from "antd";
 import { Link } from "react-router-dom";
-import IMAGE from "../constants/image";
+import IMAGES from "../constants/images";
 import { BsDiscord, BsFacebook } from "react-icons/bs";
 const { Header } = Layout;
 function HeaderClient() {
   return (
     <Header className="flex items-center justify-between">
       <Link to="/" className="items-center justify-center h-full">
-        <Image src={IMAGE.logo} style={{ width: 200, height:'100%' }} preview={false} />
+        <Image
+          src={IMAGES.logo}
+          style={{ width: 200, height: "100%" }}
+          preview={false}
+        />
       </Link>
       <div className="flex flex-row gap-5">
         <Link to="manga" style={{ color: "white" }}>

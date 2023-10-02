@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getAllDocuments } from "../../../services/firebaseService";
 import { CardItem } from "../../../components";
 import { Card, Carousel, FloatButton, Image, Tag } from "antd";
-
+const { Meta } = Card;
 function HomePage() {
   const [data, setData] = useState([]);
 
@@ -14,71 +14,55 @@ function HomePage() {
   }, []);
 
   console.log(data);
-
+  const onChange = (currentSlide) => {
+    console.log(currentSlide);
+  };
   return (
-    <div>
-      <div className="gap-2 flex flex-col">
-        <div>
-          <p>manga</p>
-          <Carousel autoplay className="">
-            <div>
-              <h3 style={contentStyle}>1</h3>
-            </div>
-            <div>
-              <h3 style={contentStyle}>2</h3>
-            </div>
-            <div>
-              <h3 style={contentStyle}>3</h3>
-            </div>
-            <div>
-              <h3 style={contentStyle}>4</h3>
-            </div>
-          </Carousel>
+    <div className="flex flex-col gap-10">
+      <Card
+        hoverable
+        style={{ width: "100%" }}
+        cover={
+          <Image
+            alt="example"
+            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+            style={{
+              height: 450,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              objectFit: "cover", // Sử dụng object-fit để scale hình ảnh
+              width: "100%", // Đảm bảo rằng hình ảnh sẽ có chiều rộng 100%
+            }}
+            preview={false}
+          />
+        }
+      >
+        <Meta title="Mới cập nhật" description="Tên truyện - Chap xx" />
+      </Card>
+      <Card title="xxx"></Card>
+
+      <div className="flex gap-10" style={{ width: "100%" }}>
+        <div className="" style={{ flex: 1 }}>
+          <h3 className="text-lg font-bold text-center pb-5">
+            Thêm truyện nổi bật!
+          </h3>
+          <div className="flex gap-5">
+            <Card className="h-96" style={{ flex: 1 }}></Card>
+            <Card className="h-96" style={{ flex: 1 }}></Card>
+          </div>
         </div>
-        <div>
-          <p>movie</p>
-          <Carousel autoplay className="">
-            <div>
-              <h3 style={contentStyle}>1</h3>
-            </div>
-            <div>
-              <h3 style={contentStyle}>2</h3>
-            </div>
-            <div>
-              <h3 style={contentStyle}>3</h3>
-            </div>
-            <div>
-              <h3 style={contentStyle}>4</h3>
-            </div>
-          </Carousel>
-        </div>
-        <p>Truyện mới cập nhật</p>
-        <div className="flex flex-row gap-5">
-          {data?.map((item, index) => {
-            return (
-              <Card key={index}>
-                <Image src={item.imgMain} />
-                <h3>{item.nameManga}</h3>
-                <p>
-                  {item.tags.map((itemTag, index) => {
-                    return <Tag key={index}>{itemTag.label}</Tag>;
-                  })}
-                </p>
-              </Card>
-            );
-          })}
+        <div style={{ flex: 1 }}>
+          <h3 className="text-lg font-bold text-center pb-5">
+            Thêm phim nổi bật!
+          </h3>
+          <div className="flex gap-5">
+            <Card className="h-96" style={{ flex: 1 }}></Card>
+            <Card className="h-96" style={{ flex: 1 }}></Card>
+          </div>
         </div>
       </div>
-      <FloatButton onClick={() => console.log("click")} />
     </div>
   );
 }
 
-const contentStyle = {
-  height: "160px",
-  color: "#fff",
-  lineHeight: "160px",
-  textAlign: "center",
-  background: "#364d79",
-};
 export default HomePage;

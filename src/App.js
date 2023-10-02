@@ -5,7 +5,6 @@ import React from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import { LayoutAdmin, LayoutClient } from "./layouts";
 import LoginPage from "./pages/admin/login/LoginPage";
-import HomePage from "./pages/client/home_page/HomePage";
 
 import "../src/css/output.css";
 import CategoryTagPage from "./pages/admin/category_tag_page/CategoryTagPage";
@@ -15,11 +14,17 @@ import MangaPage from "./pages/admin/manga_page/MangaPage";
 import MoviePage from "./pages/admin/movie_page/MoviePage";
 
 import UploadImagePage from "./pages/admin/upload_image_page/UploadImagePage";
-import AboutPage from "./pages/client/about_page/AboutPage";
-import DetailMangaPage from "./pages/client/detail_manga_page/DetailMangaPage";
-import MangaPageClient from "./pages/client/manga_page/MangaPageClient";
-import MoviePageClient from "./pages/client/movie_page/MoviePageClient";
-import DetailMoviePage from "./pages/client/detail_movie_page/DetailMoviePage";
+
+import {
+  HomePage,
+  AboutPage,
+  DetailMangaPage,
+  MangaPageClient,
+  MoviePageClient,
+  DetailMoviePage,
+  TermsofusePage,
+  LicensePage,
+} from "./pages/client";
 
 import dayjs from "dayjs";
 import "dayjs/locale/vi";
@@ -49,6 +54,8 @@ const App = () => {
             <Route path="manga/:mangaId" element={<DetailMangaPage />} />
             <Route path="movie" element={<MoviePageClient />} />
             <Route path="movie/:movieId" element={<DetailMoviePage />} />
+            <Route path="termsofuse" element={<TermsofusePage />} />
+            <Route path="license" element={<LicensePage />} />
           </Route>
         </Route>
       </Routes>
