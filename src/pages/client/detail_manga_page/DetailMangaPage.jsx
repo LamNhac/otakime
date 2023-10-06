@@ -7,6 +7,9 @@ function DetailMangaPage() {
 
   return (
     <div>
+      <div></div>
+      <div></div>
+      <div></div>
       <h2>Chi tiết Manga</h2>
       <p>Manga ID: {mangaId}</p>
       {/* Hiển thị thông tin chi tiết về manga có ID là mangaId */}

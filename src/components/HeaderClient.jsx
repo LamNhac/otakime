@@ -6,7 +6,10 @@ import { BsDiscord, BsFacebook } from "react-icons/bs";
 const { Header } = Layout;
 function HeaderClient() {
   return (
-    <Header className="flex items-center justify-between">
+    <Header
+      className="flex items-center justify-between"
+      style={{ position: "sticky", zIndex: 1, width: "100%", top: 0 }}
+    >
       <Link to="/" className="items-center justify-center h-full">
         <Image
           src={IMAGES.logo}
@@ -15,6 +18,7 @@ function HeaderClient() {
         />
       </Link>
       <div className="flex flex-row gap-5">
+        
         <Link to="manga" style={{ color: "white" }}>
           MANGA
         </Link>
