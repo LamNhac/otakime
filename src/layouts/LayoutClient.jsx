@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import FooterClient from "../components/FooterClient";
 import HeaderClient from "../components/HeaderClient";
 import AppContextClient from "../contexts/AppContextClient";
@@ -10,6 +10,9 @@ function LayoutClient() {
   const state = {};
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const { movieId } = useParams();
+
   useEffect(() => {
     // setIsLoading(true);
     setIsLoading(false);
@@ -23,7 +26,7 @@ function LayoutClient() {
       ) : (
         <>
           <HeaderClient />
-          <Content className="container p-4 min-w-full">
+          <Content className={movieId ? "" : "  container p-4 min-w-full"}>
             <Outlet />
           </Content>
           <FooterClient />

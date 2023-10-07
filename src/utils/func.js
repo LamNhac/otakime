@@ -35,5 +35,20 @@ const updatePerChapter = (dataUpload, dataChapter) => {
   console.log(dataUpload.chapter);
   return dataUpload;
 };
+function trimSpacesInMiddle(inputString) {
+  // Loại bỏ khoảng trắng ở cả hai đầu của chuỗi
+  var trimmedString = inputString.trim();
 
-export { removeDiacritics, checkNullUndefined, isEmpty, updatePerChapter };
+  // Sử dụng biểu thức chính quy để loại bỏ khoảng trắng ở giữa chuỗi
+  trimmedString = trimmedString.replace(/\s+/g, " ");
+
+  return trimmedString;
+}
+
+export {
+  removeDiacritics,
+  checkNullUndefined,
+  isEmpty,
+  updatePerChapter,
+  trimSpacesInMiddle,
+};

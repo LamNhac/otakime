@@ -16,14 +16,15 @@ import MoviePage from "./pages/admin/movie_page/MoviePage";
 import UploadImagePage from "./pages/admin/upload_image_page/UploadImagePage";
 
 import {
-  HomePage,
   AboutPage,
+  DetailMangaChapterPage,
   DetailMangaPage,
+  DetailMoviePage,
+  HomePage,
+  LicensePage,
   MangaPageClient,
   MoviePageClient,
-  DetailMoviePage,
   TermsofusePage,
-  LicensePage,
 } from "./pages/client";
 
 import dayjs from "dayjs";
@@ -52,6 +53,10 @@ const App = () => {
             <Route path="about" element={<AboutPage />} />
             <Route path="manga" element={<MangaPageClient />} />
             <Route path="manga/:mangaId" element={<DetailMangaPage />} />
+            <Route
+              path="manga/:mangaId/:chapterId"
+              element={<DetailMangaChapterPage />}
+            />
             <Route path="movie" element={<MoviePageClient />} />
             <Route path="movie/:movieId" element={<DetailMoviePage />} />
             <Route path="termsofuse" element={<TermsofusePage />} />

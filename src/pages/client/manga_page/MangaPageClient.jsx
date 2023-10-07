@@ -1,8 +1,8 @@
-import { Card, Image, Row, Spin, Tag } from "antd";
+import { Card, Image, Row, Spin, Tag, message } from "antd";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllDocuments } from "../../../services/firebaseService";
-
+import IMAGES from '../../../constants/images'
 function MangaPageClient() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +12,10 @@ function MangaPageClient() {
     getAllDocuments("manga")
       .then(setData)
       .finally(() => setIsLoading(false))
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        message.error(error);
+      });
   }, []);
   console.log(data);
   return (
@@ -26,13 +29,13 @@ function MangaPageClient() {
         <Row wrap className="gap-5">
           {data?.map((item, index) => {
             return (
-              <Link to={`/manga/${item.nameManga}`} key={index}>
+              <Link to={`/manga/${item.urlManga}`} key={index}>
                 <Card
                   hoverable
                   cover={
                     <Image
                       alt="example"
-                      src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                     
                       style={{
                         flex: 1,
                         height: 300,
@@ -41,11 +44,12 @@ function MangaPageClient() {
                         objectFit: "cover", // Sử dụng object-fit để scale hình ảnh
                         width: "100%", // Đảm bảo rằng hình ảnh sẽ có chiều rộng 100%
                       }}
+                      src={item.imgCover ? item.imgCover : "error"}
+                      fallback={IMAGES.imgDefault}
                       preview={false}
                     />
                   }
                 >
-                  <Image src={item.imgMain} />
                   <h3>{item.nameManga}</h3>
                   <p>
                     {item.tags.map((itemTag, index) => {

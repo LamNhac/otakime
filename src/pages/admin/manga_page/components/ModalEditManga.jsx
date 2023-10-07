@@ -1,17 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { UploadOutlined } from "@ant-design/icons";
-import {
-  Button,
-  Col,
-  DatePicker,
-  Form,
-  Image,
-  Input,
-  Modal,
-  Row,
-  Switch,
-  Upload,
-} from "antd";
+import { Col, DatePicker, Form, Input, Modal, Row, Switch } from "antd";
 import moment from "moment";
 import { useContext, useEffect, useState } from "react";
 import { SelectTag } from "../../../../components";
@@ -182,6 +170,23 @@ function ModalEditManga(props) {
                 className="w-full"
                 placeholder="Chọn ngày cập nhật"
               />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row align="middle" gutter={[12, 12]}>
+          <Col flex="auto">
+            <Form.Item
+              name="urlManga"
+              label="URL Manga"
+              required
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng nhập ${label}",
+                },
+              ]}
+            >
+              <Input placeholder="" allowClear readOnly></Input>
             </Form.Item>
           </Col>
         </Row>

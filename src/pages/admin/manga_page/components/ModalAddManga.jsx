@@ -6,13 +6,16 @@ import {
   Modal,
   Row,
   Switch,
-  message
+  message,
 } from "antd";
 import moment from "moment/moment";
 import { useContext, useState } from "react";
 import { SelectTag } from "../../../../components";
 import Config from "../../../../config";
-import { addDocument } from "../../../../services/firebaseService";
+import {
+  addDocument,
+  getAllDocuments,
+} from "../../../../services/firebaseService";
 import MangaPageContext from "../MangaPageContext";
 
 function ModalAddManga() {
@@ -21,13 +24,12 @@ function ModalAddManga() {
 
   const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false);
-
   return (
     <Modal
       title="Thêm manga"
       open={isShowModalAdd}
       onCancel={() => setIsShowModalAdd(false)}
-      okText="Lưu"
+      okText="Thêm"
       cancelText="Đóng"
       onOk={() => form.submit()}
       width={1000}
@@ -36,21 +38,32 @@ function ModalAddManga() {
       <Form
         form={form}
         onFinish={async (values) => {
-          setIsLoading(true);
-          values.updateAt = moment(values.updateAt).format(Config.dateFormat);
+          // Lấy danh sách tất cả các manga
+          const data = await getAllDocuments("manga");
 
-          values.chapter = []; //Tạo trường chapter cho manga
-          addDocument(`manga`, values)
-            .then((data) => {
-              setIsLoading(false);
-              message.success(
-                <span>
-                  Thêm manga <b>{values.nameManga}</b> thành công!
-                </span>
-              );
-              loadManga();
-            })
-            .finally(() => setIsShowModalAdd(false));
+          // Kiểm tra xem manga đã tồn tại chưa
+          const mangaExists = data.some(
+            (item) => item.urlManga === values.urlManga
+          );
+          if (mangaExists) {
+            return message.warning(`Đã tồn tại manga ${values.urlManga}`);
+          } else {
+            setIsLoading(true);
+            values.updateAt = moment(values.updateAt).format(Config.dateFormat);
+            values.chapter = []; //Tạo trường chapter cho manga
+            addDocument(`manga`, values)
+              .then((data) => {
+                setIsLoading(false);
+                message.success(
+                  <span>
+                    Thêm manga <b>{values.nameManga}</b> thành công!
+                  </span>
+                );
+                loadManga();
+              })
+              .finally(() => setIsShowModalAdd(false))
+              .catch((error) => message.error(error));
+          }
         }}
       >
         <Row align="middle" gutter={[12, 12]}>
@@ -66,7 +79,20 @@ function ModalAddManga() {
                 },
               ]}
             >
-              <Input placeholder="" allowClear></Input>
+              <Input
+                placeholder=""
+                allowClear
+                onChange={(e) => {
+                  const inputText = e.target.value;
+                  const formattedText = inputText
+                    .toLowerCase()
+                    .replace(/[^a-z0-9\s]/g, "") // Loại bỏ ký tự đặc biệt
+                    .replace(/\s+/g, "-"); // Thay thế khoảng trắng bằng dấu gạch ngang
+                  form.setFieldsValue({
+                    urlManga: formattedText,
+                  });
+                }}
+              ></Input>
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -161,6 +187,23 @@ function ModalAddManga() {
                 className="w-full"
                 placeholder="Chọn ngày cập nhật"
               />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row align="middle" gutter={[12, 12]}>
+          <Col flex="auto">
+            <Form.Item
+              name="urlManga"
+              label="URL Manga"
+              required
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng nhập ${label}",
+                },
+              ]}
+            >
+              <Input placeholder="" allowClear readOnly></Input>
             </Form.Item>
           </Col>
         </Row>

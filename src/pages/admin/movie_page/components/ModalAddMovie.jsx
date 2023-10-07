@@ -50,7 +50,19 @@ function ModalAddMovie() {
                 },
               ]}
             >
-              <Input allowClear />
+              <Input
+                allowClear
+                onChange={(e) => {
+                  const inputText = e.target.value;
+                  const formattedText = inputText
+                    .toLowerCase()
+                    .replace(/[^a-z0-9\s]/g, "") // Loại bỏ ký tự đặc biệt
+                    .replace(/\s+/g, "-"); // Thay thế khoảng trắng bằng dấu gạch ngang
+                  form.setFieldsValue({
+                    urlMovie: formattedText,
+                  });
+                }}
+              />
             </Form.Item>
           </Col>
         </Row>
@@ -68,6 +80,23 @@ function ModalAddMovie() {
               ]}
             >
               <Input allowClear />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row gutter={[12, 12]}>
+          <Col flex="auto">
+            <Form.Item
+              name="urlMovie"
+              label="URL Movie"
+              required
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng nhập ${label}",
+                },
+              ]}
+            >
+              <Input allowClear readOnly />
             </Form.Item>
           </Col>
         </Row>

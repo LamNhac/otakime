@@ -1,8 +1,8 @@
 /* eslint-disable array-callback-return */
+import { Card, Carousel, Col, Image, Row } from "antd";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getAllDocuments } from "../../../services/firebaseService";
-import { CardItem } from "../../../components";
-import { Card, Carousel, FloatButton, Image, Tag } from "antd";
 const { Meta } = Card;
 function HomePage() {
   const [data, setData] = useState([]);
@@ -13,10 +13,10 @@ function HomePage() {
       .catch((error) => console.log(error));
   }, []);
 
-  console.log(data);
   const onChange = (currentSlide) => {
     console.log(currentSlide);
   };
+
   return (
     <div className="flex flex-col gap-10">
       <Card
@@ -39,30 +39,52 @@ function HomePage() {
       >
         <Meta title="Mới cập nhật" description="Tên truyện - Chap xx" />
       </Card>
+
       <Card title="xxx"></Card>
 
-      <div className="flex gap-10" style={{ width: "100%" }}>
-        <div className="" style={{ flex: 1 }}>
+      <div wrap className="flex flex-col sm:flex-row justify-center gap-2     ">
+        <div className="w-[100%] sm:w-[48%]">
           <h3 className="text-lg font-bold text-center pb-5">
             Thêm truyện nổi bật!
           </h3>
-          <div className="flex gap-5">
-            <Card className="h-96" style={{ flex: 1 }}></Card>
-            <Card className="h-96" style={{ flex: 1 }}></Card>
-          </div>
+          <Carousel afterChange={onChange}>
+            <div className="relative">
+              <Link to="">
+                <Image
+                  src="https://picsum.photos/200/300"
+                  width="100%"
+                  style={contentStyle}
+                  preview={false}
+                />
+                <h2 className=" absolute text-red z-10 bottom-10">
+                  Tên truyện
+                </h2>
+              </Link>
+            </div>
+          </Carousel>
         </div>
-        <div style={{ flex: 1 }}>
-          <h3 className="text-lg font-bold text-center pb-5">
+        <Row className="w-[100%] sm:w-[48%] flex flex-row sm:flex-col gap-2">
+          <Col className="text-lg font-bold text-center pb-5 flex justify-center items-center">
             Thêm phim nổi bật!
-          </h3>
-          <div className="flex gap-5">
-            <Card className="h-96" style={{ flex: 1 }}></Card>
-            <Card className="h-96" style={{ flex: 1 }}></Card>
-          </div>
-        </div>
+          </Col>
+          <Col className="flex gap-2 overflow-x-scroll sm:overflow-auto">
+            <Card className="h-96 min-w-[300px] bg-black"></Card>
+            <Card className="h-96  min-w-[300px] bg-black"></Card>
+            <Card className="h-96  min-w-[300px] bg-black"></Card>
+            <Card className="h-96  min-w-[300px] bg-black"></Card>
+            <Card className="h-96  min-w-[300px] bg-black"></Card>
+          </Col>
+        </Row>
       </div>
     </div>
   );
 }
-
+const contentStyle = {
+  margin: 0,
+  height: "400px",
+  color: "#fff",
+  lineHeight: "160px",
+  textAlign: "center",
+  background: "#364d79",
+};
 export default HomePage;
