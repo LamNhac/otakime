@@ -17,9 +17,12 @@ import { useContext, useState } from "react";
 import Config from "../../../../../config";
 import {
   addDocument,
+  getAllDocuments,
+  updateDocument,
   uploadFile,
 } from "../../../../../services/firebaseService";
 import UploadImageContext from "../../UploadImageContext";
+import dayjs from "dayjs";
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -91,50 +94,71 @@ function ModalAddChapter() {
       <Form
         form={form}
         onFinish={async (values) => {
-          setIsLoading(true);
-          values.updateChapterAt = moment(values.updateChapterAt).format(
-            Config.dateFormat
+          //Kiểm tra chapter của values có trùng với các chapter hiện tại trong truyện không?
+          const dataChapter = await getAllDocuments(
+            `manga/${dataMangaObj.id}/chapter`
           );
-          for (var i in values.imgChapterFile) {
-            const urlPromise = await uploadFile(
-              values.imgChapterFile[i].originFileObj,
-              `manga/${dataMangaObj.nameManga}/chapter/${values.imgChapterFile[
-                i
-              ].name
-                .toString()
-                .padStart(2, "0")}`
+          const chapterExist = dataChapter.some(
+            (item) => item.nameChapter === values.nameChapter
+          );
+          if (chapterExist) {
+            return message.warning(`Chapter ${values.nameChapter} đã tồn tại!`);
+          } else {
+            setIsLoading(true);
+            values.updateChapterAt = dayjs(values.updateChapterAt).format(
+              Config.dateFormat
             );
+            for (var i in values.imgChapterFile) {
+              const urlPromise = await uploadFile(
+                values.imgChapterFile[i].originFileObj,
+                `manga/${
+                  dataMangaObj.nameManga
+                }/chapter/${values.imgChapterFile[i].name
+                  .toString()
+                  .padStart(2, "0")}`
+              );
+              values.imgChapterFile[i] = {
+                ...values.imgChapterFile[i],
+                imgUrl: urlPromise,
+              };
+            }
+            Promise.all(values.imgChapterFile)
+              .then(() => {
+                values.imgChapterFile = JSON.stringify(values.imgChapterFile);
+                const cloneDataMangaObj = {
+                  ...dataMangaObj,
+                  newDateUpdateChapterAt: values.updateChapterAt,
+                };
 
-            values.imgChapterFile[i] = {
-              ...values.imgChapterFile[i],
-              imgUrl: urlPromise,
-            };
+                //Cập nhật newDateUpdateChapterAt vào trong Manga để lấy ra truyện mới cập nhật
+                updateDocument("manga", dataMangaObj.id, cloneDataMangaObj);
+
+                addDocument(`manga/${dataMangaObj.id}/chapter`, values)
+                  .then(() => {
+                    setIsLoading(false);
+                    loadMangaChapter(dataMangaObj);
+                    message.success(
+                      <span>
+                        Thêm chapter{" "}
+                        <b>{values.nameChapter.toString().padStart(2, "0")}</b>{" "}
+                        - <b>{dataMangaObj.nameManga}</b>
+                      </span>
+                    );
+                  })
+                  .finally(() => {
+                    setIsModalAddChapter(false);
+                    form.resetFields();
+                  });
+              })
+              .finally(() => form.resetFields())
+              .catch((error) => {
+                console.error("Upload error:", error);
+                message.error(error);
+              });
           }
-
-          Promise.all(values.imgChapterFile)
-            .then(() => {
-              values.imgChapterFile = JSON.stringify(values.imgChapterFile);
-              addDocument(`manga/${dataMangaObj.id}/chapter`, values)
-                .then(() => {
-                  setIsLoading(false);
-                  loadMangaChapter(dataMangaObj);
-                  message.success(
-                    <span>
-                      Thêm chapter{" "}
-                      <b>
-                        {values.nameChapter.toString().padStart(2, "0")} của{" "}
-                        {dataMangaObj.nameManga}
-                      </b>
-                    </span>
-                  );
-                })
-                .finally(() => {
-                  setIsModalAddChapter(false);
-                });
-            })
-            .catch((error) => {
-              console.error("Upload error:", error);
-            });
+        }}
+        initialValues={{
+          updateChapterAt: dayjs(dayjs(), Config.dateFormat),
         }}
       >
         <Row gutter={[12, 12]}>

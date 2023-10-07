@@ -35,7 +35,7 @@ const updatePerChapter = (dataUpload, dataChapter) => {
   console.log(dataUpload.chapter);
   return dataUpload;
 };
-function trimSpacesInMiddle(inputString) {
+function trimSpaces(inputString) {
   // Loại bỏ khoảng trắng ở cả hai đầu của chuỗi
   var trimmedString = inputString.trim();
 
@@ -50,5 +50,5 @@ export {
   checkNullUndefined,
   isEmpty,
   updatePerChapter,
-  trimSpacesInMiddle,
+  trimSpaces,
 };

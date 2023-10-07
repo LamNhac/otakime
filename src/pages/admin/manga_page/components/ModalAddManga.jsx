@@ -45,12 +45,14 @@ function ModalAddManga() {
           const mangaExists = data.some(
             (item) => item.urlManga === values.urlManga
           );
+
           if (mangaExists) {
             return message.warning(`Đã tồn tại manga ${values.urlManga}`);
           } else {
             setIsLoading(true);
             values.updateAt = moment(values.updateAt).format(Config.dateFormat);
-            values.chapter = []; //Tạo trường chapter cho manga
+            // values.chapter = []; //Tạo trường chapter cho manga
+            values.newDateUpdateChapterAt = ""; // Tạo trường newDateUpdateChapterAt để lấy chapter mới cập nhật 
             addDocument(`manga`, values)
               .then((data) => {
                 setIsLoading(false);

@@ -27,11 +27,6 @@ import {
   TermsofusePage,
 } from "./pages/client";
 
-import dayjs from "dayjs";
-import "dayjs/locale/vi";
-
-dayjs.locale("vi");
-
 const App = () => {
   return (
     <ConfigProvider locale={locale}>

@@ -48,6 +48,35 @@ function HomePage() {
             Thêm truyện nổi bật!
           </h3>
           <Carousel afterChange={onChange}>
+
+
+            
+            <div className="relative">
+              <Link to="">
+                <Image
+                  src="https://picsum.photos/200/300"
+                  width="100%"
+                  style={contentStyle}
+                  preview={false}
+                />
+                <h2 className=" absolute text-red z-10 bottom-10">
+                  Tên truyện
+                </h2>
+              </Link>
+            </div>
+            <div className="relative">
+              <Link to="">
+                <Image
+                  src="https://picsum.photos/200/300"
+                  width="100%"
+                  style={contentStyle}
+                  preview={false}
+                />
+                <h2 className=" absolute text-red z-10 bottom-10">
+                  Tên truyện
+                </h2>
+              </Link>
+            </div>
             <div className="relative">
               <Link to="">
                 <Image
@@ -71,7 +100,9 @@ function HomePage() {
             <Card className="h-96 min-w-[300px] bg-black"></Card>
             <Card className="h-96  min-w-[300px] bg-black"></Card>
             <Card className="h-96  min-w-[300px] bg-black"></Card>
+
             <Card className="h-96  min-w-[300px] bg-black"></Card>
+
             <Card className="h-96  min-w-[300px] bg-black"></Card>
           </Col>
         </Row>
