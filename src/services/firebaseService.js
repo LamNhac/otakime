@@ -7,7 +7,6 @@ import {
   getDoc,
   getDocs,
   getFirestore,
-  orderBy,
   query,
   updateDoc,
 } from "firebase/firestore";
@@ -20,9 +19,33 @@ import {
   ref as storageReference,
   uploadBytes,
 } from "firebase/storage";
-
+import dayjs from "dayjs";
+import Config from "../config";
 const storage = getStorage(app);
 const firestore = getFirestore(app);
+
+const saveToLog = (method, collectionPath, data) => {
+  const currentDate = dayjs(dayjs()).format(Config.dateTimeFormat);
+  const params = {
+    ...data,
+    dateUpdate: currentDate,
+    method: method,
+  };
+  // Kiểm tra xem chuỗi có chứa "manga" hay không
+  if (collectionPath.includes("manga")) {
+    params.path = "manga";
+  }
+
+  // Kiểm tra xem chuỗi có chứa "movie" hay không
+  if (collectionPath.includes("movie")) {
+    params.path = "movie";
+  }
+
+  addDocument("log", params).then(() => {
+    console.log("Lưu log!");
+  });
+};
+
 // Create (Thêm dữ liệu)
 const addDocument = (collectionPath, data) => {
   return new Promise(async (resolve, reject) => {
@@ -33,6 +56,7 @@ const addDocument = (collectionPath, data) => {
       await updateDoc(doc(firestore, collectionPath, docRef.id), newDocument);
       console.log(newDocument);
       console.log("Tài liệu đã được thêm vào Firestore với ID:", docRef.id);
+
       resolve(newDocument);
     } catch (error) {
       console.error("Lỗi khi thêm tài liệu vào Firestore:", error);
@@ -132,6 +156,7 @@ const getFileDownloadURL = (path) => {
   const fileRef = storageReference(storage, path);
   return getDownloadURL(fileRef);
 };
+
 export {
   addDocument,
   deleteDocument,
@@ -139,4 +164,5 @@ export {
   getDocument,
   updateDocument,
   uploadFile,
+  saveToLog,
 };

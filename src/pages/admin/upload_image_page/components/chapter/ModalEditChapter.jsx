@@ -12,11 +12,10 @@ import {
   Upload,
   message,
 } from "antd";
-import moment from "moment";
+import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
 import Config from "../../../../../config";
 import {
-  addDocument,
   updateDocument,
   uploadFile,
 } from "../../../../../services/firebaseService";
@@ -46,7 +45,7 @@ function ModalEditChapter() {
 
   useEffect(() => {
     if (dataDetailChapter.imgChapterFile) {
-      const formatDATE = moment(
+      const formatDATE = dayjs(
         dataDetailChapter.updateChapterAt,
         Config.dateFormat
       );
@@ -110,12 +109,13 @@ function ModalEditChapter() {
       onCancel={() => setIsModalEditDetailChapter(false)}
       width={1024}
       onOk={() => form.submit()}
+      confirmLoading={isLoading}
     >
       <Form
         form={form}
         onFinish={async (values) => {
           setIsLoading(true);
-          values.updateChapterAt = moment(values.updateChapterAt).format(
+          values.updateChapterAt = dayjs(values.updateChapterAt).format(
             Config.dateFormat
           );
           for (var i in values.imgChapterFile) {

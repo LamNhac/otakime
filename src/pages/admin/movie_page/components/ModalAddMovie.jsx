@@ -13,6 +13,7 @@ import Config from "../../../../config";
 import {
   addDocument,
   getAllDocuments,
+  saveToLog,
 } from "../../../../services/firebaseService";
 import MovieContext from "../MovieContext";
 
@@ -46,11 +47,16 @@ function ModalAddMovie() {
           } else {
             setIsLoading(true);
             values.updateAt = dayjs(values.updateAt).format(Config.dateFormat);
-            values.isStatusMovie =
-              values.isStatusMovie === undefined ? false : true;
+
             addDocument("movie", values)
               .then(() => {
                 loadMovie();
+                message.success(
+                  <span>
+                    Thêm <b>{values.nameMovie}</b> thành công!
+                  </span>
+                );
+                saveToLog("add", "movie", values);
                 setIsLoading(false);
               })
               .finally(() => {
@@ -211,7 +217,7 @@ function ModalAddMovie() {
           <Col span={12}>
             <Form.Item
               name="updateAt"
-              label="Ngày cập nhật"
+              label="Ngày tải lên"
               required
               rules={[
                 {
@@ -227,8 +233,8 @@ function ModalAddMovie() {
         <Row gutter={[12, 12]}>
           <Col span={12}>
             <Form.Item
-              name="abyssSource"
-              label="Abyss"
+              name="urlSourceMovie"
+              label="URL Source Movie"
               required
               rules={[
                 {
@@ -247,7 +253,7 @@ function ModalAddMovie() {
                 },
               ]}
             >
-              <Input />
+              <Input allowClear addonAfter="Abyss" />
             </Form.Item>
           </Col>
         </Row>

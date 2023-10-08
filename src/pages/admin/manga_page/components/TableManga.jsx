@@ -4,15 +4,7 @@ import {
   ExclamationCircleFilled,
   RetweetOutlined,
 } from "@ant-design/icons";
-import {
-  Button,
-  Modal,
-  Popconfirm,
-  Space,
-  Table,
-  Tag,
-  message
-} from "antd";
+import { Button, Modal, Popconfirm, Space, Table, Tag, message } from "antd";
 import { useContext } from "react";
 import {
   deleteDocument,

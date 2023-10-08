@@ -34,6 +34,14 @@ function TableChapter() {
       dataIndex: "updateChapterAt",
     },
     {
+      title: "Tổng ảnh",
+      render: (text, record, index) => {
+        const jsonConvert = JSON.parse(record.imgChapterFile);
+
+        return jsonConvert.length;
+      },
+    },
+    {
       title: "Thao tác",
       align: "right",
       render: (text, record, index) => {

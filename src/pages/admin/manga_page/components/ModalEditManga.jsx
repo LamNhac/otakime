@@ -1,11 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Col, DatePicker, Form, Input, Modal, Row, Spin, Switch } from "antd";
+import {
+  Col,
+  DatePicker,
+  Form,
+  Input,
+  Modal,
+  Row,
+  Spin,
+  Switch,
+  message,
+} from "antd";
 import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
 import { SelectTag } from "../../../../components";
 import Config from "../../../../config";
 import {
+  getAllDocuments,
   getDocument,
+  saveToLog,
   updateDocument,
 } from "../../../../services/firebaseService";
 import MangaPageContext from "../MangaPageContext";
@@ -48,14 +60,33 @@ function ModalEditManga(props) {
         <Form
           form={form}
           onFinish={async (values) => {
-            setIsLoading(true);
-            values.updateAt = dayjs(values.updateAt).format(Config.dateFormat);
-            updateDocument("manga", dataEdit.id, values)
-              .then(() => {
-                loadManga();
-                setIsLoading(false);
-              })
-              .finally(() => setIsShowModalEdit(false));
+            // Lấy danh sách tất cả các manga
+            const data = await getAllDocuments("manga");
+
+            // Kiểm tra xem manga đã tồn tại chưa
+            const mangaExists = data.some(
+              (item) => item.urlManga === values.urlManga
+            );
+            if (mangaExists) {
+              return message.warning(`Đã tồn tại manga ${values.urlManga}`);
+            } else {
+              setIsLoading(true);
+              values.updateAt = dayjs(values.updateAt).format(
+                Config.dateFormat
+              );
+              updateDocument("manga", dataEdit.id, values)
+                .then(() => {
+                  message.success(
+                    <span>
+                      Sửa <b>{values.nameManga}</b> thành công
+                    </span>
+                  );
+                  loadManga();
+                  setIsLoading(false);
+                  saveToLog("update", "manga", values);
+                })
+                .finally(() => setIsShowModalEdit(false));
+            }
           }}
         >
           <Row align="middle" gutter={[12, 12]}>
@@ -71,7 +102,20 @@ function ModalEditManga(props) {
                   },
                 ]}
               >
-                <Input placeholder="" allowClear></Input>
+                <Input
+                  placeholder=""
+                  allowClear
+                  onChange={(e) => {
+                    const inputText = e.target.value;
+                    const formattedText = inputText
+                      .toLowerCase()
+                      .replace(/[^a-z0-9\s]/g, "") // Loại bỏ ký tự đặc biệt
+                      .replace(/\s+/g, "-"); // Thay thế khoảng trắng bằng dấu gạch ngang
+                    form.setFieldsValue({
+                      urlManga: formattedText,
+                    });
+                  }}
+                ></Input>
               </Form.Item>
             </Col>
             <Col span={12}>

@@ -64,6 +64,13 @@ function LayoutAdmin() {
         <DashboardOutlined style={{ fontSize: 16 }} />
       ),
     ]),
+    getItem(
+      <Link to="/admin/history" style={{ fontSize: 16 }}>
+        History
+      </Link>,
+      "lich-su",
+      <DashboardOutlined style={{ fontSize: 16 }} />
+    ),
   ];
 
   return (

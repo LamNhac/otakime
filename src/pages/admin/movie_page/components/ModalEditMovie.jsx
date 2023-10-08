@@ -1,12 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Col, DatePicker, Form, Input, Modal, Row, Spin, Switch } from "antd";
+import {
+  Col,
+  DatePicker,
+  Form,
+  Input,
+  Modal,
+  Row,
+  Spin,
+  Switch,
+  message,
+} from "antd";
 import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
 import { SelectTag } from "../../../../components";
 import Config from "../../../../config";
 import {
   getDocument,
-  updateDocument,
+  saveToLog,
+  updateDocument
 } from "../../../../services/firebaseService";
 import MovieContext from "../MovieContext";
 
@@ -46,12 +57,18 @@ function ModalEditMovie() {
       <Spin spinning={isLoadingForm} tip="Đang tải dữ liệu">
         <Form
           form={form}
-          onFinish={(values) => {
+          onFinish={async (values) => {
             setIsLoading(true);
             values.updateAt = dayjs(values.updateAt).format(Config.dateFormat);
             updateDocument("movie", dataMovie.id, values)
               .then(() => {
                 loadMovie();
+                message.success(
+                  <span>
+                    Sửa <b>{values.nameMovie}</b> thành công!
+                  </span>
+                );
+                saveToLog("update", "movie", values);
                 setIsLoading(false);
               })
               .finally(() => {
@@ -208,7 +225,7 @@ function ModalEditMovie() {
             <Col span={12}>
               <Form.Item
                 name="updateAt"
-                label="Ngày cập nhật"
+                label="Ngày tải lên"
                 required
                 rules={[
                   {
@@ -225,8 +242,8 @@ function ModalEditMovie() {
           <Row gutter={[12, 12]}>
             <Col span={12}>
               <Form.Item
-                name="abyssSource"
-                label="Abyss"
+                name="urlSourceMovie"
+                label="URL Source Movie"
                 required
                 rules={[
                   {
@@ -245,7 +262,7 @@ function ModalEditMovie() {
                   },
                 ]}
               >
-                <Input />
+                <Input allowClear addonAfter="Abyss" />
               </Form.Item>
             </Col>
           </Row>

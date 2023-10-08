@@ -8,16 +8,16 @@ import {
   Switch,
   message,
 } from "antd";
-import moment from "moment/moment";
+import dayjs from "dayjs";
 import { useContext, useState } from "react";
 import { SelectTag } from "../../../../components";
 import Config from "../../../../config";
 import {
   addDocument,
   getAllDocuments,
+  saveToLog,
 } from "../../../../services/firebaseService";
 import MangaPageContext from "../MangaPageContext";
-import dayjs from "dayjs";
 
 function ModalAddManga() {
   const context = useContext(MangaPageContext);
@@ -25,6 +25,7 @@ function ModalAddManga() {
 
   const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false);
+
   return (
     <Modal
       title="Thêm manga"
@@ -52,7 +53,7 @@ function ModalAddManga() {
           } else {
             console.log(values);
             setIsLoading(true);
-            values.updateAt = moment(values.updateAt).format(Config.dateFormat);
+            values.updateAt = dayjs(values.updateAt).format(Config.dateFormat);
             // values.chapter = []; //Tạo trường chapter cho manga
             values.newDateUpdateChapterAt = ""; // Tạo trường newDateUpdateChapterAt để lấy chapter mới cập nhật
             addDocument(`manga`, values)
@@ -63,9 +64,13 @@ function ModalAddManga() {
                     Thêm manga <b>{values.nameManga}</b> thành công!
                   </span>
                 );
+                saveToLog("add", "manga", values);
                 loadManga();
               })
-              .finally(() => setIsShowModalAdd(false))
+              .finally(() => {
+                form.resetFields();
+                setIsShowModalAdd(false);
+              })
               .catch((error) => message.error(error));
           }
         }}

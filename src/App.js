@@ -26,6 +26,7 @@ import {
   MoviePageClient,
   TermsofusePage,
 } from "./pages/client";
+import HistoryPage from "./pages/admin/history_page/HistoryPage";
 
 const App = () => {
   return (
@@ -40,6 +41,7 @@ const App = () => {
             <Route path="mail" element={<MailPage />}></Route>
             <Route path="upload" element={<UploadImagePage />}></Route>
             <Route path="tags" element={<CategoryTagPage />}></Route>
+            <Route path="history" element={<HistoryPage />}></Route>
           </Route>
         </Route>
         <Route path="/" element={<Outlet />}>

@@ -9,6 +9,7 @@ import { Button, Modal, Popconfirm, Space, Table, Tag, message } from "antd";
 import { useContext } from "react";
 import {
   deleteDocument,
+  saveToLog,
   updateDocument,
 } from "../../../../services/firebaseService";
 import MovieContext from "../MovieContext";
@@ -32,7 +33,7 @@ function TableMovie() {
     },
     {
       dataIndex: "updateAt",
-      title: "Ngày cập nhật",
+      title: "Ngày tải lên",
     },
     {
       dataIndex: "isStatusMovie",
@@ -137,6 +138,7 @@ function TableMovie() {
                   content: `Bạn có muốn xóa ${record.nameMovie}`,
                   onOk() {
                     deleteDocument("movie", record.id).then(() => loadMovie());
+                    saveToLog("delete", "movie", record);
                   },
                   okText: "Xóa",
                   cancelText: "Đóng",
