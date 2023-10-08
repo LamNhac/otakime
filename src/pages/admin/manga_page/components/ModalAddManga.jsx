@@ -17,6 +17,7 @@ import {
   getAllDocuments,
 } from "../../../../services/firebaseService";
 import MangaPageContext from "../MangaPageContext";
+import dayjs from "dayjs";
 
 function ModalAddManga() {
   const context = useContext(MangaPageContext);
@@ -49,10 +50,11 @@ function ModalAddManga() {
           if (mangaExists) {
             return message.warning(`Đã tồn tại manga ${values.urlManga}`);
           } else {
+            console.log(values);
             setIsLoading(true);
             values.updateAt = moment(values.updateAt).format(Config.dateFormat);
             // values.chapter = []; //Tạo trường chapter cho manga
-            values.newDateUpdateChapterAt = ""; // Tạo trường newDateUpdateChapterAt để lấy chapter mới cập nhật 
+            values.newDateUpdateChapterAt = ""; // Tạo trường newDateUpdateChapterAt để lấy chapter mới cập nhật
             addDocument(`manga`, values)
               .then((data) => {
                 setIsLoading(false);
@@ -66,6 +68,9 @@ function ModalAddManga() {
               .finally(() => setIsShowModalAdd(false))
               .catch((error) => message.error(error));
           }
+        }}
+        initialValues={{
+          updateAt: dayjs(dayjs(), Config.dateFormat),
         }}
       >
         <Row align="middle" gutter={[12, 12]}>
@@ -175,7 +180,7 @@ function ModalAddManga() {
           <Col span={12}>
             <Form.Item
               name="updateAt"
-              label="Ngày cập nhật"
+              label="Ngày đăng truyện"
               required
               rules={[
                 {
@@ -187,7 +192,7 @@ function ModalAddManga() {
               <DatePicker
                 format={Config.dateFormat}
                 className="w-full"
-                placeholder="Chọn ngày cập nhật"
+                placeholder="Chọn Ngày đăng truyện"
               />
             </Form.Item>
           </Col>

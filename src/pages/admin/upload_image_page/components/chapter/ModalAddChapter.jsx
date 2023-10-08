@@ -12,7 +12,7 @@ import {
   message,
 } from "antd";
 import Upload from "antd/es/upload/Upload";
-import moment from "moment/moment";
+import dayjs from "dayjs";
 import { useContext, useState } from "react";
 import Config from "../../../../../config";
 import {
@@ -22,7 +22,6 @@ import {
   uploadFile,
 } from "../../../../../services/firebaseService";
 import UploadImageContext from "../../UploadImageContext";
-import dayjs from "dayjs";
 
 const normFile = (e) => {
   if (Array.isArray(e)) {

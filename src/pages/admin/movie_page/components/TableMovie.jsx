@@ -31,6 +31,10 @@ function TableMovie() {
       title: "Tên khác",
     },
     {
+      dataIndex: "updateAt",
+      title: "Ngày cập nhật",
+    },
+    {
       dataIndex: "isStatusMovie",
       title: "Trạng thái",
       render: (text, record, index) => {

@@ -1,10 +1,22 @@
-import { Col, DatePicker, Form, Input, Modal, Row, Switch } from "antd";
+import {
+  Col,
+  DatePicker,
+  Form,
+  Input,
+  Modal,
+  Row,
+  Switch,
+  message,
+} from "antd";
 import { useContext, useState } from "react";
-import MovieContext from "../MovieContext";
 import Config from "../../../../config";
-import moment from "moment";
-import { addDocument } from "../../../../services/firebaseService";
+import {
+  addDocument,
+  getAllDocuments,
+} from "../../../../services/firebaseService";
+import MovieContext from "../MovieContext";
 
+import dayjs from "dayjs";
 import { SelectTag } from "../../../../components";
 
 function ModalAddMovie() {
@@ -24,17 +36,32 @@ function ModalAddMovie() {
     >
       <Form
         form={form}
-        onFinish={(values) => {
-          setIsLoading(true);
-          values.updateAt = moment(values.updateAt).format(Config.dateFormat);
-          values.isStatusMovie =
-            values.isStatusMovie === undefined ? false : true;
-          addDocument("movie", values)
-            .then(() => {
-              loadMovie();
-              setIsLoading(false);
-            })
-            .finally(() => setIsModalAdd(false));
+        onFinish={async (values) => {
+          const movie = await getAllDocuments("movie");
+          const movieExist = movie.some(
+            (item) => item.urlMovie === values.urlMovie
+          );
+          if (movieExist) {
+            return message.warning(`${values.nameMovie} đã tồn tại`);
+          } else {
+            setIsLoading(true);
+            values.updateAt = dayjs(values.updateAt).format(Config.dateFormat);
+            values.isStatusMovie =
+              values.isStatusMovie === undefined ? false : true;
+            addDocument("movie", values)
+              .then(() => {
+                loadMovie();
+                setIsLoading(false);
+              })
+              .finally(() => {
+                setIsModalAdd(false);
+                form.resetFields();
+              });
+          }
+        }}
+        initialValues={{
+          isStatusMovie: false,
+          updateAt: dayjs(dayjs(), Config.dateFormat),
         }}
       >
         <Row gutter={[12, 12]}>
