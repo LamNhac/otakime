@@ -2,7 +2,7 @@ import React from "react";
 function TermsofusePage() {
   return (
     <div>
-      <p>LicensePage</p>
+      <p>TermsofusePage</p>
     </div>
   );
 }

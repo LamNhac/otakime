@@ -30,12 +30,12 @@ function TableUploadImage() {
     {
       title: "imgMain",
       dataIndex: "imgMain",
-      render: (text, record, index) => <Image src={text} />,
+      render: (text, record, index) => <Image src={text} width={100} />,
     },
     {
       title: "imgCover",
       dataIndex: "imgCover",
-      render: (text, record, index) => <Image src={text} />,
+      render: (text, record, index) => <Image src={text} width={100} />,
     },
     {
       title: "Thao tác",

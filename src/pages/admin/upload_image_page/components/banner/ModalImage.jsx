@@ -1,6 +1,20 @@
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Col, Form, Image, Modal, Row, Switch, Upload } from "antd";
+import {
+  Button,
+  Col,
+  Form,
+  Image,
+  Modal,
+  Row,
+  Switch,
+  Upload,
+  message,
+} from "antd";
 import { useContext, useState } from "react";
+import {
+  updateDocument,
+  uploadFile,
+} from "../../../../../services/firebaseService";
 import UploadImageContext from "../../UploadImageContext";
 
 const normFile = (e) => {
@@ -18,7 +32,7 @@ const getBase64 = (file) =>
   });
 function ModalImage() {
   const context = useContext(UploadImageContext);
-  const { isModalImage, setIsModalImage } = context;
+  const { isModalImage, setIsModalImage, dataImage, loadManga } = context;
   const [form] = Form.useForm();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -59,16 +73,46 @@ function ModalImage() {
 
   return (
     <Modal
-      title="Thêm ảnh bìa"
+      title={`Sửa ảnh bìa ${dataImage?.nameManga}`}
       open={isModalImage}
       onCancel={() => setIsModalImage(false)}
       onOk={() => form.submit()}
       width={768}
+      confirmLoading={isLoading}
     >
       <Form
         form={form}
-        onFinish={(values) => {
-          console.log(values);
+        onFinish={async (values) => {
+          setIsLoading(true);
+
+          const urlMain = await uploadFile(
+            values.imgMain[0].originFileObj,
+            `manga/${dataImage.nameManga}/logo/${values.imgMain[0].name
+              .toString()
+              .padStart(2, "0")}`
+          );
+
+          const urlCover = await uploadFile(
+            values.imgCover[0].originFileObj,
+            `manga/${dataImage.nameManga}/logo/${values.imgCover[0].name
+              .toString()
+              .padStart(2, "0")}`
+          );
+
+          const params = {
+            ...dataImage,
+            imgCover: urlCover,
+            imgMain: urlMain,
+          };
+          console.log(params);
+          setIsLoading(false);
+          updateDocument("manga", dataImage.id, params)
+            .then(() => {
+              message.success("Cập nhật ảnh bìa thành công!");
+              loadManga();
+              setIsModalImage(false);
+            })
+            .finally(() => setIsLoading(false));
         }}
       >
         <Row gutter={[12, 12]}>

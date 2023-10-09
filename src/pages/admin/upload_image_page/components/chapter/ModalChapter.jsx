@@ -33,6 +33,7 @@ function ModalChapter() {
       }
       onCancel={() => setIsModalChapter(false)}
       width={1024}
+      footer={null}
     >
       <Card>
         <Space>

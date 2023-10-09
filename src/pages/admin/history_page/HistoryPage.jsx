@@ -24,9 +24,9 @@ function HistoryPage() {
   return (
     <div className="flex flex-col gap-10">
       <Card>Filter</Card>
-      <Table dataSource={data} loading={isLoading}>
+      <Table dataSource={data} loading={isLoading} rowKey="id">
         <Table.Column
-          dataIndex="#"
+          dataIndex="id"
           title="STT"
           render={(text, record, index) => index + 1}
         ></Table.Column>

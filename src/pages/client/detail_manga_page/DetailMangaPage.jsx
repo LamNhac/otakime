@@ -48,6 +48,7 @@ function DetailMangaPage() {
               src={data?.imgCover ? data?.imgCover : "error"}
               fallback={IMAGES.imgDefault}
               preview={false}
+              width={300}
             ></Image>
           </Col>
           <Col flex="auto">
