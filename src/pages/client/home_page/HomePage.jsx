@@ -1,8 +1,10 @@
 /* eslint-disable array-callback-return */
-import { Card, Carousel, Col, Image, Row } from "antd";
+import { Card, Col, Image, Row } from "antd";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllDocuments } from "../../../services/firebaseService";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 const { Meta } = Card;
 function HomePage() {
   const [data, setData] = useState([]);
@@ -13,8 +15,22 @@ function HomePage() {
       .catch((error) => console.log(error));
   }, []);
 
-  const onChange = (currentSlide) => {
-    console.log(currentSlide);
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+      slidesToSlide: 3, // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 2, // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1, // optional, default to 1.
+    },
   };
 
   return (
@@ -27,7 +43,7 @@ function HomePage() {
             alt="example"
             src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
             style={{
-              height: 450,
+              height: 300,
               backgroundSize: "cover",
               backgroundPosition: "center",
               objectFit: "cover", // Sử dụng object-fit để scale hình ảnh
@@ -39,71 +55,57 @@ function HomePage() {
       >
         <Meta title="Mới cập nhật" description="Tên truyện - Chap xx" />
       </Card>
+      {/* Quảng cáo  */}
+      {/* <Card title="xxx"></Card> */}
 
-      <Card title="xxx"></Card>
-
-      <div wrap className="flex flex-col sm:flex-row justify-center gap-2     ">
-        <div className="w-[100%] sm:w-[48%]">
-          <h3 className="text-lg font-bold text-center pb-5">
+      <div className="flex flex-col sm:flex-row justify-center gap-2     ">
+        <Row className="w-[100%] sm:w-[48%] flex flex-row sm:flex-col gap-2">
+          <Col className="text-lg font-bold text-center pb-5 flex justify-center items-center">
             Thêm truyện nổi bật!
-          </h3>
-          <Carousel afterChange={onChange}>
-
-
-            
-            <div className="relative">
-              <Link to="">
-                <Image
-                  src="https://picsum.photos/200/300"
-                  width="100%"
-                  style={contentStyle}
-                  preview={false}
-                />
-                <h2 className=" absolute text-red z-10 bottom-10">
-                  Tên truyện
-                </h2>
-              </Link>
-            </div>
-            <div className="relative">
-              <Link to="">
-                <Image
-                  src="https://picsum.photos/200/300"
-                  width="100%"
-                  style={contentStyle}
-                  preview={false}
-                />
-                <h2 className=" absolute text-red z-10 bottom-10">
-                  Tên truyện
-                </h2>
-              </Link>
-            </div>
-            <div className="relative">
-              <Link to="">
-                <Image
-                  src="https://picsum.photos/200/300"
-                  width="100%"
-                  style={contentStyle}
-                  preview={false}
-                />
-                <h2 className=" absolute text-red z-10 bottom-10">
-                  Tên truyện
-                </h2>
-              </Link>
-            </div>
-          </Carousel>
-        </div>
+          </Col>
+          <Col>
+            <Carousel
+              draggable={false}
+              responsive={responsive}
+              showDots
+              infinite
+              containerClass="carousel-container"
+              dotListClass="custom-dot-list-style"
+              itemClass="carousel-item-padding-40-px"
+            >
+              <Card className="h-96 min-w-[300px] bg-black"></Card>
+              <Card className="h-96 min-w-[300px] bg-white"></Card>
+              <Card className="h-96 min-w-[300px] bg-slate-700"></Card>
+              <Card className="h-96 min-w-[300px] bg-gray-50"></Card>
+            </Carousel>
+          </Col>
+        </Row>
         <Row className="w-[100%] sm:w-[48%] flex flex-row sm:flex-col gap-2">
           <Col className="text-lg font-bold text-center pb-5 flex justify-center items-center">
             Thêm phim nổi bật!
           </Col>
-          <Col className="flex gap-2 overflow-x-scroll sm:overflow-auto">
+          {/* <Col className="flex gap-2 overflow-x-scroll sm:overflow-auto">
             <Card className="h-96 min-w-[300px] bg-black"></Card>
             <Card className="h-96  min-w-[300px] bg-black"></Card>
             <Card className="h-96  min-w-[300px] bg-black"></Card>
-
             <Card className="h-96  min-w-[300px] bg-black"></Card>
-
             <Card className="h-96  min-w-[300px] bg-black"></Card>
+          </Col> */}
+          <Col>
+            <Carousel
+              draggable={false}
+              responsive={responsive}
+              showDots
+              infinite
+              containerClass="carousel-container"
+              dotListClass="custom-dot-list-style"
+              itemClass="carousel-item-padding-40-px"
+            >
+              <Card className="h-96 min-w-[300px] bg-black"></Card>
+              <Card className="h-96 min-w-[300px] bg-white"></Card>
+              <Card className="h-96 min-w-[300px] bg-slate-700"></Card>
+              <Card className="h-96 min-w-[300px] bg-gray-50"></Card>
+            </Carousel>
           </Col>
         </Row>
       </div>

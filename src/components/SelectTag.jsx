@@ -6,8 +6,8 @@ import { getAllDocuments } from "../services/firebaseService";
 function SelectTag(props) {
   const { onChange, ...restProps } = props;
   const [state, setData] = useState([]);
+  
   useEffect(() => {
-    
     getAllDocuments("tag").then((data) => {
       let options = [];
       for (let i = 0; i < data.length; i++) {

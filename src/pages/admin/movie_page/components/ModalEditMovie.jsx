@@ -12,12 +12,12 @@ import {
 } from "antd";
 import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
-import { SelectTag } from "../../../../components";
+import { SelectAgeClassification, SelectTag } from "../../../../components";
 import Config from "../../../../config";
 import {
   getDocument,
   saveToLog,
-  updateDocument
+  updateDocument,
 } from "../../../../services/firebaseService";
 import MovieContext from "../MovieContext";
 
@@ -263,6 +263,32 @@ function ModalEditMovie() {
                 ]}
               >
                 <Input allowClear addonAfter="Abyss" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="ageClassification"
+                label="Phân loại tuổi"
+                required
+                rules={[
+                  {
+                    validator: (_, value) => {
+                      if (value && value.length > 0) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject("Vui lòng chọn thể loại");
+                    },
+                  },
+                ]}
+                validateTrigger={["onChange"]} // Validate on tag selection change
+              >
+                <SelectAgeClassification
+                  onChange={(e) => {
+                    form.setFieldsValue({
+                      ageClassification: e,
+                    });
+                  }}
+                />
               </Form.Item>
             </Col>
           </Row>

@@ -10,8 +10,7 @@ import HeaderClient from "./HeaderClient";
 import FooterClient from "./FooterClient";
 
 import LoadingScreen from "./LoadingScreen";
-
-import VideoPlayer from "./VideoPlayer";
+import SelectAgeClassification from "./SelectAgeClassification";
 export {
   RowAction,
   SelectTag,
@@ -23,5 +22,5 @@ export {
   HeaderClient,
   FooterClient,
   LoadingScreen,
-  VideoPlayer
+  SelectAgeClassification
 };

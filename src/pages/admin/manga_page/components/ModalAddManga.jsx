@@ -10,7 +10,7 @@ import {
 } from "antd";
 import dayjs from "dayjs";
 import { useContext, useState } from "react";
-import { SelectTag } from "../../../../components";
+import { SelectTag, SelectAgeClassification } from "../../../../components";
 import Config from "../../../../config";
 import {
   addDocument,
@@ -184,6 +184,32 @@ function ModalAddManga() {
           </Col>
           <Col span={12}>
             <Form.Item
+              name="ageClassification"
+              label="Phân loại tuổi"
+              required
+              rules={[
+                {
+                  validator: (_, value) => {
+                    if (value && value.length > 0) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject("Vui lòng chọn thể loại");
+                  },
+                },
+              ]}
+              validateTrigger={["onChange"]} // Validate on tag selection change
+            >
+              <SelectAgeClassification
+                onChange={(e) => {
+                  form.setFieldsValue({
+                    ageClassification: e,
+                  });
+                }}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
               name="updateAt"
               label="Ngày đăng truyện"
               required
@@ -201,9 +227,7 @@ function ModalAddManga() {
               />
             </Form.Item>
           </Col>
-        </Row>
-        <Row align="middle" gutter={[12, 12]}>
-          <Col flex="auto">
+          <Col span={12}>
             <Form.Item
               name="urlManga"
               label="URL Manga"

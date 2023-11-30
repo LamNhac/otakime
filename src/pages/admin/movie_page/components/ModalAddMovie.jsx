@@ -18,7 +18,7 @@ import {
 import MovieContext from "../MovieContext";
 
 import dayjs from "dayjs";
-import { SelectTag } from "../../../../components";
+import { SelectAgeClassification, SelectTag } from "../../../../components";
 
 function ModalAddMovie() {
   const { isModalAdd, setIsModalAdd, loadMovie } = useContext(MovieContext);
@@ -254,6 +254,32 @@ function ModalAddMovie() {
               ]}
             >
               <Input allowClear addonAfter="Abyss" />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              name="ageClassification"
+              label="Phân loại tuổi"
+              required
+              rules={[
+                {
+                  validator: (_, value) => {
+                    if (value && value.length > 0) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject("Vui lòng chọn thể loại");
+                  },
+                },
+              ]}
+              validateTrigger={["onChange"]} // Validate on tag selection change
+            >
+              <SelectAgeClassification
+                onChange={(e) => {
+                  form.setFieldsValue({
+                    ageClassification: e,
+                  });
+                }}
+              />
             </Form.Item>
           </Col>
         </Row>

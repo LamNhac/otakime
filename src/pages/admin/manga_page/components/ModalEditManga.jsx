@@ -12,7 +12,7 @@ import {
 } from "antd";
 import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
-import { SelectTag } from "../../../../components";
+import { SelectAgeClassification, SelectTag } from "../../../../components";
 import Config from "../../../../config";
 import {
   getAllDocuments,
@@ -64,9 +64,10 @@ function ModalEditManga(props) {
             const data = await getAllDocuments("manga");
 
             // Kiểm tra xem manga đã tồn tại chưa
-            const mangaExists = data.some(
-              (item) => item.urlManga === values.urlManga
-            );
+            // const mangaExists = data.some(
+            //   (item) => item.urlManga === values.urlManga
+            // );
+            let mangaExists = false;
             if (mangaExists) {
               return message.warning(`Đã tồn tại manga ${values.urlManga}`);
             } else {
@@ -74,6 +75,7 @@ function ModalEditManga(props) {
               values.updateAt = dayjs(values.updateAt).format(
                 Config.dateFormat
               );
+              console.log("values", values);
               updateDocument("manga", dataEdit.id, values)
                 .then(() => {
                   message.success(
@@ -195,6 +197,34 @@ function ModalEditManga(props) {
             </Col>
             <Col span={12}>
               <Form.Item
+                name="ageClassification"
+                label="Phân loại tuổi"
+                required
+                rules={[
+                  {
+                    validator: (_, value) => {
+                      if (value && value.length > 0) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject("Vui lòng chọn thể loại");
+                    },
+                  },
+                ]}
+                validateTrigger={["onChange"]} // Validate on tag selection change
+              >
+                <SelectAgeClassification
+                  onChange={(e) => {
+                    form.setFieldsValue({
+                      ageClassification: e,
+                    });
+                  }}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row align="middle" gutter={[12, 12]}>
+            <Col span={12}>
+              <Form.Item
                 name="updateAt"
                 label="Ngày đăng truyện"
                 required
@@ -212,8 +242,6 @@ function ModalEditManga(props) {
                 />
               </Form.Item>
             </Col>
-          </Row>
-          <Row align="middle" gutter={[12, 12]}>
             <Col flex="auto">
               <Form.Item
                 name="urlManga"

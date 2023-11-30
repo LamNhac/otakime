@@ -63,12 +63,24 @@ function LayoutAdmin() {
         "tags",
         <DashboardOutlined style={{ fontSize: 16 }} />
       ),
+      getItem(
+        <Link to="/admin/age-classification">Phân loại tuổi</Link>,
+        "age-classification",
+        <DashboardOutlined style={{ fontSize: 16 }} />
+      ),
     ]),
     getItem(
       <Link to="/admin/history" style={{ fontSize: 16 }}>
         History
       </Link>,
       "lich-su",
+      <DashboardOutlined style={{ fontSize: 16 }} />
+    ),
+    getItem(
+      <Link to="/admin/version" style={{ fontSize: 16 }}>
+        Version
+      </Link>,
+      "version",
       <DashboardOutlined style={{ fontSize: 16 }} />
     ),
   ];

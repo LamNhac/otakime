@@ -41,9 +41,10 @@ const saveToLog = (method, collectionPath, data) => {
     params.path = "movie";
   }
 
-  addDocument("log", params).then(() => {
-    console.log("Lưu log!");
-  });
+  // addDocument("log", params).then(() => {
+  //   console.log("Lưu log!");
+  // });
+  console.log("params LOG", params)
 };
 
 // Create (Thêm dữ liệu)

@@ -31,7 +31,7 @@ function HeaderClient() {
 
   return (
     <Header
-      className="flex items-center justify-between"
+      className="flex items-center justify-between bg-gradient-to-r from-[#ADF709] via-[#F3ADC3] to-[#00CCFF]"
       style={{
         position: "sticky",
         zIndex: 1,

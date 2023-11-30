@@ -27,6 +27,7 @@ import {
   TermsofusePage,
 } from "./pages/client";
 import HistoryPage from "./pages/admin/history_page/HistoryPage";
+import { AgeClassificationPage, VersionPage } from "./pages/admin";
 
 const App = () => {
   return (
@@ -42,6 +43,9 @@ const App = () => {
             <Route path="upload" element={<UploadImagePage />}></Route>
             <Route path="tags" element={<CategoryTagPage />}></Route>
             <Route path="history" element={<HistoryPage />}></Route>
+
+            <Route path="age-classification" element={<AgeClassificationPage />}></Route>
+            <Route path="version" element={<VersionPage />}></Route>
           </Route>
         </Route>
         <Route path="/" element={<Outlet />}>

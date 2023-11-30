@@ -42,6 +42,11 @@ function DetailMangaPage() {
       className="min-h-screen"
     >
       <div>
+        <Image
+          src={data?.imgCover ? data?.imgCover : "error"}
+          preview={false}
+          height={300}
+        />
         <Row gutter={[12, 12]}>
           <Col flex="auto">
             <Image
