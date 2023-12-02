@@ -1,14 +1,12 @@
 import {
   DeleteOutlined,
   EditOutlined,
-  ExclamationCircleFilled,
-  RetweetOutlined,
+  ExclamationCircleFilled
 } from "@ant-design/icons";
-import { Button, Modal, Popconfirm, Space, Table, Tag, message } from "antd";
+import { Button, Modal, Space, Table, Tag } from "antd";
 import { useContext } from "react";
 import {
-  deleteDocument,
-  updateDocument,
+  deleteDocument
 } from "../../../../services/firebaseService";
 import MangaPageContext from "../MangaPageContext";
 
@@ -64,7 +62,7 @@ function TableManga() {
       align: "center",
       render: (text, record, index) => {
         const item = text[0];
-        return <Tag color={item.color}>{item.label}</Tag>;
+        return <Tag color={item?.color}>{item?.label}</Tag>;
       },
     },
     {

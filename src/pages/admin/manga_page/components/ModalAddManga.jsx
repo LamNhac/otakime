@@ -1,16 +1,8 @@
-import {
-  Col,
-  DatePicker,
-  Form,
-  Input,
-  Modal,
-  Row,
-  Switch,
-  message,
-} from "antd";
+import { Col, DatePicker, Form, Input, Modal, Row, message } from "antd";
 import dayjs from "dayjs";
 import { useContext, useState } from "react";
-import { SelectTag, SelectAgeClassification } from "../../../../components";
+import { SelectAgeClassification, SelectTag } from "../../../../components";
+import SelectStatusManga from "../../../../components/SelectStatusManga";
 import Config from "../../../../config";
 import {
   addDocument,
@@ -18,7 +10,6 @@ import {
   saveToLog,
 } from "../../../../services/firebaseService";
 import MangaPageContext from "../MangaPageContext";
-import SelectStatusManga from "../../../../components/SelectStatusManga";
 
 function ModalAddManga() {
   const context = useContext(MangaPageContext);
@@ -77,6 +68,14 @@ function ModalAddManga() {
         }}
         initialValues={{
           updateAt: dayjs(dayjs(), Config.dateFormat),
+          statusManga: [
+            {
+              label: "Đang cập nhật",
+              color: "blue",
+              value: 1,
+              id: 1,
+            },
+          ],
         }}
       >
         <Row align="middle" gutter={[12, 12]}>

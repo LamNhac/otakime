@@ -29,7 +29,7 @@ function MangaPageClient() {
         <h3 className="text-center text-[2rem] font-semibold">
           Truyện mới nhất
         </h3>
-        <Row justify="end">
+        {/* <Row justify="end">
           <Col>
             <SelectAgeClassification
               onChange={(e) => {
@@ -37,9 +37,10 @@ function MangaPageClient() {
               }}
             />
           </Col>
-        </Row>
+        </Row> */}
         <Row gutter={[16, 16]}>
           {data?.map((item, index) => {
+            const ageClassification = item.ageClassification[0];
             return (
               <Col xs={12} sm={12} md={12} lg={12} xl={6} key={index}>
                 <Link to={`/manga/${item.urlManga}`}>
@@ -48,22 +49,26 @@ function MangaPageClient() {
                     cover={
                       <div className="relative">
                         <div
-                          className=" absolute bg-slate-500 w-16 h-16 flex items-center justify-center right-1 top-1 rounded-sm"
-                          style={{ zIndex: 2 }}
+                          className=" absolute  w-14 h-14 flex items-center justify-center right-1 top-1 rounded-sm"
+                          style={{
+                            zIndex: 2,
+                            backgroundColor: ageClassification.bgColor,
+                            color: ageClassification.textColor,
+                          }}
                         >
-                          +12
+                          {ageClassification.label}
                         </div>
                         <Image
                           alt="example"
                           style={{
                             flex: 1,
                             height: 250,
+                            width: "100%",
                             backgroundSize: "cover",
                             backgroundPosition: "center",
                             objectFit: "cover", // Sử dụng object-fit để scale hình ảnh
-                            width: "100%", // Đảm bảo rằng hình ảnh sẽ có chiều rộng 100%
                           }}
-                          src={item.imgCover ? item.imgCover : "error"}
+                          src={item?.imgCover ? item?.imgCover : "error"}
                           fallback={IMAGES.imgDefault}
                           preview={false}
                         />

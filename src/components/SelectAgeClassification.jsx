@@ -13,6 +13,8 @@ export default function SelectAgeClassification(props) {
           options.push({
             label: newData[i].nameAgeClassification,
             value: newData[i].id,
+            textColor: newData[i].textColor,
+            bgColor: newData[i].bgColor,
             id: newData[i].id,
           });
         }
