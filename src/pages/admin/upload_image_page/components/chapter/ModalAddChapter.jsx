@@ -126,7 +126,10 @@ function ModalAddChapter() {
                 values.imgChapterFile = JSON.stringify(values.imgChapterFile);
                 const cloneDataMangaObj = {
                   ...dataMangaObj,
-                  newDateUpdateChapterAt: values.updateChapterAt,
+                  newDateUpdateChapterAt: dayjs(new Date()).format(
+                    Config.dateTimeFormat
+                  ),
+                  newNameChapter: values.nameChapter,
                 };
 
                 //Cập nhật newDateUpdateChapterAt vào trong Manga để lấy ra truyện mới cập nhật
@@ -136,6 +139,7 @@ function ModalAddChapter() {
                   .then(() => {
                     setIsLoading(false);
                     loadMangaChapter(dataMangaObj);
+
                     message.success(
                       <span>
                         Thêm chapter{" "}

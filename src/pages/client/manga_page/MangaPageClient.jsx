@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import IMAGES from "../../../constants/images";
 import { getAllDocuments } from "../../../services/firebaseService";
-import { SelectAgeClassification } from "../../../components";
 function MangaPageClient() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
