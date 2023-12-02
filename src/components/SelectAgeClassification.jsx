@@ -36,7 +36,6 @@ export default function SelectAgeClassification(props) {
       onChange={handleSelectChange}
       onDropdownVisibleChange={handleDropdownVisibleChange}
       showSearch
-      allowClear
       style={{ width: 300 }}
       placeholder="Tìm kiếm phân loại tuổi..."
     />

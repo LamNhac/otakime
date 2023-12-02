@@ -21,7 +21,7 @@ function LayoutAdmin() {
   const items = [
     getItem(
       <Link to="/admin/dashboard" style={{ fontSize: 16 }}>
-        Tổng quan
+        Dashboard
       </Link>,
       "Tổng quan",
       <DashboardOutlined style={{ fontSize: 16 }} />
@@ -70,10 +70,31 @@ function LayoutAdmin() {
       ),
     ]),
     getItem(
+      <Link to="/admin/event" style={{ fontSize: 16 }}>
+        Event
+      </Link>,
+      "event",
+      <DashboardOutlined style={{ fontSize: 16 }} />
+    ),
+    getItem(
       <Link to="/admin/history" style={{ fontSize: 16 }}>
         History
       </Link>,
       "lich-su",
+      <DashboardOutlined style={{ fontSize: 16 }} />
+    ),
+    getItem(
+      <Link to="/admin/setting" style={{ fontSize: 16 }}>
+        Setting
+      </Link>,
+      "setting",
+      <DashboardOutlined style={{ fontSize: 16 }} />
+    ),
+    getItem(
+      <Link to="/admin/query" style={{ fontSize: 16 }}>
+        Query
+      </Link>,
+      "query",
       <DashboardOutlined style={{ fontSize: 16 }} />
     ),
     getItem(

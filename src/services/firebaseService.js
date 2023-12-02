@@ -21,6 +21,8 @@ import {
 } from "firebase/storage";
 import dayjs from "dayjs";
 import Config from "../config";
+
+
 const storage = getStorage(app);
 const firestore = getFirestore(app);
 
@@ -138,6 +140,40 @@ const deleteDocument = (collectionPath, docId) => {
   });
 };
 
+const deleteCollectionAndSubcollections = async (collectionRef) => {
+  try {
+    const querySnapshot = await getDocs(collectionRef);
+    console.log("querySnapshot",querySnapshot)
+    const deletePromises = querySnapshot.docs.map(async (doc) => {
+      const subcollectionRefs = await getDocs(collection(doc.ref));
+
+      if (subcollectionRefs.size > 0) {
+        // If the document has subcollections, recursively delete them
+        const deleteSubcollectionsPromises = subcollectionRefs.docs.map(async (subDoc) => {
+          await deleteCollectionAndSubcollections(collection(subDoc.ref));
+        });
+
+        await Promise.all(deleteSubcollectionsPromises);
+      }
+
+      await deleteDoc(doc.ref);
+    });
+
+    await Promise.all(deletePromises);
+
+    console.log("All documents and subcollections have been deleted.");
+  } catch (error) {
+    console.error("Error deleting documents and subcollections:", error);
+    throw error;
+  }
+};
+
+const deleteAllDocuments = async (collectionPath) => {
+  const collectionRef = collection(firestore, collectionPath);
+  await deleteCollectionAndSubcollections(collectionRef);
+};
+
+
 const uploadFile = async (file, path) => {
   try {
     const storageRef = storageReference(storage, path);
@@ -158,9 +194,12 @@ const getFileDownloadURL = (path) => {
   return getDownloadURL(fileRef);
 };
 
+
+
 export {
   addDocument,
   deleteDocument,
+  deleteAllDocuments,
   getAllDocuments,
   getDocument,
   updateDocument,

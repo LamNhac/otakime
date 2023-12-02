@@ -53,6 +53,8 @@ function MangaPage() {
     setIsLoadingTable(true);
     getAllDocuments("manga")
       .then((newData) => {
+        console.log("newData", newData);
+
         if (!isEmpty(newData)) {
           setData(newData);
           setFilteredData(newData); // Initialize filteredData with all data

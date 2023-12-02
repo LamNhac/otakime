@@ -21,6 +21,7 @@ import {
   updateDocument,
 } from "../../../../services/firebaseService";
 import MangaPageContext from "../MangaPageContext";
+import SelectStatusManga from "../../../../components/SelectStatusManga";
 
 function ModalEditManga(props) {
   const context = useContext(MangaPageContext);
@@ -259,9 +260,8 @@ function ModalEditManga(props) {
             </Col>
           </Row>
           <Form.Item
-            name="isStatusManga"
-            label="Trạng thái"
-            valuePropName="checked"
+            name="statusManga"
+            label="Tình trạng"
             required
             rules={[
               {
@@ -270,10 +270,13 @@ function ModalEditManga(props) {
               },
             ]}
           >
-            <Switch
-              unCheckedChildren="Không hoạt động"
-              checkedChildren="Hoạt động"
-            ></Switch>
+            <SelectStatusManga
+              onChange={(e) => {
+                form.setFieldsValue({
+                  statusManga: e,
+                });
+              }}
+            />
           </Form.Item>
           <Form.Item
             name="description"

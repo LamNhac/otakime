@@ -11,3 +11,7 @@
 .ant-upload-rtl.upload-list-inline .ant-upload-list-item {
   float: right;
 }
+
+.ant-card-body .card-chapter {
+  width: 100%;
+}

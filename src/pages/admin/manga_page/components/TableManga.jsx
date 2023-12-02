@@ -58,16 +58,13 @@ function TableManga() {
       align: "center",
     },
     {
-      key: "isStatusManga",
-      dataIndex: "isStatusManga",
+      key: "statusManga",
+      dataIndex: "statusManga",
       title: "Trạng thái",
       align: "center",
       render: (text, record, index) => {
-        return text ? (
-          <Tag color="success">Hoạt động</Tag>
-        ) : (
-          <Tag color="red">Ngừng hoạt động</Tag>
-        );
+        const item = text[0];
+        return <Tag color={item.color}>{item.label}</Tag>;
       },
     },
     {
@@ -112,34 +109,6 @@ function TableManga() {
       render: (text, record, index) => {
         return (
           <Space size="small">
-            <Popconfirm
-              title={record.nameManga}
-              description={
-                record.isStatusManga
-                  ? "Bạn có chắc chắn ngừng hoạt động không?"
-                  : "Bạn có chắc chắn mở hoạt động không?"
-              }
-              okText="Cập nhật"
-              cancelText="Đóng"
-              onConfirm={() => {
-                record.isStatusManga = !record.isStatusManga;
-
-                updateDocument("manga", record.id, record)
-                  .then(() => loadManga())
-                  .then(() =>
-                    message.success(
-                      <span>
-                        Cập nhật trạng thái <b>{record.nameManga}</b> thành công
-                      </span>
-                    )
-                  );
-              }}
-            >
-              <Button type="link" icon={<RetweetOutlined />}>
-                CN Trạng thái
-              </Button>
-            </Popconfirm>
-
             <Button
               type="link"
               size="small"

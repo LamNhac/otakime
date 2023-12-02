@@ -5,8 +5,8 @@ import { getAllDocuments } from "../services/firebaseService";
 
 function SelectTag(props) {
   const { onChange, ...restProps } = props;
-  const [state, setData] = useState([]);
-  
+  const [data, setData] = useState([]);
+
   useEffect(() => {
     getAllDocuments("tag").then((data) => {
       let options = [];
@@ -21,7 +21,8 @@ function SelectTag(props) {
     });
   }, []);
   const handleSelectChange = (selectedItems) => {
-    const selectedLabelsAndValues = state.filter((item) =>
+    console.log("selectedItems", selectedItems);
+    const selectedLabelsAndValues = data.filter((item) =>
       selectedItems.includes(item.value)
     );
     onChange(selectedLabelsAndValues);
@@ -35,7 +36,7 @@ function SelectTag(props) {
       placeholder="Chọn thể loại"
       // tagRender={tagRender}
       onChange={handleSelectChange}
-      options={state}
+      options={data}
     ></Select>
   );
 }

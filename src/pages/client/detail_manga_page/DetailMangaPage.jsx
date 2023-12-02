@@ -1,9 +1,8 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Card, Col, Image, Row, Space, Spin, Tag } from "antd";
+import { Space, Spin, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import IMAGES from "../../../constants/images";
 import { getAllDocuments } from "../../../services/firebaseService";
 function DetailMangaPage() {
   const { mangaId } = useParams();
@@ -34,59 +33,57 @@ function DetailMangaPage() {
         .finally(() => setIsLoadingChapter(false));
     }
   }, [data?.id]);
-  console.log(dataChapter);
   return (
     <Spin
       spinning={isLoading}
       tip="Đang tải dữ liệu..."
       className="min-h-screen"
     >
-      <div>
-        <Image
-          src={data?.imgCover ? data?.imgCover : "error"}
-          preview={false}
-          height={300}
-        />
-        <Row gutter={[12, 12]}>
-          <Col flex="auto">
-            <Image
-              src={data?.imgCover ? data?.imgCover : "error"}
-              fallback={IMAGES.imgDefault}
-              preview={false}
-              width={300}
-            ></Image>
-          </Col>
-          <Col flex="auto">
-            <div>
-              <h3>Tên manga: {data?.nameManga}</h3>
-              <p>Tên việt: {data?.nameMangaVie}</p>
-              <p>Tên khác: {data?.otherMagna}</p>
-              <p>Tác giả: {data?.author}</p>
-              <p>Ngày cập nhật: {data?.updateAt}</p>
-              <span>
-                Thể loại:
-                <Space>
-                  {data?.tags.map((item, index) => {
-                    return <Tag key={index}>{item.label}</Tag>;
-                  })}
-                </Space>
-              </span>
-            </div>
-          </Col>
-        </Row>
+      <div className="flex flex-col gap-10">
+        <div
+          style={{
+            backgroundImage: `url("${data?.imgCover}")`,
+            width: "100%",
+            minHeight: 400,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+          }}
+        ></div>
+        <div className="flex justify-between items-center ">
+          <h1>{data?.nameManga}</h1>
+          <div
+            className="  bg-slate-500 w-16 h-16 flex items-center justify-center right-1 top-1 rounded-sm"
+            style={{ zIndex: 2 }}
+          >
+            +12
+          </div>
+        </div>
+        <div className="flex flex-col gap-2">
+          <p>Tên việt: {data?.nameMangaVie}</p>
+          <p>Tên khác: {data?.otherName}</p>
+          <p>Tác giả: {data?.author}</p>
+          <p>Ngày cập nhật: {data?.updateAt}</p>
+          <span>
+            Thể loại:{" "}
+            <Space>
+              {data?.tags.map((item, index) => {
+                return <Tag key={index}>{item.label}</Tag>;
+              })}
+            </Space>
+          </span>
+        </div>
         <Spin spinning={isLoadingChapter}>
-          <Space>
-            {dataChapter?.map((item, index) => {
-              return (
-                <Link to={`${item.nameChapter}`} key={index}>
-                  <Card type="primary" key={index} hoverable>
-                    <p className="text-center">Chapter {item.nameChapter} </p>
-                    <p>Ngày cập nhật: {item.updateChapterAt}</p>
-                  </Card>
-                </Link>
-              );
-            })}
-          </Space>
+          {dataChapter?.map((item, index) => {
+            return (
+              <Link to={`${item.nameChapter}`} key={index}>
+                <div className="w-[100%] p-4 border rounded-sm flex justify-between items-center">
+                  <p className="text-center">Chapter {item.nameChapter} </p>
+                  <p>Ngày cập nhật: {item.updateChapterAt}</p>
+                </div>
+              </Link>
+            );
+          })}
         </Spin>
       </div>
     </Spin>

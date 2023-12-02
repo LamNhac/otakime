@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import IMAGES from "../../../constants/images";
 import { getAllDocuments } from "../../../services/firebaseService";
+import { SelectAgeClassification } from "../../../components";
 function MangaPageClient() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -24,10 +25,19 @@ function MangaPageClient() {
       className="min-h-screen"
       tip="Đang tải dữ liệu..."
     >
-      <div className="min-h-screen sm:pr-[15rem] sm:pl-[15rem] md:pr-[10rem] md:pl-[10rem]">
-        <h3 className="text-center text-[2rem] font-semibold pb-8">
+      <div className="min-h-screen sm:pr-[15rem] sm:pl-[15rem] md:pr-[10rem] md:pl-[10rem] flex flex-col gap-4">
+        <h3 className="text-center text-[2rem] font-semibold">
           Truyện mới nhất
         </h3>
+        <Row justify="end">
+          <Col>
+            <SelectAgeClassification
+              onChange={(e) => {
+                console.log("e", e);
+              }}
+            />
+          </Col>
+        </Row>
         <Row gutter={[16, 16]}>
           {data?.map((item, index) => {
             return (
@@ -39,7 +49,7 @@ function MangaPageClient() {
                       <div className="relative">
                         <div
                           className=" absolute bg-slate-500 w-16 h-16 flex items-center justify-center right-1 top-1 rounded-sm"
-                          style={{ zIndex: 10 }}
+                          style={{ zIndex: 2 }}
                         >
                           +12
                         </div>
