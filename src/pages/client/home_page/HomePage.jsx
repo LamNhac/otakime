@@ -3,8 +3,10 @@ import { Card, Col, Image, Row, Spin } from "antd";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllDocuments } from "../../../services/firebaseService";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
+
+import { Carousel } from "react-responsive-carousel";
+import ViewImage from "../../../components/ViewImage";
+
 const { Meta } = Card;
 function HomePage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -35,25 +37,25 @@ function HomePage() {
       .catch((error) => console.log(error));
   }, []);
 
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-      slidesToSlide: 3, // optional, default to 1.
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-      slidesToSlide: 2, // optional, default to 1.
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-      slidesToSlide: 1, // optional, default to 1.
-    },
-  };
+  // const responsive = {
+  //   desktop: {
+  //     breakpoint: { max: 3000, min: 1024 },
+  //     items: 3,
+  //     slidesToSlide: 3, // optional, default to 1.
+  //   },
+  //   tablet: {
+  //     breakpoint: { max: 1024, min: 464 },
+  //     items: 2,
+  //     slidesToSlide: 2, // optional, default to 1.
+  //   },
+  //   mobile: {
+  //     breakpoint: { max: 464, min: 0 },
+  //     items: 1,
+  //     slidesToSlide: 1, // optional, default to 1.
+  //   },
+  // };
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col">
       <Spin spinning={isLoading}>
         <Link
           to={`/manga/${newMangaUpdate.urlManga}/${newMangaUpdate?.newNameChapter}`}
@@ -63,7 +65,7 @@ function HomePage() {
             hoverable
             style={{ width: "100%" }}
             cover={
-              <Image
+              <ViewImage
                 alt="example"
                 src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
                 style={{
@@ -87,47 +89,54 @@ function HomePage() {
         </Link>
         {/* Quảng cáo  */}
         {/* <Card title="xxx"></Card> */}
-
-        <div className="flex flex-col sm:flex-row justify-center gap-2     ">
+        <div className="flex flex-col sm:flex-row justify-center gap-4 mt-4">
           <Row className="w-[100%] sm:w-[48%] flex flex-row sm:flex-col gap-2">
-            <Col className="text-lg font-bold text-center pb-10 flex justify-center items-center">
+            <Col className="text-lg font-bold text-center  flex justify-center items-center">
               Thêm truyện nổi bật!
             </Col>
             <Col>
               <Carousel
-                draggable={false}
-                responsive={responsive}
-                showDots
-                infinite
-                containerClass="carousel-container"
-                dotListClass="custom-dot-list-style"
-                itemClass="carousel-item-padding-40-px"
+                autoPlay
+                infiniteLoop
+                swipeable
+                showArrows={false}
+                showThumbs={false}
+                showStatus={false}
               >
-                <Card className="h-96 min-w-[300px] bg-black"></Card>
-                <Card className="h-96 min-w-[300px] bg-white"></Card>
-                <Card className="h-96 min-w-[300px] bg-slate-700"></Card>
-                <Card className="h-96 min-w-[300px] bg-gray-50"></Card>
+                <div>
+                  <ViewImage src="https://picsum.photos/200" />
+                </div>
+                <div>
+                  <ViewImage src="https://picsum.photos/200" />
+                </div>
+                <div>
+                  <ViewImage src="https://picsum.photos/200" />
+                </div>
               </Carousel>
             </Col>
           </Row>
           <Row className="w-[100%] sm:w-[48%] flex flex-row sm:flex-col gap-2">
-            <Col className="text-lg font-bold text-center pb-10 flex justify-center items-center">
+            <Col className="text-lg font-bold text-center  flex justify-center items-center">
               Thêm phim nổi bật!
             </Col>
             <Col>
               <Carousel
-                draggable={false}
-                responsive={responsive}
-                showDots
-                infinite
-                containerClass="carousel-container"
-                dotListClass="custom-dot-list-style"
-                itemClass="carousel-item-padding-40-px"
+                autoPlay
+                infiniteLoop
+                swipeable
+                showArrows={false}
+                showThumbs={false}
+                showStatus={false}
               >
-                <Card className="h-96 min-w-[300px] bg-black"></Card>
-                <Card className="h-96 min-w-[300px] bg-white"></Card>
-                <Card className="h-96 min-w-[300px] bg-slate-700"></Card>
-                <Card className="h-96 min-w-[300px] bg-gray-50"></Card>
+                <div>
+                  <ViewImage src="https://picsum.photos/200" />
+                </div>
+                <div>
+                  <ViewImage src="https://picsum.photos/200" />
+                </div>
+                <div>
+                  <ViewImage src="https://picsum.photos/200" />
+                </div>
               </Carousel>
             </Col>
           </Row>

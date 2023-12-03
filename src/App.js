@@ -7,6 +7,8 @@ import { LayoutAdmin, LayoutClient } from "./layouts";
 import LoginPage from "./pages/admin/login/LoginPage";
 
 import "../src/css/output.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+
 import CategoryTagPage from "./pages/admin/category_tag_page/CategoryTagPage";
 import DashboardPage from "./pages/admin/dashboard_page/DashboardPage";
 import MailPage from "./pages/admin/mail_page/MailPage";
@@ -24,6 +26,7 @@ import {
   LicensePage,
   MangaPageClient,
   MoviePageClient,
+  PageNotFoundPage,
   TermsofusePage,
 } from "./pages/client";
 import HistoryPage from "./pages/admin/history_page/HistoryPage";
@@ -69,6 +72,7 @@ const App = () => {
             <Route path="license" element={<LicensePage />} />
           </Route>
         </Route>
+        <Route path="*" element={<PageNotFoundPage />} />
       </Routes>
     </ConfigProvider>
   );

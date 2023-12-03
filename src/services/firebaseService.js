@@ -181,7 +181,6 @@ const uploadFile = async (file, path) => {
 
     // Get the download URL after successful upload
     const downloadURL = await getFileDownloadURL(path);
-    getBlob(storageRef);
     return downloadURL;
   } catch (error) {
     console.error("Error uploading file:", error);

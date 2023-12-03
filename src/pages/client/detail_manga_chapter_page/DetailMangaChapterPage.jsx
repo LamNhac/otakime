@@ -11,6 +11,8 @@ import {
   HomeOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { ViewImage } from "../../../components";
+
 function DetailMangaChapterPage() {
   let { mangaId, chapterId } = useParams();
   const [data, setData] = useState(null);
@@ -52,9 +54,9 @@ function DetailMangaChapterPage() {
   const isBackDisabled = currentChapterId === 1 || !currentChapterId;
 
   const isForwardDisabled =
-    selectChapter &&
-    selectChapter.length > 0 &&
-    selectChapter[selectChapter.length - 1].value === currentChapterId;
+    currentChapterId === null ||
+    selectChapter?.length === 0 ||
+    currentChapterId === selectChapter?.length;
 
   return (
     <Spin spinning={isLoading}>
@@ -110,12 +112,11 @@ function DetailMangaChapterPage() {
       <div className="flex flex-col justify-center items-center">
         {dataChapter?.imgChapterFile?.map((item, index) => {
           return (
-            <Image
+            <ViewImage
               key={index}
               src={item.imgUrl ? item.imgUrl : "error"}
               fallback={IMAGES.imgDefault}
               style={{ width: 800 }}
-              preview={false}
             />
           );
         })}

@@ -11,6 +11,9 @@ import FooterClient from "./FooterClient";
 
 import LoadingScreen from "./LoadingScreen";
 import SelectAgeClassification from "./SelectAgeClassification";
+
+import ViewImage from "./ViewImage";
+
 export {
   RowAction,
   SelectTag,
@@ -22,5 +25,6 @@ export {
   HeaderClient,
   FooterClient,
   LoadingScreen,
-  SelectAgeClassification
+  SelectAgeClassification,
+  ViewImage,
 };

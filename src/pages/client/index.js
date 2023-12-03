@@ -8,6 +8,8 @@ import MangaPageClient from "../client/manga_page/MangaPageClient";
 import MoviePageClient from "../client/movie_page/MoviePageClient";
 import LicensePage from "../client/license_page/LicensePage";
 import TermsofusePage from "../client/termsofuse_page/TermsofusePage";
+import PageNotFoundPage from "./page_not_found_page/PageNotFoundPage";
+
 export {
   AboutPage,
   DetailMangaPage,
@@ -18,4 +20,5 @@ export {
   MoviePageClient,
   LicensePage,
   TermsofusePage,
+  PageNotFoundPage
 };
