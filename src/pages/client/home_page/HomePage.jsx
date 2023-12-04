@@ -1,11 +1,13 @@
 /* eslint-disable array-callback-return */
-import { Card, Col, Image, Row, Spin } from "antd";
+import { Card, Col, Row, Spin } from "antd";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getAllDocuments } from "../../../services/firebaseService";
+import { analytics, getAllDocuments } from "../../../services/firebaseService";
 
+import { logEvent } from "firebase/analytics";
 import { Carousel } from "react-responsive-carousel";
 import ViewImage from "../../../components/ViewImage";
+
 
 const { Meta } = Card;
 function HomePage() {
@@ -15,6 +17,8 @@ function HomePage() {
 
   useEffect(() => {
     setIsLoading(true);
+    logEvent(analytics, "notification_received");
+    // setUserId(analytics, uuidv4());
     getAllDocuments("manga")
       .then((res) => {
         setData(res);

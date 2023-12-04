@@ -13,18 +13,19 @@ import {
 import { app } from "./firebase";
 
 import {
-  getBlob,
   getDownloadURL,
   getStorage,
   ref as storageReference,
   uploadBytes,
 } from "firebase/storage";
+import { getAnalytics } from "firebase/analytics";
 import dayjs from "dayjs";
 import Config from "../config";
 
-
 const storage = getStorage(app);
 const firestore = getFirestore(app);
+// Initialize Analytics and get a reference to the service
+const analytics = getAnalytics(app);
 
 const saveToLog = (method, collectionPath, data) => {
   const currentDate = dayjs(dayjs()).format(Config.dateTimeFormat);
@@ -196,6 +197,7 @@ const getFileDownloadURL = (path) => {
 
 
 export {
+  analytics,
   addDocument,
   deleteDocument,
   deleteAllDocuments,
