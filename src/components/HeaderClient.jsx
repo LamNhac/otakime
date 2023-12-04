@@ -33,8 +33,6 @@ function HeaderClient() {
     <Header
       className="flex items-center justify-between bg-gradient-to-r from-[#ADF709] via-[#F3ADC3] to-[#00CCFF]"
       style={{
-        position: "sticky",
-        zIndex: 3,
         width: "100%",
         top: 0,
         paddingInline: 20,

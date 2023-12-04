@@ -1,17 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, Card, Image, Row, Select, Space, Spin, Tag } from "antd";
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import IMAGES from "../../../constants/images";
-import { getAllDocuments } from "../../../services/firebaseService";
 import {
+  HomeOutlined,
   LeftOutlined,
   RightOutlined,
   UnorderedListOutlined,
-  HomeOutlined,
 } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { Button, Card, FloatButton, Row, Select, Space, Spin, Tag } from "antd";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ViewImage } from "../../../components";
+import IMAGES from "../../../constants/images";
+import { getAllDocuments } from "../../../services/firebaseService";
 
 function DetailMangaChapterPage() {
   let { mangaId, chapterId } = useParams();
@@ -60,7 +59,8 @@ function DetailMangaChapterPage() {
 
   return (
     <Spin spinning={isLoading}>
-      <Card>
+      <FloatButton.BackTop style={{ insetBlockEnd: 20, insetInlineEnd: 20 }} />
+      <Card className="mb-5">
         <h3>
           {data?.nameManga} / Chapter {dataChapter?.nameChapter}
         </h3>
@@ -74,7 +74,7 @@ function DetailMangaChapterPage() {
           </Space>
         </div>
       </Card>
-      <Card>
+      <div className="sticky top-0 z-[10] descreased-padding w-[100%] bg-white p-2 drop-shadow-lg">
         <Row align="center" style={{ gap: 10 }}>
           <Link to="/">
             <Button shape="circle" icon={<HomeOutlined />}></Button>
@@ -108,7 +108,8 @@ function DetailMangaChapterPage() {
             disabled={isForwardDisabled}
           ></Button>
         </Row>
-      </Card>
+      </div>
+
       <div className="flex flex-col justify-center items-center">
         {dataChapter?.imgChapterFile?.map((item, index) => {
           return (

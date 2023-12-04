@@ -11,7 +11,7 @@ function LayoutClient() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const { movieId } = useParams();
+  const { chapterId, movieId } = useParams();
 
   useEffect(() => {
     // setIsLoading(true);
@@ -26,7 +26,9 @@ function LayoutClient() {
       ) : (
         <>
           <HeaderClient />
-          <Content className={movieId ? "" : "  container p-4 min-w-full"}>
+          <Content
+            className={movieId || chapterId ? "" : "  container p-4 min-w-full"}
+          >
             <Outlet />
           </Content>
           <FooterClient />

@@ -8,7 +8,6 @@ import { logEvent } from "firebase/analytics";
 import { Carousel } from "react-responsive-carousel";
 import ViewImage from "../../../components/ViewImage";
 
-
 const { Meta } = Card;
 function HomePage() {
   const [isLoading, setIsLoading] = useState(false);

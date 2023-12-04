@@ -17,19 +17,20 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 var auth = getAuth(); // Khởi tạo Firebase Authentication
-var email = "mail.otakime@gmail.com";
-var password = "otakime30";
+// var email = "mail.otakime@gmail.com";
+// var password = "otakime30";
 
-const getUser = async () => {
+const signInUser = async (email, password,onSuccess, onError) => {
   await signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Xác thực thành công
       const user = userCredential.user;
       // Tiếp tục thực hiện các hoạt động sau xác thực
+      onSuccess()
       return user.getIdToken();
     })
     .catch((error) => {
-      console.error(error);
+      onError(error)
     });
 };
-export { app, getUser };
+export { app, signInUser };
