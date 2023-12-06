@@ -7,8 +7,6 @@ import { useEffect, useState } from "react";
 import { Layout } from "antd";
 const { Content } = Layout;
 function LayoutClient() {
-  const state = {};
-
   const [isLoading, setIsLoading] = useState(false);
 
   const { chapterId, movieId } = useParams();
@@ -19,6 +17,10 @@ function LayoutClient() {
     // setTimeout(() => {
     // }, 3000);
   }, []);
+
+  const [userClient, setUserClient] = useState(null);
+  const [isLoginUser, setIsLoginUser] = useState(null);
+  const state = { userClient, setUserClient, isLoginUser, setIsLoginUser };
   return (
     <AppContextClient.Provider value={state}>
       {isLoading ? (

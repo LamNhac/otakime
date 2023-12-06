@@ -1,7 +1,7 @@
 import { Button, Card, Form, Input, message } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signInUser } from "../../../services/firebase";
+import { signInAdminUser } from "../../../services/firebase";
 
 function LoginPage() {
   const [form] = Form.useForm();
@@ -10,7 +10,7 @@ function LoginPage() {
   const navigate = useNavigate();
   const onFinish = (values) => {
     setIsLoading(true);
-    signInUser(
+    signInAdminUser(
       values.USERNAME,
       values.PASSWORD,
       () => {

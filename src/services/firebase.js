@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { GoogleAuthProvider, getAuth, getRedirectResult, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect } from "firebase/auth";
 
 import {} from "firebase/storage";
 
@@ -17,10 +17,12 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 var auth = getAuth(); // Khởi tạo Firebase Authentication
+const provider = new GoogleAuthProvider();
+
 // var email = "mail.otakime@gmail.com";
 // var password = "otakime30";
 
-const signInUser = async (email, password,onSuccess, onError) => {
+const signInAdminUser = async (email, password,onSuccess, onError) => {
   await signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Xác thực thành công
@@ -33,4 +35,28 @@ const signInUser = async (email, password,onSuccess, onError) => {
       onError(error)
     });
 };
-export { app, signInUser };
+
+
+const getRedirectResultUser = ()=> {
+  return new Promise( (resolve, reject) => {
+    getRedirectResult(auth).then((result) => {
+    resolve(result);
+  })
+  .catch((error) => {
+    reject(error);
+  })})
+}
+
+const signInClientUser = async () => {
+    return new Promise((resolve, reject) => {
+      signInWithRedirect (auth, provider)
+        .then((result) => {
+          resolve(result);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+};
+
+export { app, signInAdminUser ,signInClientUser,getRedirectResultUser};
