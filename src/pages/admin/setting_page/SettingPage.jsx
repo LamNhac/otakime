@@ -1,4 +1,4 @@
-import { Button, Card, Form, Image, Modal, Space, Upload } from "antd";
+import { Button, Card, Form, Image, Input, Modal, Space, Upload } from "antd";
 import React, { useEffect, useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
 const normFile = (e) => {
@@ -23,6 +23,8 @@ const dummyRequest = ({ file, onSuccess }) => {
 export default function SettingPage() {
   const [formIcon] = Form.useForm();
   const [formLogo] = Form.useForm();
+  const [form] = Form.useForm();
+
   const [fileList, setFileList] = useState([]);
   const [fileListLogo, setFileListLogo] = useState([]);
 
@@ -51,7 +53,7 @@ export default function SettingPage() {
   const [previewTitleLogo, setPreviewTitleLogo] = useState("");
 
   const handleChangeMainLogo = ({ fileList: newFileList }) =>
-  setFileListLogo(newFileList);
+    setFileListLogo(newFileList);
   const handlePreviewLogo = async (file) => {
     if (file.imgUrl) {
       return window.open(file.imgUrl);
@@ -69,9 +71,7 @@ export default function SettingPage() {
   useEffect(() => {}, []);
   return (
     <div>
-      <Card
-      title="Setting"
-      >
+      <Card title="Setting">
         <Form
           form={formIcon}
           onFinish={(values) => {
@@ -182,6 +182,36 @@ export default function SettingPage() {
               src={previewImageLogo}
             />
           </Modal>
+        </Form>
+
+        <Form
+          form={form}
+          onFinish={(values) => {
+            console.log(values);
+          }}
+        >
+          <Space>
+            <Form.Item
+              name="email"
+              label="Email"
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng chọn ${label}",
+                },
+              ]}
+            >
+              <Input allowClear />
+            </Form.Item>
+          </Space>
+          <Button
+            className="ml-2"
+            onClick={() => {
+              form.submit();
+            }}
+          >
+            Lưu
+          </Button>
         </Form>
       </Card>
     </div>

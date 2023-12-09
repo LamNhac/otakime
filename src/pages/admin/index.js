@@ -8,5 +8,5 @@ import SettingPage from './setting_page/SettingPage'
 
 import EventPage from "./event_page/EventPage";
 import QueryPage from "./query_page/QueryPage";
-
-export { MoviePage, MangaPage, MailPage, VersionPage,AgeClassificationPage, SettingPage, EventPage ,QueryPage};
+import UserPage from "./user_page/UserPage";
+export { MoviePage, MangaPage, MailPage, VersionPage,AgeClassificationPage, SettingPage, EventPage ,QueryPage,UserPage};

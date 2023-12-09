@@ -209,19 +209,17 @@ function HeaderClient() {
                 </>
               ) : (
                 <>
-                  {!isLoadingAvatar && (
-                    <Button
-                      type="primary"
-                      icon={<GoogleOutlined />}
-                      onClick={() => {
-                        signInClientUser().catch((error) => {
-                          message.error(error);
-                        });
-                      }}
-                    >
-                      Đăng nhập Google
-                    </Button>
-                  )}
+                  <Button
+                    type="primary"
+                    icon={<GoogleOutlined />}
+                    onClick={() => {
+                      signInClientUser().catch((error) => {
+                        message.error(error);
+                      });
+                    }}
+                  >
+                    Đăng nhập Google
+                  </Button>
                 </>
               )}
             </div>

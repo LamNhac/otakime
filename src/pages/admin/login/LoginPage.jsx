@@ -10,15 +10,18 @@ function LoginPage() {
   const navigate = useNavigate();
   const onFinish = (values) => {
     setIsLoading(true);
+    console.log(values);
     signInAdminUser(
       values.USERNAME,
       values.PASSWORD,
-      () => {
-        setIsLoading(false);
-        localStorage.setItem("username", values.USERNAME);
-        localStorage.setItem("password", values.PASSWORD);
-
+      (user) => {
+        console.log(user);
         navigate("/admin/dashboard");
+        setIsLoading(false);
+        localStorage.setItem("USERNAME", values.USERNAME);
+        localStorage.setItem("PASSWORD", values.PASSWORD);
+        localStorage.setItem("accessToken", user.accessToken);
+        localStorage.setItem("isLoginAdmin", true);
       },
       (error) => {
         if (error) {
@@ -31,12 +34,10 @@ function LoginPage() {
     setIsLoading(false);
   };
   useEffect(() => {
-    const username = localStorage.getItem("username");
-    const password = localStorage.getItem("password");
-    if (username && password) {
-      console.log("xxx");
-      form.setFieldValue("USERNAME", username);
-      form.setFieldValue("PASSWORD", password);
+    const isLoginAdmin = localStorage.getItem("isLoginAdmin");
+    const accessToken = localStorage.getItem("accessToken");
+    if (isLoginAdmin) {
+      navigate("/admin/dashboard");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

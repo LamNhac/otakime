@@ -17,7 +17,7 @@ import MoviePage from "./pages/admin/movie_page/MoviePage";
 
 import UploadImagePage from "./pages/admin/upload_image_page/UploadImagePage";
 
-import { AgeClassificationPage, EventPage, QueryPage, SettingPage, VersionPage } from "./pages/admin";
+import { AgeClassificationPage, EventPage, QueryPage, SettingPage, UserPage, VersionPage } from "./pages/admin";
 import HistoryPage from "./pages/admin/history_page/HistoryPage";
 import {
   AboutPage,
@@ -42,6 +42,7 @@ const App = () => {
             <Route index element={<LoginPage />} />
             <Route element={<LayoutAdmin />}>
               <Route path="dashboard" element={<DashboardPage />}></Route>
+              <Route path="user" element={<UserPage />}></Route>
               <Route path="manga" element={<MangaPage />}></Route>
               <Route path="movie" element={<MoviePage />}></Route>
               <Route path="mail" element={<MailPage />}></Route>

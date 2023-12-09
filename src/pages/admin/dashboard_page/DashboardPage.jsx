@@ -8,6 +8,8 @@ function DashboardPage() {
   const state = {};
   return (
     <DashboardContext.Provider value={state}>
+      {localStorage.getItem('accessToken')}
+      {localStorage.getItem('isLoginAdmin')}
       <ViewStatistic />
       <ViewFacebook />
     </DashboardContext.Provider>

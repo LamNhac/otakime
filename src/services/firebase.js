@@ -28,7 +28,7 @@ const signInAdminUser = async (email, password,onSuccess, onError) => {
       // Xác thực thành công
       const user = userCredential.user;
       // Tiếp tục thực hiện các hoạt động sau xác thực
-      onSuccess()
+      onSuccess(user)
       return user.getIdToken();
     })
     .catch((error) => {

@@ -1,12 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   DashboardOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   ShopOutlined,
 } from "@ant-design/icons";
-import { Button, Layout, Menu, theme } from "antd";
-import { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Button, Layout, Menu, Modal, theme } from "antd";
+import { useEffect, useState } from "react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import AppContextAdmin from "../contexts/AppContextAdmin";
 const { Header, Sider, Content } = Layout;
 function getItem(label, key, icon, children = null, type) {
@@ -24,6 +25,13 @@ function LayoutAdmin() {
         Dashboard
       </Link>,
       "Tổng quan",
+      <DashboardOutlined style={{ fontSize: 16 }} />
+    ),
+    getItem(
+      <Link to="/admin/user" style={{ fontSize: 16 }}>
+        User
+      </Link>,
+      "user",
       <DashboardOutlined style={{ fontSize: 16 }} />
     ),
 
@@ -105,9 +113,28 @@ function LayoutAdmin() {
       <DashboardOutlined style={{ fontSize: 16 }} />
     ),
   ];
+  const navigate = useNavigate();
+  useEffect(() => {
+    const isLoginAdmin = localStorage.getItem("isLoginAdmin");
+    const accessToken = localStorage.getItem("accessToken");
+    console.log("", isLoginAdmin);
+    if (!isLoginAdmin) {
+      Modal.error({
+        title: "Bạn không có quyền truy cập",
+        onOk: () => {
+          navigate("/admin");
+        },
+        onCancel: () => {
+          navigate("/admin");
+        },
+        okType: "text",
+      });
+    }
+  }, []);
+  const state = {};
 
   return (
-    <AppContextAdmin.Provider value={{}}>
+    <AppContextAdmin.Provider value={state}>
       <Layout style={{ height: "100vh" }}>
         <Sider trigger={null} collapsible collapsed={collapsed}>
           <div className="demo-logo-vertical" />
