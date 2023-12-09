@@ -1,26 +1,36 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/jsx-no-target-blank */
-import { Avatar, Button, Drawer, Image, Layout, message } from "antd";
-import { Link } from "react-router-dom";
-import IMAGES from "../constants/images";
-import { BsDiscord, BsFacebook } from "react-icons/bs";
-import { useContext, useEffect, useState } from "react";
 import {
   BarsOutlined,
   GoogleOutlined,
   LogoutOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
-import { signInClientUser, getRedirectResultUser } from "../services/firebase";
+import { Avatar, Button, Drawer, Dropdown, Image, Layout, message } from "antd";
+import { useContext, useEffect, useState } from "react";
+import { BsDiscord, BsFacebook } from "react-icons/bs";
+import { Link } from "react-router-dom";
+import IMAGES from "../constants/images";
 import AppContextClient from "../contexts/AppContextClient";
+import {
+  getRedirectResultUser,
+  logout,
+  onChangeToken,
+  signInClientUser,
+} from "../services/firebase";
 const { Header } = Layout;
 function HeaderClient() {
   const { userClient, setUserClient, isLoginUser, setIsLoginUser } =
     useContext(AppContextClient);
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    photoURL: "",
+    displayName: "",
+  });
 
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isLoadingAvatar, setIsLoadingAvatar] = useState(null);
 
   useEffect(() => {
     // Tạo một hàm xử lý sự kiện thay đổi kích thước màn hình
@@ -41,17 +51,56 @@ function HeaderClient() {
   }, []);
 
   useEffect(() => {
+    setIsLoadingAvatar(true);
     getRedirectResultUser().then((result) => {
       if (result) {
         setIsLoginUser(true);
-        // setUserClient(result);
-        setUser(result);
-        console.log("result", result);
+        setUserClient(result);
+        setUser({
+          photoURL: result.user.photoURL,
+          displayName: result.user.displayName,
+        });
+        setIsLoadingAvatar(false);
+      } else {
+        onChangeToken().then((user) => {
+          if (user) {
+            setIsLoginUser(true);
+            setUserClient(user);
+            console.log(user);
+            setUser({
+              photoURL: user.photoURL,
+              displayName: user.displayName,
+            });
+            setIsLoadingAvatar(false);
+          }
+        });
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log("user", user?.user?.photoURL);
+
+  const items = [
+    {
+      key: "1",
+      label: <Link to="information-user">Trang cá nhân</Link>,
+      icon: <UserOutlined />,
+    },
+    {
+      key: "2",
+      label: "Đăng xuất",
+      icon: <LogoutOutlined />,
+      danger: true,
+      onClick: () => {
+        logout()
+          .then(() => {
+            setIsLoginUser(false);
+          })
+          .catch((error) => {
+            message.error(error);
+          });
+      },
+    },
+  ];
 
   return (
     <Header
@@ -148,38 +197,31 @@ function HeaderClient() {
             <div>
               {isLoginUser ? (
                 <>
-                  <Avatar src={user?.user?.photoURL} />
-                  <Button
-                    type="primary"
-                    icon={<LogoutOutlined />}
-                    onClick={() => {}}
+                  <Dropdown
+                    menu={{ items }}
+                    placement="bottomRight"
+                    trigger={["click"]}
+                    arrow
+                    load
                   >
-                    Đăng xuất
-                  </Button>
+                    <Avatar src={user?.photoURL} />
+                  </Dropdown>
                 </>
               ) : (
                 <>
-                  <Button
-                    type="primary"
-                    icon={<GoogleOutlined />}
-                    onClick={() => {
-                      signInClientUser()
-                        .then((result) => {
-                          // const accessToken = result.user.accessToken;
-                          // const accessTokenLocalStorage =
-                          //   localStorage.getItem("accessTokenClient");
-                          // if (accessToken === accessTokenLocalStorage) {
-                          // }
-                          // console.log("result", result);
-                          // setUserClient(result);
-                        })
-                        .catch((error) => {
+                  {!isLoadingAvatar && (
+                    <Button
+                      type="primary"
+                      icon={<GoogleOutlined />}
+                      onClick={() => {
+                        signInClientUser().catch((error) => {
                           message.error(error);
                         });
-                    }}
-                  >
-                    Đăng nhập Google
-                  </Button>
+                      }}
+                    >
+                      Đăng nhập Google
+                    </Button>
+                  )}
                 </>
               )}
             </div>

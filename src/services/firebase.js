@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { GoogleAuthProvider, getAuth, getRedirectResult, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect } from "firebase/auth";
+import { GoogleAuthProvider, getAuth, getRedirectResult, onAuthStateChanged, signInWithCredential, signInWithEmailAndPassword, signInWithRedirect, signOut } from "firebase/auth";
 
-import {} from "firebase/storage";
+import { } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyApshDCxy63wCTEjAICrB3GIKIde3GB308",
@@ -59,4 +59,40 @@ const signInClientUser = async () => {
     });
 };
 
-export { app, signInAdminUser ,signInClientUser,getRedirectResultUser};
+const verifyToken = async (idToken,accessToken) => {
+  try {
+    console.log("xxx")
+    const credential = GoogleAuthProvider.credential(idToken,accessToken );
+    const userCredential = await signInWithCredential(auth, credential);
+    console.log("userCredential", userCredential)
+    const user = userCredential.user;
+    return user
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const onChangeToken = async () => {
+  return new Promise((resolve, reject)=> {
+    try {
+      onAuthStateChanged(auth, (user)=> {
+        resolve(user)
+      });
+    } catch (error) {
+      reject(error)
+    }
+  })
+};
+
+const logout = async ()=> {
+  return new Promise((resolve, reject)=> {
+    signOut(auth).then(()=>{
+      resolve()
+    }).catch(error=>{
+      reject(error)
+    })  
+  })
+}
+
+export { app, getRedirectResultUser, logout, onChangeToken, signInAdminUser, signInClientUser, verifyToken };
+
