@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { analytics, getAllDocuments } from "../../../services/firebaseService";
 
 import { logEvent } from "firebase/analytics";
-import { Carousel } from "react-responsive-carousel";
 import ViewImage from "../../../components/ViewImage";
 
 const { Meta } = Card;

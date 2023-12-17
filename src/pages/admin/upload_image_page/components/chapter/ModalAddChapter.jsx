@@ -107,6 +107,8 @@ function ModalAddChapter() {
             values.updateChapterAt = dayjs(values.updateChapterAt).format(
               Config.dateFormat
             );
+            values.view = 0
+
             for (var i in values.imgChapterFile) {
               const urlPromise = await uploadFile(
                 values.imgChapterFile[i].originFileObj,
