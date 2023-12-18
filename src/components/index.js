@@ -14,6 +14,9 @@ import SelectAgeClassification from "./SelectAgeClassification";
 
 import ViewImage from "./ViewImage";
 
+import ScrollToTop from './ScrollToTop'
+import CardImage from './CardImage'
+
 export {
   RowAction,
   SelectTag,
@@ -27,4 +30,6 @@ export {
   LoadingScreen,
   SelectAgeClassification,
   ViewImage,
+  ScrollToTop,
+  CardImage
 };

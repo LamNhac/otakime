@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Image } from "antd";
 import React, { useEffect, useState } from "react";
-
+import ImageDefault from "../assets/images/image_default.jpg";
 const ViewImage = ({ style, src, ...restProps }) => {
   const [imageBlobUrl, setImageBlobUrl] = useState(src);
 
@@ -33,8 +33,15 @@ const ViewImage = ({ style, src, ...restProps }) => {
       {...restProps}
       preview={false}
       src={imageBlobUrl}
+      fallback={ImageDefault}
       onLoad={handleImageLoad}
-      style={style}
+      style={{
+        ...style,
+      }}
+      placeholder={<Image preview={false} src={ImageDefault} />}
+      onError={(e) => {
+        console.log("Ảnh bị lỗi...");
+      }}
     />
   );
 };

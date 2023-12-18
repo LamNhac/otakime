@@ -10,7 +10,10 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ViewImage } from "../../../components";
 import IMAGES from "../../../constants/images";
-import { getAllDocuments } from "../../../services/firebaseService";
+import {
+  getAllDocuments,
+  updateDocument,
+} from "../../../services/firebaseService";
 
 function DetailMangaChapterPage() {
   let { mangaId, chapterId } = useParams();
@@ -23,17 +26,20 @@ function DetailMangaChapterPage() {
 
   useEffect(() => {
     setIsLoading(true);
+
+    //Lấy danh sách manga
     getAllDocuments("manga")
       .then((res) => {
         const manga = res.find((item) => item.urlManga === mangaId);
         setData(manga);
 
+        //Lấy danh sách chapter
         getAllDocuments(`manga/${manga.id}/chapter`).then((res) => {
           const chapter = res.find(
             (item) => item.nameChapter === parseInt(chapterId)
           );
 
-          console.log("res", res);
+          //Tạo danh sách select chapter
           const options = res.map((item) => ({
             label: `Chapter ${item.nameChapter}`,
             chapter: item.nameChapter,
@@ -42,12 +48,21 @@ function DetailMangaChapterPage() {
           }));
           setSelectChapter(options);
 
+          //Convert ảnh
           chapter.imgChapterFile = JSON.parse(chapter.imgChapterFile);
           setDataChapter(chapter);
+
+          //Cập nhật lượt View
+          // updateDocument(`manga/${manga.id}/chapter`, chapterId, {
+          //   ...res,
+          //   imgChapterFile: JSON.parse(chapter.imgChapterFile),
+          // }).then((res) => {});
         });
       })
       .finally(() => setIsLoading(false));
   }, [chapterId]);
+
+  //Xử lý cho chapter
   const currentChapterId = chapterId ? parseInt(chapterId, 10) : null;
 
   const isBackDisabled = currentChapterId === 1 || !currentChapterId;
