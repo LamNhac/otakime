@@ -1,14 +1,12 @@
 /* eslint-disable array-callback-return */
-import { Card, Col, Row } from "antd";
+import { Col, Row } from "antd";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { analytics, getAllDocuments } from "../../../services/firebaseService";
 
 import { logEvent } from "firebase/analytics";
-import ViewImage from "../../../components/ViewImage";
 import CardImage from "../../../components/CardImage";
+import SkeletonImage from "../../../components/SkeletonImage";
 
-const { Meta } = Card;
 function HomePage() {
   const [isLoadingManga, setIsLoadingManga] = useState(false);
   const [newMangaUpdate, setNewMangaUpdate] = useState({});
@@ -58,6 +56,7 @@ function HomePage() {
       .then((res) => {
         const movieViewest = res.sort((a, b) => b.view - a.view);
         const movieViewestSlice = movieViewest.slice(0, 1)[0];
+        console.log("movieViewestSlice", movieViewestSlice);
         setDataMovieViewest(movieViewestSlice);
       })
       .finally(() => {
@@ -71,46 +70,20 @@ function HomePage() {
 
   return (
     <div className="flex flex-col">
-      <CardImage
-        to={`/manga/${newMangaUpdate.urlManga}/${newMangaUpdate?.newNameChapter}`}
-        src={newMangaUpdate.imgMain}
-        title="Mới cập nhật"
-        description={`${newMangaUpdate?.nameManga ?? ""} - Chapter ${
-          newMangaUpdate?.newNameChapter?.toString().padStart(2, 0) ?? ""
-        }`}
-        isBackdrop
-      />
-      {/* <Link
-        to={`/manga/${newMangaUpdate.urlManga}/${newMangaUpdate?.newNameChapter}`}
-      >
-        <Card
-          loading={isLoadingManga}
-          hoverable
-          style={{ width: "100%" }}
-          cover={
-            <div className=" relative">
-              <ViewImage
-                src={newMangaUpdate.imgMain}
-                style={{
-                  height: 300,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  objectFit: "cover", // Sử dụng object-fit để scale hình ảnh
-                  width: "100%", // Đảm bảo rằng hình ảnh sẽ có chiều rộng 100%
-                }}
-              />
-              <div className="absolute">Tên truuyeejn</div>
-            </div>
-          }
-        >
-          <Meta
-            title="Mới cập nhật"
-            description={`${newMangaUpdate?.nameManga ?? ""} - Chapter ${
-              newMangaUpdate?.newNameChapter?.toString().padStart(2, 0) ?? ""
-            }`}
-          />
-        </Card>
-      </Link> */}
+      {isLoadingManga ? (
+        <SkeletonImage />
+      ) : (
+        <CardImage
+          to={`/manga/${newMangaUpdate.urlManga}/${newMangaUpdate?.newNameChapter}`}
+          src={newMangaUpdate.imgMain}
+          title="Mới cập nhật"
+          description={`${newMangaUpdate?.nameManga ?? ""} - Chapter ${
+            newMangaUpdate?.newNameChapter?.toString().padStart(2, 0) ?? ""
+          }`}
+          isBackdrop
+        />
+      )}
+
       {/* Quảng cáo  */}
       {/* <Card className="mt-2" title="Quảng cáo"></Card> */}
       <div className="mt-4">
@@ -127,49 +100,36 @@ function HomePage() {
               </p>
             </div>
             <Row gutter={[12, 12]}>
-              {dataMangaViewest.map((item, index) => {
-                return (
-                  <Col
-                    key={index}
-                    xs={{ span: 12 }}
-                    sm={{ span: 12 }}
-                    md={{ span: 12 }}
-                    lg={{ span: 12 }}
-                  >
-                    <Link
-                      to={`/manga/${item.urlManga}/${item?.newNameChapter}`}
+              {dataMangaViewest.length === 0 ? (
+                <SkeletonImage />
+              ) : (
+                dataMangaViewest?.map((item, index) => {
+                  return (
+                    <Col
+                      key={index}
+                      xs={{ span: 12 }}
+                      sm={{ span: 12 }}
+                      md={{ span: 12 }}
+                      lg={{ span: 12 }}
                     >
-                      <Card
-                        loading={isLoadingMangaViewest}
-                        cover={
-                          <ViewImage
-                            alt="example"
-                            src={item.imgMain}
-                            style={{
-                              height: 300,
-                              backgroundSize: "cover",
-                              backgroundPosition: "center",
-                              objectFit: "cover", // Sử dụng object-fit để scale hình ảnh
-                              width: "100%", // Đảm bảo rằng hình ảnh sẽ có chiều rộng 100%
-                            }}
-                            preview={false}
-                          />
-                        }
-                        hoverable
-                      >
-                        <Meta
-                          title={`${item.nameManga} `}
-                          description={`Chapter ${
-                            newMangaUpdate?.newNameChapter
-                              ?.toString()
-                              .padStart(2, 0) ?? ""
-                          }`}
-                        />
-                      </Card>
-                    </Link>
-                  </Col>
-                );
-              })}
+                      <CardImage
+                        isLoading={isLoadingMangaViewest}
+                        to={`/manga/${item.urlManga}/${item?.newNameChapter}`}
+                        src={newMangaUpdate.imgMain}
+                        title="Mới cập nhật"
+                        description={`${
+                          newMangaUpdate?.nameManga ?? ""
+                        } - Chapter ${
+                          newMangaUpdate?.newNameChapter
+                            ?.toString()
+                            .padStart(2, 0) ?? ""
+                        }`}
+                        isBackdrop
+                      />
+                    </Col>
+                  );
+                })
+              )}
             </Row>
           </Col>
           <Col
@@ -194,59 +154,27 @@ function HomePage() {
                 md={{ span: 24 }}
                 lg={{ span: 24 }}
               >
-                <Link to={`/movie/${dataMovieViewest.urlMovie}`}>
-                  <Card
-                    loading={isLoadingMovieViewest}
-                    cover={
-                      <ViewImage
-                        alt="example"
-                        src={dataMovieViewest.imgMain}
-                        style={{
-                          height: 300,
-                          backgroundSize: "cover",
-                          backgroundPosition: "center",
-                          objectFit: "cover", // Sử dụng object-fit để scale hình ảnh
-                          width: "100%", // Đảm bảo rằng hình ảnh sẽ có chiều rộng 100%
-                        }}
-                      />
-                    }
-                  >
-                    <Meta
-                      title={dataMovieViewest.nameMovie}
-                      description={dataMovieViewest.description}
-                    />
-                  </Card>
-                </Link>
+                {Object.keys(dataMovieViewest).length === 0 ? (
+                  <SkeletonImage />
+                ) : (
+                  <CardImage
+                    isLoading={isLoadingMovieViewest}
+                    to={`/movie/${dataMovieViewest.urlMovie}`}
+                    src={newMangaUpdate.imgMain}
+                    title="Mới cập nhật"
+                    description={`${
+                      newMangaUpdate?.nameManga ?? ""
+                    } - Chapter ${
+                      newMangaUpdate?.newNameChapter
+                        ?.toString()
+                        .padStart(2, 0) ?? ""
+                    }`}
+                    isBackdrop
+                  />
+                )}
               </Col>
             </Row>
           </Col>
-          {/* <Col>
-            <Card
-              loading={isLoadingMangaViewest}
-              cover={
-                <ViewImage
-                  alt="example"
-                  src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                  style={{
-                    height: 300,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    objectFit: "cover", // Sử dụng object-fit để scale hình ảnh
-                    width: "100%", // Đảm bảo rằng hình ảnh sẽ có chiều rộng 100%
-                  }}
-                  preview={false}
-                />
-              }
-            >
-              <Meta
-                title="Mới cập nhật"
-                description={`${newMangaUpdate?.nameManga ?? ""} - Chapter ${
-                  newMangaUpdate?.newNameChapter?.toString().padStart(2, 0) ??
-                  ""
-                }`}
-              />
-            </Card>
-          </Col> */}
         </Row>
       </div>
     </div>

@@ -16,6 +16,9 @@ import ViewImage from "./ViewImage";
 
 import ScrollToTop from './ScrollToTop'
 import CardImage from './CardImage'
+import SkeletonImage from "./SkeletonImage";
+import SkeletonViewChapter  from "./SkeletonViewChapter"
+import SkeletonView from './SkeletonView'
 
 export {
   RowAction,
@@ -31,5 +34,8 @@ export {
   SelectAgeClassification,
   ViewImage,
   ScrollToTop,
-  CardImage
+  CardImage,
+  SkeletonImage,
+  SkeletonViewChapter,
+  SkeletonView
 };

@@ -23,3 +23,18 @@
 .carousel * {
   width: 100%;
 }
+/* .ant-skeleton {
+  width: 100%;
+}
+
+.ant-skeleton-image {
+  width: 100%;
+} */
+.ant-skeleton-input {
+  width: 100% !important;
+  height: 55px !important;
+}
+
+:where(.css-dev-only-do-not-override-fpg3f5).ant-skeleton.ant-skeleton-element {
+  width: 100%;
+}
