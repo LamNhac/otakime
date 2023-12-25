@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth, getRedirectResult, onAuthStateChanged, signInWithCredential, signInWithEmailAndPassword, signInWithRedirect, signOut } from "firebase/auth";
+import { getDatabase } from "firebase/database";
 
-import { } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyApshDCxy63wCTEjAICrB3GIKIde3GB308",
@@ -16,7 +16,10 @@ const firebaseConfig = {
 // Initialize Firebase
 
 const app = initializeApp(firebaseConfig);
-var auth = getAuth(); // Khởi tạo Firebase Authentication
+const database = getDatabase(app);
+
+var auth = getAuth(app); // Khởi tạo Firebase Authentication
+
 const provider = new GoogleAuthProvider();
 
 // var email = "mail.otakime@gmail.com";
@@ -94,5 +97,27 @@ const logout = async ()=> {
   })
 }
 
-export { app, getRedirectResultUser, logout, onChangeToken, signInAdminUser, signInClientUser, verifyToken };
+// Đối với admin
+const setAdminClaims = async () => {
+  const user = auth.currentUser;
+  if (user) {
+    await user.getIdTokenResult(true);
+    await setAdminClaims(user.uid, { admin: true });
+  }
+};
+
+// Đối với client
+const setClientClaims = async () => {
+  const user = auth.currentUser;
+
+  if (user) {
+    await user.getIdTokenResult(true);
+    await auth.setCustomUserClaims(user.uid, { admin: false });
+  }
+};
+
+export { app, auth,database, getRedirectResultUser, logout, onChangeToken, signInAdminUser, signInClientUser, verifyToken 
+  ,setAdminClaims,
+  setClientClaims
+};
 

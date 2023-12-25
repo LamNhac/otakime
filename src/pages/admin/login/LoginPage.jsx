@@ -1,7 +1,7 @@
 import { Button, Card, Form, Input, message } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signInAdminUser } from "../../../services/firebase";
+import { setAdminClaims, signInAdminUser } from "../../../services/firebase";
 
 function LoginPage() {
   const [form] = Form.useForm();
@@ -15,13 +15,14 @@ function LoginPage() {
       values.USERNAME,
       values.PASSWORD,
       (user) => {
+        // setAdminClaims();
         console.log(user);
         navigate("/admin/dashboard");
         setIsLoading(false);
         localStorage.setItem("USERNAME", values.USERNAME);
         localStorage.setItem("PASSWORD", values.PASSWORD);
         localStorage.setItem("accessToken", user.accessToken);
-        localStorage.setItem("isLoginAdmin", true);
+        localStorage.setItem("isLoginAdmin", false);
       },
       (error) => {
         if (error) {

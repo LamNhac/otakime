@@ -1,7 +1,7 @@
 import { ConfigProvider } from "antd";
 import locale from "antd/lib/locale/vi_VN";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import { LayoutAdmin, LayoutClient } from "./layouts";
 import LoginPage from "./pages/admin/login/LoginPage";
@@ -35,6 +35,11 @@ import {
 
 
 const App = () => {
+
+  useEffect(()=>{
+    //Load config 
+  },[])
+
   return (
     <ConfigProvider locale={locale}>
         <Routes>

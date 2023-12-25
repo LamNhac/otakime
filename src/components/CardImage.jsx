@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ViewImage from "./ViewImage";
+import { EyeOutlined } from "@ant-design/icons";
+import AgeClassificationView from "./AgeClassificationView";
 
 export default function CardImage(props) {
   const {
@@ -9,6 +11,8 @@ export default function CardImage(props) {
     description,
     isBackdrop,
     isAgeClassification,
+    isView,
+    view,
     ageClassification,
     to,
     height = 305,
@@ -17,7 +21,7 @@ export default function CardImage(props) {
   const containerClasses = "relative w-full h-full rounded-md";
 
   const overlayClasses = isBackdrop
-    ? "absolute inset-0 bg-black opacity-50 mb-[5px]" // Chỉ áp dụng nếu isBackdrop là true
+    ? "absolute inset-0 bg-black opacity-20 mb-[5px]" // Chỉ áp dụng nếu isBackdrop là true
     : "";
 
   const contentClasses = "absolute left-[1rem] bottom-[3rem] text-white";
@@ -38,20 +42,19 @@ export default function CardImage(props) {
         />
         {isBackdrop && <div className={overlayClasses}></div>}
         {isAgeClassification && (
-          <div
-            className=" absolute w-10 h-10 flex items-center justify-center right-1 top-1 rounded-sm"
-            style={{
-              zIndex: 3,
-              backgroundColor: ageClassification.bgColor,
-              color: ageClassification.textColor,
-            }}
-          >
-            <p className=" font-thin text-sm mb-0">{ageClassification.label}</p>
+          <AgeClassificationView ageClassification={ageClassification} />
+        )}
+        {isView && (
+          <div className="absolute top-[1rem] left-[1rem]">
+            <h3 className="text-lg text-white">
+              {view ?? 0} <EyeOutlined />
+            </h3>
           </div>
         )}
-
         <div className={contentClasses}>
-          <h2 className="font-bold text-lg">{title}</h2>
+          <h2 className="font-bold xs:text-2xl sm:text-[1rem] md:text-[2rem]">
+            {title}{" "}
+          </h2>
           <p>{description}</p>
         </div>
       </div>

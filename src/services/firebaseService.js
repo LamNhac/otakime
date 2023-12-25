@@ -10,7 +10,7 @@ import {
   query,
   updateDoc,
 } from "firebase/firestore";
-import { app } from "./firebase";
+import { app, database } from "./firebase";
 
 import {
   getDownloadURL,
@@ -196,6 +196,38 @@ const getFileDownloadURL = (path) => {
 
 
 
+// Thêm một document vào collection
+ const addDocumentRealtime = (collection, data) => {
+  const newRef = database.ref(collection).push();
+  return newRef.set(data);
+};
+
+// Lấy tất cả documents từ collection
+ const getAllDocumentsRealtime  = (collection) => {
+  return database.ref(collection).once('value').then((snapshot) => {
+    const data = snapshot.val();
+    return data ? Object.values(data) : [];
+  });
+};
+
+// Lấy một document từ collection theo id
+ const getDocumentByIdRealtime  = (collection, id) => {
+  return database.ref(`${collection}/${id}`).once('value').then((snapshot) => {
+    return snapshot.val();
+  });
+};
+
+// Cập nhật một document trong collection theo id
+ const updateDocumentRealtime  = (collection, id, data) => {
+  return database.ref(`${collection}/${id}`).update(data);
+};
+
+// Xóa một document trong collection theo id
+ const deleteDocumentRealtime  = (collection, id) => {
+  return database.ref(`${collection}/${id}`).remove();
+};
+
+
 export {
   analytics,
   addDocument,
@@ -206,4 +238,9 @@ export {
   updateDocument,
   uploadFile,
   saveToLog,
+  addDocumentRealtime,
+  getAllDocumentsRealtime,
+  getDocumentByIdRealtime,
+  updateDocumentRealtime,
+  deleteDocumentRealtime
 };

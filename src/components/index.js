@@ -19,6 +19,7 @@ import CardImage from './CardImage'
 import SkeletonImage from "./SkeletonImage";
 import SkeletonViewChapter  from "./SkeletonViewChapter"
 import SkeletonView from './SkeletonView'
+import AgeClassificationView from "./AgeClassificationView";
 
 export {
   RowAction,
@@ -37,5 +38,6 @@ export {
   CardImage,
   SkeletonImage,
   SkeletonViewChapter,
-  SkeletonView
+  SkeletonView,
+  AgeClassificationView
 };

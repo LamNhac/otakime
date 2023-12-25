@@ -47,6 +47,7 @@ function ModalAddMovie() {
           } else {
             setIsLoading(true);
             values.updateAt = dayjs(values.updateAt).format(Config.dateFormat);
+            values.view = 0;
 
             addDocument("movie", values)
               .then(() => {

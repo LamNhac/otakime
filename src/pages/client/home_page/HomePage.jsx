@@ -67,7 +67,6 @@ function HomePage() {
         setIsLoadingMovieViewest(false);
       });
   }, []);
-
   return (
     <div className="flex flex-col">
       {isLoadingManga ? (
@@ -80,7 +79,15 @@ function HomePage() {
           description={`${newMangaUpdate?.nameManga ?? ""} - Chapter ${
             newMangaUpdate?.newNameChapter?.toString().padStart(2, 0) ?? ""
           }`}
+          view={100}
+          ageClassification={
+            newMangaUpdate.ageClassification
+              ? newMangaUpdate.ageClassification[0]
+              : []
+          }
           isBackdrop
+          isAgeClassification
+          isView
         />
       )}
 
@@ -115,16 +122,20 @@ function HomePage() {
                       <CardImage
                         isLoading={isLoadingMangaViewest}
                         to={`/manga/${item.urlManga}/${item?.newNameChapter}`}
-                        src={newMangaUpdate.imgMain}
-                        title="Mới cập nhật"
-                        description={`${
-                          newMangaUpdate?.nameManga ?? ""
-                        } - Chapter ${
-                          newMangaUpdate?.newNameChapter
-                            ?.toString()
-                            .padStart(2, 0) ?? ""
+                        src={item.imgMain}
+                        title={item?.nameManga}
+                        description={`Chapter ${
+                          item?.newNameChapter?.toString().padStart(2, 0) ?? ""
                         }`}
+                        view={item.view}
+                        ageClassification={
+                          item.ageClassification
+                            ? item.ageClassification[0]
+                            : []
+                        }
                         isBackdrop
+                        isAgeClassification
+                        isView
                       />
                     </Col>
                   );
@@ -160,16 +171,18 @@ function HomePage() {
                   <CardImage
                     isLoading={isLoadingMovieViewest}
                     to={`/movie/${dataMovieViewest.urlMovie}`}
-                    src={newMangaUpdate.imgMain}
-                    title="Mới cập nhật"
-                    description={`${
-                      newMangaUpdate?.nameManga ?? ""
-                    } - Chapter ${
-                      newMangaUpdate?.newNameChapter
-                        ?.toString()
-                        .padStart(2, 0) ?? ""
-                    }`}
+                    src={dataMovieViewest.imgMain}
+                    title={dataMovieViewest?.nameMovie}
+                    description=""
+                    view={dataMovieViewest.view}
+                    ageClassification={
+                      dataMovieViewest.ageClassification
+                        ? dataMovieViewest.ageClassification[0]
+                        : []
+                    }
                     isBackdrop
+                    isAgeClassification
+                    isView
                   />
                 )}
               </Col>

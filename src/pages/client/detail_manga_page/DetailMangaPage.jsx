@@ -4,6 +4,7 @@ import { Space, Spin, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
+  AgeClassificationView,
   SkeletonView,
   SkeletonViewChapter,
   ViewImage,
@@ -44,7 +45,7 @@ function DetailMangaPage() {
       tip="Đang tải dữ liệu..."
       className="min-h-screen"
     >
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
         <ViewImage
           src={data?.imgCover}
           preview={false}
@@ -62,37 +63,33 @@ function DetailMangaPage() {
           <div className="sm:pl-4 sm:pr-4 md:pl-8 md:pr-8 lg:pl-12 lg:pr-12">
             <div className="flex justify-between items-center ">
               <h1 className="text-[2rem] font-bold">{data?.nameManga}</h1>
-              <div
-                className=" w-14 h-14 flex items-center justify-center rounded-sm"
-                style={{
-                  zIndex: 2,
-                  backgroundColor: data?.ageClassification[0].bgColor,
-                  color: data?.ageClassification[0].textColor,
-                }}
-              >
-                {data?.ageClassification[0].label}
-              </div>
+              <AgeClassificationView
+                ageClassification={data?.ageClassification[0]}
+              />
             </div>
             <div className="flex flex-col gap-2 mb-4">
-              <p>
+              <div>
                 <b>Tên việt:</b> {data?.nameMangaVie}
-              </p>
-              <p>
+              </div>
+              <div>
                 <b>Tên khác:</b> {data?.otherName}
-              </p>
-              <p>
+              </div>
+              <div>
                 <b>Tác giả:</b> {data?.author}
-              </p>
-              <p>
+              </div>
+              <div>
                 <b>Ngày cập nhật:</b> {data?.updateAt}
-              </p>
-              <p>
+              </div>
+              <div>
+                <b>Lượt xem:</b> {data?.view ?? 0}
+              </div>
+              <div>
                 <b>Tình trạng:</b>{" "}
                 <Tag color={data?.statusManga[0].color}>
                   {data?.statusManga[0].label}
                 </Tag>
-              </p>
-              <p>
+              </div>
+              <div>
                 <b>Thể loại: </b>
                 <Space>
                   {data?.tags.map((item, index) => {
@@ -103,7 +100,7 @@ function DetailMangaPage() {
                     );
                   })}
                 </Space>
-              </p>
+              </div>
             </div>
           </div>
         )}

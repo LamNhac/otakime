@@ -1,6 +1,8 @@
+import { UploadOutlined } from "@ant-design/icons";
 import { Button, Card, Form, Image, Input, Modal, Space, Upload } from "antd";
 import React, { useEffect, useState } from "react";
-import { UploadOutlined } from "@ant-design/icons";
+import { uploadFile } from "../../../services/firebaseService";
+import { auth } from "../../../services/firebase";
 const normFile = (e) => {
   if (Array.isArray(e)) {
     return e;
@@ -74,8 +76,24 @@ export default function SettingPage() {
       <Card title="Setting">
         <Form
           form={formIcon}
-          onFinish={(values) => {
-            console.log(values);
+          onFinish={async (values) => {
+            const user = auth.currentUser;
+            if (user) {
+              const tokenResult = await user.getIdTokenResult();
+              // Kiểm tra custom claims
+              if (tokenResult.claims.admin) {
+                // Đây là admin
+                console.log("admin");
+              } else {
+                // Đây là client
+                console.log("client");
+              }
+            }
+            // const url = await uploadFile(
+            //   values.iconImg[0].originFileObj,
+            //   "app"
+            // );
+            // console.log("url", url);
           }}
         >
           <Space>

@@ -63,7 +63,7 @@ function HeaderClient() {
         setIsLoadingAvatar(false);
       } else {
         onChangeToken().then((user) => {
-          if (user) {
+          if (user && user.photoURL) {
             setIsLoginUser(true);
             setUserClient(user);
             console.log(user);
@@ -122,7 +122,12 @@ function HeaderClient() {
             onClick={() => setIsOpenDrawer(true)}
           ></Button>
           <Drawer
-            title="Basic Drawer"
+            title={
+              <div className="w-full flex items-center justify-between">
+                <Image src={IMAGES.logo} preview={false} width={100} />
+                <Avatar src={user?.photoURL} />
+              </div>
+            }
             placement="right"
             width="80%"
             onClose={() => setIsOpenDrawer(false)}
@@ -131,6 +136,14 @@ function HeaderClient() {
           >
             <div className="flex flex-col  justify-between h-[100%]">
               <div className="flex flex-col gap-5 items-center">
+                <Link
+                  to="/"
+                  onClick={() => {
+                    setIsOpenDrawer(false);
+                  }}
+                >
+                  Home
+                </Link>
                 <Link
                   to="manga"
                   onClick={() => {
@@ -154,6 +167,14 @@ function HeaderClient() {
                   }}
                 >
                   ABOUT
+                </Link>
+                <Link
+                  to="information-user"
+                  onClick={() => {
+                    setIsOpenDrawer(false);
+                  }}
+                >
+                  User
                 </Link>
               </div>
               <div className="flex items-center justify-center gap-5 ">
