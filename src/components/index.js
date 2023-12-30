@@ -19,7 +19,10 @@ import CardImage from './CardImage'
 import SkeletonImage from "./SkeletonImage";
 import SkeletonViewChapter  from "./SkeletonViewChapter"
 import SkeletonView from './SkeletonView'
+import SkeletionMovie from "./SkeletionMovie";
 import AgeClassificationView from "./AgeClassificationView";
+
+import CardImageMovieView from "./CardImageMovieView";
 
 export {
   RowAction,
@@ -39,5 +42,7 @@ export {
   SkeletonImage,
   SkeletonViewChapter,
   SkeletonView,
-  AgeClassificationView
+  AgeClassificationView,
+  CardImageMovieView,
+  SkeletionMovie
 };

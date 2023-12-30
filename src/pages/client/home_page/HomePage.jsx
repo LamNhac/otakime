@@ -79,7 +79,6 @@ function HomePage() {
           description={`${newMangaUpdate?.nameManga ?? ""} - Chapter ${
             newMangaUpdate?.newNameChapter?.toString().padStart(2, 0) ?? ""
           }`}
-          view={100}
           ageClassification={
             newMangaUpdate.ageClassification
               ? newMangaUpdate.ageClassification[0]
@@ -87,7 +86,6 @@ function HomePage() {
           }
           isBackdrop
           isAgeClassification
-          isView
         />
       )}
 
@@ -107,39 +105,65 @@ function HomePage() {
               </p>
             </div>
             <Row gutter={[12, 12]}>
-              {dataMangaViewest.length === 0 ? (
-                <SkeletonImage />
-              ) : (
-                dataMangaViewest?.map((item, index) => {
-                  return (
-                    <Col
-                      key={index}
-                      xs={{ span: 12 }}
-                      sm={{ span: 12 }}
-                      md={{ span: 12 }}
-                      lg={{ span: 12 }}
-                    >
-                      <CardImage
-                        isLoading={isLoadingMangaViewest}
-                        to={`/manga/${item.urlManga}/${item?.newNameChapter}`}
-                        src={item.imgMain}
-                        title={item?.nameManga}
-                        description={`Chapter ${
-                          item?.newNameChapter?.toString().padStart(2, 0) ?? ""
-                        }`}
-                        view={item.view}
-                        ageClassification={
-                          item.ageClassification
-                            ? item.ageClassification[0]
-                            : []
-                        }
-                        isBackdrop
-                        isAgeClassification
-                        isView
-                      />
-                    </Col>
-                  );
-                })
+              <Col
+                xs={{ span: 12 }}
+                sm={{ span: 12 }}
+                md={{ span: 12 }}
+                lg={{ span: 12 }}
+              >
+                {isLoadingMangaViewest ? (
+                  <SkeletonImage />
+                ) : (
+                  <CardImage
+                    isLoading={isLoadingMangaViewest}
+                    to={`/manga/${dataMangaViewest[0]?.urlManga}/${dataMangaViewest[0]?.newNameChapter}`}
+                    src={dataMangaViewest[0]?.imgMain}
+                    title={dataMangaViewest[0]?.nameManga}
+                    description={`Chapter ${
+                      dataMangaViewest[0]?.newNameChapter
+                        ?.toString()
+                        .padStart(2, 0) ?? ""
+                    }`}
+                    ageClassification={
+                      dataMangaViewest[0]?.ageClassification
+                        ? dataMangaViewest[0]?.ageClassification[0]
+                        : []
+                    }
+                    isBackdrop
+                    isAgeClassification
+                  />
+                )}
+              </Col>
+              {dataMangaViewest[1] && (
+                <Col
+                  xs={{ span: 12 }}
+                  sm={{ span: 12 }}
+                  md={{ span: 12 }}
+                  lg={{ span: 12 }}
+                >
+                  {isLoadingMangaViewest ? (
+                    <SkeletonImage />
+                  ) : (
+                    <CardImage
+                      isLoading={isLoadingMangaViewest}
+                      to={`/manga/${dataMangaViewest[1]?.urlManga}/${dataMangaViewest[1]?.newNameChapter}`}
+                      src={dataMangaViewest[1]?.imgMain}
+                      title={dataMangaViewest[1]?.nameManga}
+                      description={`Chapter ${
+                        dataMangaViewest[1]?.newNameChapter
+                          ?.toString()
+                          .padStart(2, 1) ?? ""
+                      }`}
+                      ageClassification={
+                        dataMangaViewest[1]?.ageClassification
+                          ? dataMangaViewest[1]?.ageClassification[1]
+                          : []
+                      }
+                      isBackdrop
+                      isAgeClassification
+                    />
+                  )}
+                </Col>
               )}
             </Row>
           </Col>
@@ -174,7 +198,6 @@ function HomePage() {
                     src={dataMovieViewest.imgMain}
                     title={dataMovieViewest?.nameMovie}
                     description=""
-                    view={dataMovieViewest.view}
                     ageClassification={
                       dataMovieViewest.ageClassification
                         ? dataMovieViewest.ageClassification[0]
@@ -182,7 +205,6 @@ function HomePage() {
                     }
                     isBackdrop
                     isAgeClassification
-                    isView
                   />
                 )}
               </Col>

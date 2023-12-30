@@ -24,7 +24,6 @@ import { getAllDocuments } from "../../../services/firebaseService";
 
 function DetailMangaChapterPage() {
   let { mangaId, chapterId } = useParams();
-
   // const [isTypeRead] = useState(localStorage.getItem("isTypeRead"));
 
   const [data, setData] = useState(null);
@@ -56,12 +55,15 @@ function DetailMangaChapterPage() {
               id: item.id,
             }));
             setSelectChapter(options);
+            console.log("setSelectChapter xxx");
 
             //Convert ảnh
             chapter.imgChapterFile = JSON.parse(chapter.imgChapterFile);
             setDataChapter(chapter);
           } else {
             message.error(`Chapter ${chapterId} không tồn tại!`);
+            setDataChapter(null);
+            setSelectChapter(null);
           }
 
           //Cập nhật lượt View
@@ -74,41 +76,35 @@ function DetailMangaChapterPage() {
       .finally(() => setIsLoading(false));
   }, [chapterId]);
 
-  const isChapterValid = (chapterId) => {
-    // Kiểm tra xem chapterId có nằm trong danh sách selectChapter không
-    return selectChapter?.some((chapter) => chapter.id === chapterId);
-  };
-  const handleKeyDown = (event) => {
-    switch (event.keyCode) {
-      case 37: // Mũi tên bên trái
-        console.log("Bấm mũi tên bên trái");
-        const previousChapterId = parseInt(chapterId, 10) - 1;
-        if (isChapterValid(previousChapterId)) {
-          navigate(`/manga/${mangaId}/${previousChapterId}`);
-        }
-        break;
-      case 39: // Mũi tên bên phải
-        console.log("Bấm mũi tên bên phải");
-        const nextChapterId = parseInt(chapterId, 10) + 1;
-        if (isChapterValid(nextChapterId)) {
-          navigate(`/manga/${mangaId}/${nextChapterId}`);
-        }
-        break;
-      default:
-        // Xử lý cho các trường hợp khác (nếu cần)
-        break;
-    }
-  };
+  // console.log("chapterId", chapterId);
+  // const handleKeyDown = (event) => {
+  //   switch (event.keyCode) {
+  //     case 37: // Mũi tên bên trái
+  //       const previousChapterId = parseInt(chapterId) - 1;
+  //       console.log("previousChapterId", previousChapterId);
+  //       navigate(`/manga/${mangaId}/${previousChapterId}`);
+  //       break;
+  //     case 39: // Mũi tên bên phải
+  //       const nextChapterId = parseInt(chapterId) + 1;
+  //       console.log("nextChapterId", nextChapterId);
 
-  useEffect(() => {
-    // Thêm sự kiện lắng nghe khi component được mount
-    document.addEventListener("keydown", handleKeyDown);
+  //       navigate(`/manga/${mangaId}/${nextChapterId}`);
+  //       break;
+  //     default:
+  //       // Xử lý cho các trường hợp khác (nếu cần)
+  //       break;
+  //   }
+  // };
 
-    // Hủy sự kiện lắng nghe khi component bị unmount
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []); // Thêm mảng rỗng để đảm bảo sự kiện chỉ được thêm một lần khi component mount
+  // useEffect(() => {
+  //   // Thêm sự kiện lắng nghe khi component được mount
+  //   document.addEventListener("keydown", handleKeyDown);
+
+  //   // Hủy sự kiện lắng nghe khi component bị unmount
+  //   return () => {
+  //     document.removeEventListener("keydown", handleKeyDown);
+  //   };
+  // }, []); // Thêm mảng rỗng để đảm bảo sự kiện chỉ được thêm một lần khi component mount
 
   //Xử lý cho chapter
   const currentChapterId = chapterId ? parseInt(chapterId, 10) : null;
@@ -139,10 +135,10 @@ function DetailMangaChapterPage() {
             })}
           </Space>
         </div>
-        <p className="mb-0 italic">
+        {/* <p className="mb-0 italic">
           Bạn có thể bấm phím <LeftOutlined /> hoặc <RightOutlined /> để chuyển
           chap
-        </p>
+        </p> */}
       </Card>
 
       <div className="sticky top-0 z-[10] descreased-padding w-[100%] bg-white p-2 drop-shadow-lg">
