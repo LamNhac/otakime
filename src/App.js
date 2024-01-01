@@ -6,9 +6,6 @@ import { Outlet, Route, Routes } from "react-router-dom";
 import { LayoutAdmin, LayoutClient } from "./layouts";
 import LoginPage from "./pages/admin/login/LoginPage";
 
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import "../src/css/output.css";
-
 import CategoryTagPage from "./pages/admin/category_tag_page/CategoryTagPage";
 import DashboardPage from "./pages/admin/dashboard_page/DashboardPage";
 import MailPage from "./pages/admin/mail_page/MailPage";
@@ -19,6 +16,9 @@ import UploadImagePage from "./pages/admin/upload_image_page/UploadImagePage";
 
 import { AgeClassificationPage, EventPage, QueryPage, SettingPage, UserPage, VersionPage } from "./pages/admin";
 import HistoryPage from "./pages/admin/history_page/HistoryPage";
+
+import "../src/css/output.css";
+
 import {
   AboutPage,
   DetailMangaChapterPage,
@@ -37,11 +37,19 @@ import {
 const App = () => {
 
   useEffect(()=>{
-    //Load config 
+    //Load config
+    
   },[])
 
   return (
-    <ConfigProvider locale={locale}>
+    <ConfigProvider 
+      locale={locale}
+      theme={{
+        token: {
+          fontFamily: "Be Vietnam Pro"
+        }
+      }}
+    >
         <Routes>
           <Route path="/admin" element={<Outlet />}>
             <Route index element={<LoginPage />} />

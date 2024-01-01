@@ -30,6 +30,9 @@ function LayoutClient() {
           <HeaderClient />
           <Content
             className={movieId || chapterId ? "" : "  container p-4 min-w-full"}
+            style={{
+              minHeight: "calc(100vh - 64px - 111px)",
+            }}
           >
             <Outlet />
           </Content>

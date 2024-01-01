@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@200;500;600;700&display=swap");
 /* tile uploaded pictures */
 .upload-list-inline .ant-upload-list-item {
   float: left;
@@ -23,13 +24,7 @@
 .carousel * {
   width: 100%;
 }
-/* .ant-skeleton {
-  width: 100%;
-}
 
-.ant-skeleton-image {
-  width: 100%;
-} */
 .ant-skeleton-input {
   width: 100% !important;
   height: 55px !important;
