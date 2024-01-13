@@ -10,6 +10,9 @@ import LicensePage from "../client/license_page/LicensePage";
 import TermsofusePage from "../client/termsofuse_page/TermsofusePage";
 import PageNotFoundPage from "./page_not_found_page/PageNotFoundPage";
 import InformationClientPage from "./information_client_page/InformationClientPage";
+
+import MaintainPage from "./maintain_page/MaintainPage";
+
 export {
   AboutPage,
   DetailMangaPage,
@@ -21,5 +24,6 @@ export {
   LicensePage,
   TermsofusePage,
   PageNotFoundPage,
-  InformationClientPage
+  InformationClientPage,
+  MaintainPage
 };

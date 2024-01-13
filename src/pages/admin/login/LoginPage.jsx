@@ -32,7 +32,12 @@ function LoginPage() {
         }
       }
     );
-    setIsLoading(false);
+    // if (values.USERNAME === "OTAKIME" && values.PASSWORD === "OTAKIME123") {
+    //   navigate("/admin/dashboard");
+    //   setIsLoading(false);
+    // } else {
+    //   setIsLoading(false);
+    // }
   };
   useEffect(() => {
     const isLoginAdmin = localStorage.getItem("isLoginAdmin");

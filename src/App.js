@@ -1,7 +1,7 @@
 import { ConfigProvider } from "antd";
 import locale from "antd/lib/locale/vi_VN";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import { LayoutAdmin, LayoutClient } from "./layouts";
 import LoginPage from "./pages/admin/login/LoginPage";
@@ -27,6 +27,7 @@ import {
   HomePage,
   InformationClientPage,
   LicensePage,
+  MaintainPage,
   MangaPageClient,
   MoviePageClient,
   PageNotFoundPage,
@@ -34,12 +35,22 @@ import {
 } from "./pages/client";
 
 
+const isMaintain = true
+const defaultTitle = 'Otakime'
+const defaultDescription= 'Đây là description'
+
 const App = () => {
 
   useEffect(()=>{
-    //Load config
-    
+    //Load config...
+
+    //Set Title default
+    document.title = defaultTitle;
+    const el = document.querySelector("meta[name='description']");
+    el.setAttribute('content',defaultDescription)
   },[])
+  
+
 
   return (
     <ConfigProvider 
@@ -74,7 +85,9 @@ const App = () => {
           </Route>
 
           <Route path="/" element={<Outlet />}>
-            <Route element={<LayoutClient />}>
+            {
+              isMaintain ? <Route index element={<MaintainPage/>}/> :             
+              <Route element={<LayoutClient />}>
               <Route index element={<HomePage />} />
               <Route path="about" element={<AboutPage />} />
               <Route path="manga" element={<MangaPageClient />} />
@@ -89,6 +102,7 @@ const App = () => {
               <Route path="license" element={<LicensePage />} />
               <Route path="information-user" element={<InformationClientPage />} />
             </Route>
+            }
           </Route>
 
           <Route path="*" element={<PageNotFoundPage />} />

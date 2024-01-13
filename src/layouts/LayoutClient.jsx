@@ -11,16 +11,31 @@ function LayoutClient() {
 
   const { chapterId, movieId } = useParams();
 
-  useEffect(() => {
-    // setIsLoading(true);
-    setIsLoading(false);
-    // setTimeout(() => {
-    // }, 3000);
-  }, []);
+  // useEffect(() => {
+  //   // setIsLoading(true);
+  //   setIsLoading(false);
+  //   // setTimeout(() => {
+  //   // }, 3000);
+  // }, []);
 
   const [userClient, setUserClient] = useState(null);
   const [isLoginUser, setIsLoginUser] = useState(null);
-  const state = { userClient, setUserClient, isLoginUser, setIsLoginUser };
+
+  const [titleDocument, setTitleDocument] = useState("Otakime");
+  const [desciption, setDescription] = useState("");
+
+  const state = {
+    userClient,
+    setUserClient,
+    isLoginUser,
+    setIsLoginUser,
+    titleDocument,
+    setTitleDocument,
+    desciption,
+    setDescription,
+  };
+
+
   return (
     <AppContextClient.Provider value={state}>
       {isLoading ? (

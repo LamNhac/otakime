@@ -3,15 +3,25 @@ import { GoogleAuthProvider, getAuth, getRedirectResult, onAuthStateChanged, sig
 import { getDatabase } from "firebase/database";
 
 
+// const firebaseConfig = {
+//   apiKey: "AIzaSyApshDCxy63wCTEjAICrB3GIKIde3GB308",
+//   authDomain: "test-54333.firebaseapp.com",
+//   databaseURL:
+//     "https://test-54333-default-rtdb.asia-southeast1.firebasedatabase.app",
+//   projectId: "test-54333",
+//   storageBucket: "test-54333.appspot.com",
+//   messagingSenderId: "731309557585",
+//   appId: "1:731309557585:web:02cef1b555e45a2052b570",
+// };
 const firebaseConfig = {
-  apiKey: "AIzaSyApshDCxy63wCTEjAICrB3GIKIde3GB308",
-  authDomain: "test-54333.firebaseapp.com",
-  databaseURL:
-    "https://test-54333-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "test-54333",
-  storageBucket: "test-54333.appspot.com",
-  messagingSenderId: "731309557585",
-  appId: "1:731309557585:web:02cef1b555e45a2052b570",
+  apiKey: "AIzaSyBsWfL_ws_g-lu_PJin0cG48yH_M38PhX4",
+  authDomain: "otakime-dc208.firebaseapp.com",
+  databaseURL: "https://otakime-dc208-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "otakime-dc208",
+  storageBucket: "otakime-dc208.appspot.com",
+  messagingSenderId: "1022690635838",
+  appId: "1:1022690635838:web:f0f624a2f6d0f64cea616f",
+  measurementId: "G-8RP2DN4733"
 };
 // Initialize Firebase
 
