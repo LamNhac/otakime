@@ -43,10 +43,14 @@ const saveToLog = (method, collectionPath, data) => {
   if (collectionPath.includes("movie")) {
     params.path = "movie";
   }
+  // Kiểm tra xem chuỗi có chứa "uploadImage" hay không
+  if (collectionPath.includes("uploadImage")) {
+    params.path = "uploadImage";
+  }
 
-  // addDocument("log", params).then(() => {
-  //   console.log("Lưu log!");
-  // });
+  addDocument("log", params).then(() => {
+    console.log("Lưu log!");
+  });
   console.log("params LOG", params)
 };
 

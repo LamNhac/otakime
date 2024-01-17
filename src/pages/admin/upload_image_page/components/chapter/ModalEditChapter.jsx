@@ -16,6 +16,7 @@ import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
 import Config from "../../../../../config";
 import {
+  saveToLog,
   updateDocument,
   uploadFile,
 } from "../../../../../services/firebaseService";
@@ -156,6 +157,7 @@ function ModalEditChapter() {
                   );
                 })
                 .finally(() => {
+                  saveToLog("update", "uploadImage", values);
                   setIsModalEditDetailChapter(false);
                 });
             })

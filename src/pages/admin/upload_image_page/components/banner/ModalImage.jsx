@@ -12,6 +12,7 @@ import {
 } from "antd";
 import { useContext, useState } from "react";
 import {
+  saveToLog,
   updateDocument,
   uploadFile,
 } from "../../../../../services/firebaseService";
@@ -112,7 +113,10 @@ function ModalImage() {
               loadManga();
               setIsModalImage(false);
             })
-            .finally(() => setIsLoading(false));
+            .finally(() => {
+              saveToLog("update", "uploadImage", values);
+              setIsLoading(false);
+            });
         }}
       >
         <Row gutter={[12, 12]}>

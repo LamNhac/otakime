@@ -43,11 +43,12 @@ function ModalAddManga() {
           if (mangaExists) {
             return message.warning(`Đã tồn tại manga ${values.urlManga}`);
           } else {
-            console.log(values);
             setIsLoading(true);
             values.updateAt = dayjs(values.updateAt).format(Config.dateFormat);
             // values.chapter = []; //Tạo trường chapter cho manga
             values.newDateUpdateChapterAt = ""; // Tạo trường newDateUpdateChapterAt để lấy chapter mới cập nhật
+            values.ageClassification = values.ageClassification ?? [];
+            console.log(values);
             addDocument(`manga`, values)
               .then((data) => {
                 setIsLoading(false);
@@ -56,11 +57,11 @@ function ModalAddManga() {
                     Thêm manga <b>{values.nameManga}</b> thành công!
                   </span>
                 );
-                saveToLog("add", "manga", values);
                 loadManga();
               })
               .finally(() => {
                 form.resetFields();
+                saveToLog("add", "manga", values);
                 setIsShowModalAdd(false);
               })
               .catch((error) => message.error(error));
@@ -186,17 +187,6 @@ function ModalAddManga() {
             <Form.Item
               name="ageClassification"
               label="Phân loại tuổi"
-              required
-              rules={[
-                {
-                  validator: (_, value) => {
-                    if (value && value.length > 0) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject("Vui lòng chọn thể loại");
-                  },
-                },
-              ]}
               validateTrigger={["onChange"]} // Validate on tag selection change
             >
               <SelectAgeClassification

@@ -18,6 +18,7 @@ import Config from "../../../../../config";
 import {
   addDocument,
   getAllDocuments,
+  saveToLog,
   updateDocument,
   uploadFile,
 } from "../../../../../services/firebaseService";
@@ -103,11 +104,11 @@ function ModalAddChapter() {
           if (chapterExist) {
             return message.warning(`Chapter ${values.nameChapter} đã tồn tại!`);
           } else {
-            setIsLoading(true);
+            // setIsLoading(true);
             values.updateChapterAt = dayjs(values.updateChapterAt).format(
               Config.dateFormat
             );
-            values.view = 0
+            values.view = 0;
 
             for (var i in values.imgChapterFile) {
               const urlPromise = await uploadFile(
@@ -125,7 +126,14 @@ function ModalAddChapter() {
             }
             Promise.all(values.imgChapterFile)
               .then(() => {
+
+                //Thêm trường cho chapter để render ra UI
                 values.imgChapterFile = JSON.stringify(values.imgChapterFile);
+                values.nameManga = dataMangaObj.nameManga;
+                values.nameMangaVie = dataMangaObj.nameMangaVie;
+                values.urlManga = dataMangaObj.urlManga;
+                values.tags = dataMangaObj.tags;
+
                 const cloneDataMangaObj = {
                   ...dataMangaObj,
                   newDateUpdateChapterAt: dayjs(new Date()).format(
@@ -136,6 +144,9 @@ function ModalAddChapter() {
 
                 //Cập nhật newDateUpdateChapterAt vào trong Manga để lấy ra truyện mới cập nhật
                 updateDocument("manga", dataMangaObj.id, cloneDataMangaObj);
+
+                console.log("dataMangaObj", dataMangaObj);
+                console.log("values", values);
 
                 addDocument(`manga/${dataMangaObj.id}/chapter`, values)
                   .then(() => {
@@ -152,6 +163,7 @@ function ModalAddChapter() {
                   })
                   .finally(() => {
                     setIsModalAddChapter(false);
+                    saveToLog("add", "uploadImage", values);
                     form.resetFields();
                   });
               })
