@@ -47,6 +47,7 @@ function ModalAddManga() {
             values.updateAt = dayjs(values.updateAt).format(Config.dateFormat);
             // values.chapter = []; //Tạo trường chapter cho manga
             values.newDateUpdateChapterAt = ""; // Tạo trường newDateUpdateChapterAt để lấy chapter mới cập nhật
+            values.newNameChapter = null; // Tạo trường newNameChapter để lấy tên chapter mới nhất
             values.ageClassification = values.ageClassification ?? [];
             console.log(values);
             addDocument(`manga`, values)

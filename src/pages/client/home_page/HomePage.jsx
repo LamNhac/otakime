@@ -6,6 +6,7 @@ import { analytics, getAllDocuments } from "../../../services/firebaseService";
 import { logEvent } from "firebase/analytics";
 import CardImage from "../../../components/CardImage";
 import SkeletonImage from "../../../components/SkeletonImage";
+import dateUtil from "../../../utils/dateUtil";
 
 function HomePage() {
   const [isLoadingManga, setIsLoadingManga] = useState(false);
@@ -27,22 +28,38 @@ function HomePage() {
     getAllDocuments("manga")
       .then((res) => {
         // Chuyển đổi chuỗi ngày thành đối tượng Date
-        const dateObjects = res.map(
-          (manga) => new Date(manga.newDateUpdateChapterAt)
-        );
+        const dateObjects = res.map((manga) => {
+          return {
+            ...manga,
+            newDateUpdateChapterAt: dateUtil.convertToDateType(
+              manga.newDateUpdateChapterAt
+            ),
+          };
+        });
 
         // Lấy ngày mới nhất
-        const newestDate = new Date(Math.max.apply(null, dateObjects));
-        const newestManga = res.find(
-          (manga) =>
-            new Date(manga.newDateUpdateChapterAt).getTime() ===
-            newestDate.getTime()
-        );
-        setNewMangaUpdate(newestManga);
+        const result = dateObjects.reduce(
+          (acc, obj, index) => {
+            const currentDate = obj.newDateUpdateChapterAt;
 
-        const mangaViewest = res.sort((a, b) => a.view - b.view);
-        const mangaViewestSlice = mangaViewest.slice(0, 2);
-        setDataMangaViewest(mangaViewestSlice);
+            if (!acc.maxDate || currentDate > acc.maxDate) {
+              return { maxDate: currentDate, index: index };
+            } else {
+              return acc;
+            }
+          },
+          { maxDate: null, index: -1 }
+        );
+        if (result) {
+          setNewMangaUpdate(dateObjects[result.index]);
+        }
+
+        //Lấy ra manga có lượt view cao nhất
+        if (res) {
+          const mangaViewest = res.sort((a, b) => a.view - b.view);
+          const mangaViewestSlice = mangaViewest.slice(0, 2);
+          setDataMangaViewest(mangaViewestSlice);
+        }
       })
       .finally(() => {
         setIsLoadingManga(false);
@@ -54,10 +71,11 @@ function HomePage() {
 
     getAllDocuments("movie")
       .then((res) => {
-        const movieViewest = res.sort((a, b) => b.view - a.view);
-        const movieViewestSlice = movieViewest.slice(0, 1)[0];
-        console.log("movieViewestSlice", movieViewestSlice);
-        setDataMovieViewest(movieViewestSlice);
+        if (res.length > 0) {
+          const movieViewest = res.sort((a, b) => b.view - a.view);
+          const movieViewestSlice = movieViewest.slice(0, 1)[0];
+          setDataMovieViewest(movieViewestSlice);
+        }
       })
       .finally(() => {
         setIsLoadingMovieViewest(false);
@@ -67,26 +85,30 @@ function HomePage() {
         setIsLoadingMovieViewest(false);
       });
   }, []);
+  console.log("newMangaUpdate", newMangaUpdate);
+
   return (
     <div className="flex flex-col">
       {isLoadingManga ? (
         <SkeletonImage />
       ) : (
-        <CardImage
-          to={`/manga/${newMangaUpdate.urlManga}/${newMangaUpdate?.newNameChapter}`}
-          src={newMangaUpdate.imgMain}
-          title="Mới cập nhật"
-          description={`${newMangaUpdate?.nameManga ?? ""} - Chapter ${
-            newMangaUpdate?.newNameChapter?.toString().padStart(2, 0) ?? ""
-          }`}
-          ageClassification={
-            newMangaUpdate.ageClassification
-              ? newMangaUpdate.ageClassification[0]
-              : []
-          }
-          isBackdrop
-          isAgeClassification
-        />
+        Object.keys(newMangaUpdate).length !== 0 && (
+          <CardImage
+            to={`/manga/${newMangaUpdate?.urlManga}/${newMangaUpdate?.newNameChapter}`}
+            src={newMangaUpdate?.imgMain}
+            title="Mới cập nhật"
+            description={`${newMangaUpdate?.nameManga ?? ""} - Chapter ${
+              newMangaUpdate?.newNameChapter?.toString().padStart(2, 0) ?? ""
+            }`}
+            ageClassification={
+              newMangaUpdate?.ageClassification
+                ? newMangaUpdate.ageClassification[0]
+                : []
+            }
+            isBackdrop
+            isAgeClassification
+          />
+        )
       )}
 
       {/* Quảng cáo  */}
@@ -99,11 +121,7 @@ function HomePage() {
             md={{ span: 12 }}
             lg={{ span: 12 }}
           >
-            <div>
-              <p className="text-lg font-bold text-center">
-                Thêm truyện nổi bật
-              </p>
-            </div>
+            <p className="text-lg font-bold text-center">Thêm truyện nổi bật</p>
             <Row gutter={[12, 12]}>
               <Col
                 xs={{ span: 12 }}
@@ -114,24 +132,26 @@ function HomePage() {
                 {isLoadingMangaViewest ? (
                   <SkeletonImage />
                 ) : (
-                  <CardImage
-                    isLoading={isLoadingMangaViewest}
-                    to={`/manga/${dataMangaViewest[0]?.urlManga}/${dataMangaViewest[0]?.newNameChapter}`}
-                    src={dataMangaViewest[0]?.imgMain}
-                    title={dataMangaViewest[0]?.nameManga}
-                    description={`Chapter ${
-                      dataMangaViewest[0]?.newNameChapter
-                        ?.toString()
-                        .padStart(2, 0) ?? ""
-                    }`}
-                    ageClassification={
-                      dataMangaViewest[0]?.ageClassification
-                        ? dataMangaViewest[0]?.ageClassification[0]
-                        : []
-                    }
-                    isBackdrop
-                    isAgeClassification
-                  />
+                  dataMangaViewest[0]?.newNameChapter !== null && (
+                    <CardImage
+                      isLoading={isLoadingMangaViewest}
+                      to={`/manga/${dataMangaViewest[0]?.urlManga}/${dataMangaViewest[0]?.newNameChapter}`}
+                      src={dataMangaViewest[0]?.imgMain}
+                      title={dataMangaViewest[0]?.nameManga}
+                      description={`Chapter ${
+                        dataMangaViewest[0]?.newNameChapter
+                          ?.toString()
+                          .padStart(2, 0) ?? ""
+                      }`}
+                      ageClassification={
+                        dataMangaViewest[0]?.ageClassification
+                          ? dataMangaViewest[0]?.ageClassification[0]
+                          : []
+                      }
+                      isBackdrop
+                      isAgeClassification
+                    />
+                  )
                 )}
               </Col>
               {dataMangaViewest[1] && (
