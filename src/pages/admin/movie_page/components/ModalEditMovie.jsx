@@ -12,7 +12,11 @@ import {
 } from "antd";
 import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
-import { SelectAgeClassification, SelectTag } from "../../../../components";
+import {
+  SelectAgeClassification,
+  SelectStatusFilter,
+  SelectTag,
+} from "../../../../components";
 import Config from "../../../../config";
 import {
   getDocument,
@@ -60,6 +64,7 @@ function ModalEditMovie() {
           onFinish={async (values) => {
             setIsLoading(true);
             values.updateAt = dayjs(values.updateAt).format(Config.dateFormat);
+            values.ageClassification = values.ageClassification ?? [];
             updateDocument("movie", dataMovie.id, values)
               .then(() => {
                 loadMovie();
@@ -296,11 +301,23 @@ function ModalEditMovie() {
           <Row gutter={[12, 12]}>
             <Col span={12}>
               <Form.Item
-                name="isStatusMovie"
-                label="Trạng thái"
-                valuePropName="checked"
+                name="statusMovie"
+                label="Tình trạng"
+                required
+                rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng nhập ${label}",
+                  },
+                ]}
               >
-                <Switch />
+                <SelectStatusFilter
+                  onChange={(e) => {
+                    form.setFieldsValue({
+                      statusMovie: e,
+                    });
+                  }}
+                />
               </Form.Item>
             </Col>
           </Row>

@@ -1,7 +1,7 @@
 import { Select } from "antd";
 import React, { useState } from "react";
 
-export default function SelectStatusManga(props) {
+export default function SelectStatusFilter(props) {
   const { onChange, ...restProps } = props;
   const [data] = useState([
     {

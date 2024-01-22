@@ -23,6 +23,8 @@ import SkeletionMovie from "./SkeletionMovie";
 import AgeClassificationView from "./AgeClassificationView";
 
 import CardImageMovieView from "./CardImageMovieView";
+import SelectStatusFilter from "./SelectStatusFilter";
+
 
 export {
   RowAction,
@@ -44,5 +46,6 @@ export {
   SkeletonView,
   AgeClassificationView,
   CardImageMovieView,
-  SkeletionMovie
+  SkeletionMovie,
+  SelectStatusFilter
 };

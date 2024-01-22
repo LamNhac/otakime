@@ -5,8 +5,7 @@ import {
   Input,
   Modal,
   Row,
-  Switch,
-  message,
+  message
 } from "antd";
 import { useContext, useState } from "react";
 import Config from "../../../../config";
@@ -18,7 +17,11 @@ import {
 import MovieContext from "../MovieContext";
 
 import dayjs from "dayjs";
-import { SelectAgeClassification, SelectTag } from "../../../../components";
+import {
+  SelectAgeClassification,
+  SelectStatusFilter,
+  SelectTag,
+} from "../../../../components";
 
 function ModalAddMovie() {
   const { isModalAdd, setIsModalAdd, loadMovie } = useContext(MovieContext);
@@ -47,6 +50,7 @@ function ModalAddMovie() {
           } else {
             setIsLoading(true);
             values.updateAt = dayjs(values.updateAt).format(Config.dateFormat);
+            values.ageClassification = values.ageClassification ?? [];
             values.view = 0;
 
             addDocument("movie", values)
@@ -261,18 +265,6 @@ function ModalAddMovie() {
             <Form.Item
               name="ageClassification"
               label="Phân loại tuổi"
-              required
-              rules={[
-                {
-                  validator: (_, value) => {
-                    if (value && value.length > 0) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject("Vui lòng chọn thể loại");
-                  },
-                },
-              ]}
-              validateTrigger={["onChange"]} // Validate on tag selection change
             >
               <SelectAgeClassification
                 onChange={(e) => {
@@ -287,11 +279,23 @@ function ModalAddMovie() {
         <Row gutter={[12, 12]}>
           <Col span={12}>
             <Form.Item
-              name="isStatusMovie"
-              label="Trạng thái"
-              valuePropName="checked"
+              name="statusMovie"
+              label="Tình trạng"
+              required
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng nhập ${label}",
+                },
+              ]}
             >
-              <Switch />
+              <SelectStatusFilter
+                onChange={(e) => {
+                  form.setFieldsValue({
+                    statusMovie: e,
+                  });
+                }}
+              />
             </Form.Item>
           </Col>
         </Row>

@@ -2,7 +2,7 @@ import { Col, DatePicker, Form, Input, Modal, Row, message } from "antd";
 import dayjs from "dayjs";
 import { useContext, useState } from "react";
 import { SelectAgeClassification, SelectTag } from "../../../../components";
-import SelectStatusManga from "../../../../components/SelectStatusManga";
+import SelectStatusFilter from "../../../../components/SelectStatusFilter";
 import Config from "../../../../config";
 import {
   addDocument,
@@ -245,7 +245,7 @@ function ModalAddManga() {
             },
           ]}
         >
-          <SelectStatusManga
+          <SelectStatusFilter
             onChange={(e) => {
               form.setFieldsValue({
                 statusManga: e,

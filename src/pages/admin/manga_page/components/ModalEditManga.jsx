@@ -21,7 +21,7 @@ import {
   updateDocument,
 } from "../../../../services/firebaseService";
 import MangaPageContext from "../MangaPageContext";
-import SelectStatusManga from "../../../../components/SelectStatusManga";
+import SelectStatusFilter from "../../../../components/SelectStatusFilter";
 
 function ModalEditManga(props) {
   const context = useContext(MangaPageContext);
@@ -270,7 +270,7 @@ function ModalEditManga(props) {
               },
             ]}
           >
-            <SelectStatusManga
+            <SelectStatusFilter
               onChange={(e) => {
                 form.setFieldsValue({
                   statusManga: e,

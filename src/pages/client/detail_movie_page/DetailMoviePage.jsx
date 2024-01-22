@@ -1,9 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/iframe-has-title */
-import { useState } from "react";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { getAllDocuments } from "../../../services/firebaseService";
 import { Spin } from "antd";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getDocument } from "../../../services/firebaseService";
 function DetailMoviePage() {
   const { movieId } = useParams();
 
@@ -11,7 +11,7 @@ function DetailMoviePage() {
   const [data, setData] = useState(null);
   useEffect(() => {
     setIsLoading(true);
-    getAllDocuments("movie")
+    getDocument("movie", movieId)
       .then(setData)
       .finally(() => setIsLoading(false));
   }, []);
@@ -22,16 +22,7 @@ function DetailMoviePage() {
       className=" items-center justify-center"
       tip="Đang tải dữ liệu..."
     >
-      <iframe
-        style={{
-          width: "100%",
-          minHeight: "100vh",
-        }}
-        src="https://short.ink/iRMfxXMZf"
-        allowFullscreen
-        allowTransparency
-        allow="autoplay"
-      ></iframe>
+      Detail page Movie
     </Spin>
   );
 }
