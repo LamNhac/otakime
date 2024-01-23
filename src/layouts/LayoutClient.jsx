@@ -1,16 +1,18 @@
-import { Outlet, useParams } from "react-router-dom";
+import { Layout } from "antd";
+import { useState } from "react";
+import { Outlet, useLocation, useParams } from "react-router-dom";
 import FooterClient from "../components/FooterClient";
 import HeaderClient from "../components/HeaderClient";
-import AppContextClient from "../contexts/AppContextClient";
 import LoadingScreen from "../components/LoadingScreen";
-import { useEffect, useState } from "react";
-import { Layout } from "antd";
+import AppContextClient from "../contexts/AppContextClient";
 const { Content } = Layout;
 function LayoutClient() {
   const [isLoading, setIsLoading] = useState(false);
 
-  const { chapterId, movieId } = useParams();
-
+  const { chapterId } = useParams();
+  const { search } = useLocation();
+  const params = new URLSearchParams(search);
+  const server = params.get("server");
   // useEffect(() => {
   //   // setIsLoading(true);
   //   setIsLoading(false);
@@ -35,7 +37,6 @@ function LayoutClient() {
     setDescription,
   };
 
-
   return (
     <AppContextClient.Provider value={state}>
       {isLoading ? (
@@ -44,7 +45,7 @@ function LayoutClient() {
         <>
           <HeaderClient />
           <Content
-            className={movieId || chapterId ? "" : "  container p-4 min-w-full"}
+            className={server || chapterId ? "" : "  container p-4 min-w-full"}
             style={{
               minHeight: "calc(100vh - 64px - 111px)",
             }}

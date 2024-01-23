@@ -100,8 +100,8 @@ const App = () => {
               <Route path="movie" element={<MoviePageClient />} />
               <Route path="movie/:movieId" element={<DetailMoviePage />} />
               <Route
-                path="movie/:movieId/abyss"
-                element={<DetailMovieUrlPage />}
+                path="movie/:movieId/abyss" 
+                element={<DetailMovieUrlPage />} 
               />
               <Route path="termsofuse" element={<TermsofusePage />} />
               <Route path="license" element={<LicensePage />} />
