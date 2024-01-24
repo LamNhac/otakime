@@ -20,7 +20,10 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ViewImage } from "../../../components";
 import IMAGES from "../../../constants/images";
-import { getAllDocuments } from "../../../services/firebaseService";
+import {
+  getAllDocuments,
+  updateDocument,
+} from "../../../services/firebaseService";
 
 function DetailMangaChapterPage() {
   let { mangaId, chapterId } = useParams();
@@ -30,6 +33,7 @@ function DetailMangaChapterPage() {
   const [dataChapter, setDataChapter] = useState(null);
   const [selectChapter, setSelectChapter] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [lastView] = useState(localStorage.getItem("lastViewManga"));
 
   const navigate = useNavigate();
 
@@ -67,15 +71,27 @@ function DetailMangaChapterPage() {
           }
 
           //Cập nhật lượt View
-          // updateDocument(`manga/${manga.id}/chapter`, chapterId, {
-          //   ...res,
-          //   imgChapterFile: JSON.parse(chapter.imgChapterFile),
-          // }).then((res) => {});
+          // Nếu vượt quá 1 phút thì mới update lại view
+          if (!lastView || Date.now() - parseInt(lastView) > 60000) {
+            updateLastView();
+            updateDocument(`manga/${manga.id}/chapter`, chapter.id, {
+              ...res,
+              imgChapterFile: JSON.stringify(chapter.imgChapterFile),
+              view: chapter.view + 1,
+            });
+          }
         });
       })
       .finally(() => setIsLoading(false));
   }, [chapterId]);
+  
+  const updateLastView = () => {
+    // Cập nhật giá trị lastview vào local storage
+    localStorage.setItem("lastViewManga", Date.now());
 
+    // Thực hiện các bước khác để set view theo logic của bạn
+    console.log("View updated!");
+  };
   // console.log("chapterId", chapterId);
   // const handleKeyDown = (event) => {
   //   switch (event.keyCode) {
@@ -119,7 +135,7 @@ function DetailMangaChapterPage() {
     <Spin spinning={isLoading}>
       <FloatButton.BackTop style={{ insetBlockEnd: 20, insetInlineEnd: 20 }} />
 
-      <Card className="mb-5">
+      <Card className="mb-5" loading={isLoading}>
         <h3 className=" font-bold text-xl mb-2">
           {data?.nameManga} / Chapter {dataChapter?.nameChapter}
         </h3>

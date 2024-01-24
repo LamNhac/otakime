@@ -12,7 +12,7 @@ import PageNotFoundPage from "./page_not_found_page/PageNotFoundPage";
 import InformationClientPage from "./information_client_page/InformationClientPage";
 
 import MaintainPage from "./maintain_page/MaintainPage";
-import DetailMovieUrlPage from "./detail_movie_url_page/DetailMovieUrlPage"
+import DetailMovieUrlPage from "./detail_movie_page/DetailMovieUrlPage"
 
 export {
   AboutPage,

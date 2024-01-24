@@ -1,15 +1,15 @@
-import { Card, Col, Image, Input, Row, Spin, Tag } from "antd";
+import { Col, Input, Row, Spin } from "antd";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import IMAGES from "../../../constants/images";
+import {
+  CardImageMovieView,
+  SkeletionMovie,
+  TopBarFilterClientView,
+} from "../../../components";
 import { getAllDocuments } from "../../../services/firebaseService";
-import { CardImageMovieView, SkeletionMovie } from "../../../components";
-const { Meta } = Card;
 
 function MoviePageClient() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     setIsLoading(true);
@@ -17,21 +17,6 @@ function MoviePageClient() {
       .then(setData)
       .finally(() => setIsLoading(false))
       .catch((error) => console.log(error));
-
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    // Đăng ký sự kiện thay đổi kích thước màn hình
-    window.addEventListener("resize", handleResize);
-
-    // Lấy kích thước màn hình ban đầu khi component được tạo
-    setWindowWidth(window.innerWidth);
-
-    // Hủy đăng ký sự kiện khi component bị hủy
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
   }, []);
 
   return (
@@ -40,27 +25,16 @@ function MoviePageClient() {
       className="min-h-screen"
       tip="Đang tải dữ liệu..."
     >
-      <div className="min-h-screen">
-        <div className="flex gap-12 items-center justify-between mb-4">
-          <h3 className="text-2xl font-bold">MOVIE</h3>
-          <Input style={{ maxWidth: 300 }} placeholder="Tìm kiếm..." />
-        </div>
-
+      <div className="sm:pr-[15rem] sm:pl-[15rem] md:pr-[10rem] md:pl-[10rem] flex flex-col gap-4">
+        <TopBarFilterClientView
+          title="Phim mới nhất"
+          onChange={(value) => {
+            console.log(value);
+          }}
+        />
         <Row gutter={[12, 12]} wrap>
           {data.length === 0 ? (
             <>
-              <Col xs={12} sm={12} md={12} lg={12} xl={6}>
-                <SkeletionMovie />
-              </Col>
-              <Col xs={12} sm={12} md={12} lg={12} xl={6}>
-                <SkeletionMovie />
-              </Col>
-              <Col xs={12} sm={12} md={12} lg={12} xl={6}>
-                <SkeletionMovie />
-              </Col>
-              <Col xs={12} sm={12} md={12} lg={12} xl={6}>
-                <SkeletionMovie />
-              </Col>
               <Col xs={12} sm={12} md={12} lg={12} xl={6}>
                 <SkeletionMovie />
               </Col>

@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ViewImage from "./ViewImage";
-import { EyeOutlined } from "@ant-design/icons";
 import AgeClassificationView from "./AgeClassificationView";
+import ViewImage from "./ViewImage";
 
 export default function CardImage(props) {
   const {
@@ -11,8 +10,6 @@ export default function CardImage(props) {
     description,
     isBackdrop,
     isAgeClassification,
-    isView,
-    view,
     ageClassification,
     to,
     height = 305,
@@ -24,7 +21,7 @@ export default function CardImage(props) {
     ? "absolute inset-0 bg-black opacity-20 mb-[5px]" // Chỉ áp dụng nếu isBackdrop là true
     : "";
 
-  const contentClasses = "absolute left-[1rem] bottom-[3rem] text-white";
+  const contentClasses = "absolute left-5 top-[70%] text-white ";
 
   return (
     <Link to={to}>
@@ -38,24 +35,26 @@ export default function CardImage(props) {
             backgroundPosition: "center",
             objectFit: "cover",
             width: "100%",
+            borderRadius: 8,
           }}
         />
-        {isBackdrop && <div className={overlayClasses}></div>}
+        {isBackdrop && (
+          <div
+            className={overlayClasses}
+            style={{
+              borderRadius: 8,
+            }}
+          ></div>
+        )}
         {isAgeClassification && (
           <AgeClassificationView ageClassification={ageClassification} />
         )}
-        {isView && (
-          <div className="absolute top-[1rem] left-[1rem]">
-            <h3 className="text-lg text-white">
-              {view ?? 0} <EyeOutlined />
-            </h3>
-          </div>
-        )}
+
         <div className={contentClasses}>
           <h2 className="font-bold xs:text-2xl sm:text-[1rem] md:text-[2rem]">
-            {title}{" "}
+            {title}
           </h2>
-          <p>{description}</p>
+          {description && <p>{description}</p>}
         </div>
       </div>
     </Link>

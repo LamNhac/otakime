@@ -22,16 +22,7 @@ export default function DetailMovieUrlPage() {
       className=" items-center justify-center"
       tip="Đang tải dữ liệu..."
     >
-      <iframe
-        style={{
-          width: "100%",
-          minHeight: "100vh",
-        }}
-        src="https://short.ink/iRMfxXMZf"
-        allowFullscreen
-        allowTransparency
-        allow="autoplay"
-      ></iframe>
+      
     </Spin>
   );
 }

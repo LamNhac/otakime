@@ -8,6 +8,7 @@ export default function AgeClassificationView({ ageClassification }) {
         zIndex: 2,
         backgroundColor: ageClassification?.bgColor,
         color: ageClassification?.textColor,
+        borderRadius: 4,
       }}
     >
       <p className="font-thin text-sm mb-0">{ageClassification?.label}</p>

@@ -24,8 +24,8 @@ import AgeClassificationView from "./AgeClassificationView";
 
 import CardImageMovieView from "./CardImageMovieView";
 import SelectStatusFilter from "./SelectStatusFilter";
-
-
+import SkeletonChapterBarView from "./SkeletonChapterBarView";
+import TopBarFilterClientView from "./TopBarFilterClientView";
 export {
   RowAction,
   SelectTag,
@@ -47,5 +47,7 @@ export {
   AgeClassificationView,
   CardImageMovieView,
   SkeletionMovie,
-  SelectStatusFilter
+  SelectStatusFilter,
+  SkeletonChapterBarView,
+  TopBarFilterClientView
 };

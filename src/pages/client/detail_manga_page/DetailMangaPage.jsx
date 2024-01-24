@@ -17,6 +17,7 @@ function DetailMangaPage() {
   const [dataChapter, setDataChapter] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingChapter, setIsLoadingChapter] = useState(false);
+  const [totalView, setTotalView] = useState(0);
 
   useEffect(() => {
     setIsLoading(true);
@@ -34,7 +35,12 @@ function DetailMangaPage() {
       getAllDocuments(`manga/${data?.id}/chapter`)
         .then((res) => {
           setDataChapter(res);
-          console.log(res);
+          let _totalView = res.reduce(
+            (accumulator, currentValue) => accumulator + currentValue.view,
+            0
+          );
+          console.log(_totalView);
+          setTotalView(_totalView);
         })
         .finally(() => setIsLoadingChapter(false));
     }
@@ -81,7 +87,7 @@ function DetailMangaPage() {
                 <b>Ngày cập nhật:</b> {data?.updateAt}
               </div>
               <div>
-                <b>Lượt xem:</b> {data?.view ?? 0}
+                <b>Lượt xem:</b> {totalView}
               </div>
               <div>
                 <b>Tình trạng:</b>{" "}
