@@ -12,14 +12,15 @@ import {
 } from "firebase/firestore";
 import { app, database } from "./firebase";
 
+import dayjs from "dayjs";
+import { getAnalytics } from "firebase/analytics";
+import { onValue, ref, update } from "firebase/database";
 import {
   getDownloadURL,
   getStorage,
   ref as storageReference,
   uploadBytes,
 } from "firebase/storage";
-import { getAnalytics } from "firebase/analytics";
-import dayjs from "dayjs";
 import Config from "../config";
 
 const storage = getStorage(app);
@@ -208,10 +209,19 @@ const getFileDownloadURL = (path) => {
 
 // Lấy tất cả documents từ collection
  const getAllDocumentsRealtime  = (collection) => {
-  return database.ref(collection).once('value').then((snapshot) => {
+ const res =  ref(database, collection)  
+ console.log(res)
+ return new Promise((resolve, reject)=>{
+  onValue(res, (snapshot) => {
     const data = snapshot.val();
-    return data ? Object.values(data) : [];
+    resolve(data)
   });
+ })  
+ 
+  // return database.ref(collection).once('value').then((snapshot) => {
+  //   const data = snapshot.val();
+  //   return data ? Object.values(data) : [];
+  // });
 };
 
 // Lấy một document từ collection theo id
@@ -222,8 +232,8 @@ const getFileDownloadURL = (path) => {
 };
 
 // Cập nhật một document trong collection theo id
- const updateDocumentRealtime  = (collection, id, data) => {
-  return database.ref(`${collection}/${id}`).update(data);
+ const updateDocumentRealtime  = (collection, data) => {
+    update(ref(database), data)
 };
 
 // Xóa một document trong collection theo id
@@ -233,18 +243,6 @@ const getFileDownloadURL = (path) => {
 
 
 export {
-  analytics,
-  addDocument,
-  deleteDocument,
-  deleteAllDocuments,
-  getAllDocuments,
-  getDocument,
-  updateDocument,
-  uploadFile,
-  saveToLog,
-  addDocumentRealtime,
-  getAllDocumentsRealtime,
-  getDocumentByIdRealtime,
-  updateDocumentRealtime,
-  deleteDocumentRealtime
+  addDocument, addDocumentRealtime, analytics, deleteAllDocuments, deleteDocument, deleteDocumentRealtime, getAllDocuments, getAllDocumentsRealtime, getDocument, getDocumentByIdRealtime, saveToLog, updateDocument, updateDocumentRealtime, uploadFile
 };
+

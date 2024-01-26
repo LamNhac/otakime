@@ -1,7 +1,7 @@
 import { Button, Card, Form, Input, message } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { setAdminClaims, signInAdminUser } from "../../../services/firebase";
+import { signInAdminUser } from "../../../services/firebase";
 
 function LoginPage() {
   const [form] = Form.useForm();

@@ -126,9 +126,9 @@ function ModalAddChapter() {
             }
             Promise.all(values.imgChapterFile)
               .then(() => {
-
                 //Thêm trường cho chapter để render ra UI
                 values.imgChapterFile = JSON.stringify(values.imgChapterFile);
+                values.idManga = dataMangaObj.id;
                 values.nameManga = dataMangaObj.nameManga;
                 values.nameMangaVie = dataMangaObj.nameMangaVie;
                 values.urlManga = dataMangaObj.urlManga;

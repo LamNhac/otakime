@@ -4,7 +4,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { ScrollToTop } from "./components";
-import {app} from './services/firebase'
+import {app,database} from './services/firebase'
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
