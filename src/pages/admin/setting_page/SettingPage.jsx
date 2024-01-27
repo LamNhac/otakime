@@ -1,6 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Card, Form, Image, Input, Modal, Space, Upload } from "antd";
+import {
+  Button,
+  Card,
+  Form,
+  Image,
+  Input,
+  Modal,
+  Space,
+  Spin,
+  Upload,
+} from "antd";
 import React, { useEffect, useState } from "react";
 import { auth } from "../../../services/firebase";
 import {
@@ -36,16 +46,16 @@ export default function SettingPage() {
   const [formLogo] = Form.useForm();
   const [form] = Form.useForm();
 
-  const [fileList, setFileList] = useState([]);
   const [fileListLogo, setFileListLogo] = useState([]);
+  const [fileListIconLogo, setFileListIconLogo] = useState([]);
 
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
 
-  const handleChangeMain = ({ fileList: newFileList }) =>
-    setFileList(newFileList);
-  const handlePreview = async (file) => {
+  const handleChangeLogo = ({ fileList: newFileList }) =>
+    setFileListLogo(newFileList);
+  const handlePreviewLogo = async (file) => {
     if (file.imgUrl) {
       return window.open(file.imgUrl);
     }
@@ -63,9 +73,9 @@ export default function SettingPage() {
   const [previewImageLogo, setPreviewImageLogo] = useState("");
   const [previewTitleLogo, setPreviewTitleLogo] = useState("");
 
-  const handleChangeMainLogo = ({ fileList: newFileList }) =>
-    setFileListLogo(newFileList);
-  const handlePreviewLogo = async (file) => {
+  const handleChangeIconLogo = ({ fileList: newFileList }) =>
+    setFileListIconLogo(newFileList);
+  const handlePreviewIconLogo = async (file) => {
     if (file.imgUrl) {
       return window.open(file.imgUrl);
     }
@@ -79,16 +89,26 @@ export default function SettingPage() {
     );
   };
 
+  const [isLoadingPage, setIsLoadingPage] = useState(false);
   useEffect(() => {
-    getAllDocumentsRealtime("/setting").then((res) => {
-      console.log("Res", res);
-      let iconLogo = res.iconLogo;
-      iconLogo.iconLogoFile = JSON.parse(iconLogo.iconLogoFile);
-      formIcon.setFieldsValue({ ...iconLogo });
-    });
+    setIsLoadingPage(true);
+    getAllDocumentsRealtime("/setting")
+      .then((res) => {
+        //Lấy iconLogo
+        console.log("Res", res);
+        let iconLogo = res.iconLogo;
+        let logo = res.logo;
+
+        iconLogo.iconLogoFile = JSON.parse(iconLogo.iconLogoFile);
+        formIcon.setFieldsValue({ ...iconLogo });
+
+        logo.logoImgFile = JSON.parse(logo.logoImgFile);
+        formLogo.setFieldsValue({ ...logo });
+      })
+      .finally(() => setIsLoadingPage(false));
   }, []);
   return (
-    <div>
+    <Spin spinning={isLoadingPage} tip="Đang tải dữ liệu...">
       <Card title="Setting">
         <Form
           form={formIcon}
@@ -137,9 +157,9 @@ export default function SettingPage() {
             >
               <Upload
                 maxCount={1}
-                fileList={fileList}
-                onPreview={handlePreviewLogo}
-                onChange={handleChangeMain}
+                fileList={fileListIconLogo}
+                onPreview={handlePreviewIconLogo}
+                onChange={handleChangeIconLogo}
                 customRequest={dummyRequest}
                 className="upload-list-inline"
               >
@@ -174,12 +194,36 @@ export default function SettingPage() {
         <Form
           form={formLogo}
           onFinish={(values) => {
-            console.log(values);
+            const user = auth.currentUser;
+            console.log(user);
+            if (user) {
+              uploadFile(values.logoImgFile[0].originFileObj, "app").then(
+                (url) => {
+                  values.logoImgFile[0] = {
+                    ...values.logoImgFile[0],
+                    imgUrl: url,
+                  };
+
+                  const updates = {};
+                  updates["setting/logo/id"] = uuidv4();
+                  updates["setting/iconLogo/dateUpdate"] = dayjs(
+                    new Date()
+                  ).format(Config.dateFormat);
+                  updates["setting/logo/name"] = "logo";
+                  updates["setting/logo/type"] = values.logoImgFile[0].type;
+                  updates["setting/logo/logoImgFile"] = JSON.stringify(
+                    values.logoImgFile
+                  );
+
+                  updateDocumentRealtime("/setting", updates);
+                }
+              );
+            }
           }}
         >
           <Space>
             <Form.Item
-              name="logoImg"
+              name="logoImgFile"
               label="Ảnh Logo"
               valuePropName="fileList"
               getValueFromEvent={normFile}
@@ -195,7 +239,7 @@ export default function SettingPage() {
                 maxCount={1}
                 fileList={fileListLogo}
                 onPreview={handlePreviewLogo}
-                onChange={handleChangeMainLogo}
+                onChange={handleChangeLogo}
                 customRequest={dummyRequest}
                 className="upload-list-inline"
               >
@@ -230,7 +274,13 @@ export default function SettingPage() {
         <Form
           form={form}
           onFinish={(values) => {
-            console.log(values);
+            const user = auth.currentUser;
+            console.log(user);
+            if (user) {
+              const updates = {};
+              updates["setting/email"] = values.email;
+              updateDocumentRealtime("/setting", updates);
+            }
           }}
         >
           <Space>
@@ -257,6 +307,6 @@ export default function SettingPage() {
           </Button>
         </Form>
       </Card>
-    </div>
+    </Spin>
   );
 }

@@ -26,6 +26,8 @@ import CardImageMovieView from "./CardImageMovieView";
 import SelectStatusFilter from "./SelectStatusFilter";
 import SkeletonChapterBarView from "./SkeletonChapterBarView";
 import TopBarFilterClientView from "./TopBarFilterClientView";
+
+import ButtonGradient from "./ButtonGradient";
 export {
   RowAction,
   SelectTag,
@@ -49,5 +51,6 @@ export {
   SkeletionMovie,
   SelectStatusFilter,
   SkeletonChapterBarView,
-  TopBarFilterClientView
+  TopBarFilterClientView,
+  ButtonGradient
 };

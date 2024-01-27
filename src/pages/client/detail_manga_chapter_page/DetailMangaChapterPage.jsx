@@ -80,11 +80,17 @@ function DetailMangaChapterPage() {
               view: chapter.view + 1,
             });
           }
+
+          document.title = `Otakime - ${
+            manga?.nameManga
+          } - ${chapter?.nameChapter.toString().padStart(2, "0")}`;
+          const el = document.querySelector("meta[name='description']");
+          el.setAttribute("content", manga?.description);
         });
       })
       .finally(() => setIsLoading(false));
   }, [chapterId]);
-  
+
   const updateLastView = () => {
     // Cập nhật giá trị lastview vào local storage
     localStorage.setItem("lastViewManga", Date.now());
@@ -131,6 +137,7 @@ function DetailMangaChapterPage() {
     currentChapterId === null ||
     selectChapter?.length === 0 ||
     currentChapterId === selectChapter?.length;
+
   return (
     <Spin spinning={isLoading}>
       <FloatButton.BackTop style={{ insetBlockEnd: 20, insetInlineEnd: 20 }} />
@@ -139,18 +146,16 @@ function DetailMangaChapterPage() {
         <h3 className=" font-bold text-xl mb-2">
           {data?.nameManga} / Chapter {dataChapter?.nameChapter}
         </h3>
-        <div className="mb-2">
-          <b>Thể loại:</b>{" "}
-          <Space>
-            {data?.tags?.map((item, index) => {
-              return (
-                <Tag key={index} color="blue">
-                  {item.label}
-                </Tag>
-              );
-            })}
-          </Space>
-        </div>
+        <Space className="mb-2" wrap>
+          Thể loại:
+          {data?.tags?.map((item, index) => {
+            return (
+              <Tag key={index} color="blue">
+                {item.label}
+              </Tag>
+            );
+          })}
+        </Space>
         {/* <p className="mb-0 italic">
           Bạn có thể bấm phím <LeftOutlined /> hoặc <RightOutlined /> để chuyển
           chap

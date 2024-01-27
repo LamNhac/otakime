@@ -2,15 +2,26 @@
 /* eslint-disable react/jsx-no-target-blank */
 import {
   BarsOutlined,
+  BookOutlined,
   GoogleOutlined,
+  HomeOutlined,
   LogoutOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Avatar, Button, Drawer, Dropdown, Image, Layout, message } from "antd";
+import {
+  Avatar,
+  Button,
+  Col,
+  Drawer,
+  Dropdown,
+  Image,
+  Layout,
+  Row,
+  message,
+} from "antd";
 import { useContext, useEffect, useState } from "react";
 import { BsDiscord, BsFacebook } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import IMAGES from "../constants/images";
 import AppContextClient from "../contexts/AppContextClient";
 import {
   getRedirectResultUser,
@@ -18,8 +29,10 @@ import {
   onChangeToken,
   signInClientUser,
 } from "../services/firebase";
+import ButtonGradient from "./ButtonGradient";
+import ViewImage from "./ViewImage";
 const { Header } = Layout;
-function HeaderClient() {
+function HeaderClient({ logo }) {
   const { userClient, setUserClient, isLoginUser, setIsLoginUser } =
     useContext(AppContextClient);
 
@@ -114,7 +127,7 @@ function HeaderClient() {
       {windowWidth < 640 ? (
         <>
           <Link to="/" className="flex items-center justify-start">
-            <Image src={IMAGES.logo} preview={false} width={200} />
+            <ViewImage src={logo} />
           </Link>
           <Button
             icon={<BarsOutlined />}
@@ -124,7 +137,7 @@ function HeaderClient() {
           <Drawer
             title={
               <div className="w-full flex items-center justify-between">
-                <Image src={IMAGES.logo} preview={false} width={100} />
+                <Image src={logo} preview={false} width={100} />
                 <Avatar src={user?.photoURL} />
               </div>
             }
@@ -135,47 +148,74 @@ function HeaderClient() {
             destroyOnClose={true}
           >
             <div className="flex flex-col  justify-between h-[100%]">
-              <div className="flex flex-col gap-5 items-center">
-                <Link
-                  to="/"
-                  onClick={() => {
-                    setIsOpenDrawer(false);
-                  }}
-                >
-                  Home
-                </Link>
-                <Link
-                  to="manga"
-                  onClick={() => {
-                    setIsOpenDrawer(false);
-                  }}
-                >
-                  MANGA
-                </Link>
-                <Link
-                  to="movie"
-                  onClick={() => {
-                    setIsOpenDrawer(false);
-                  }}
-                >
-                  MOVIE
-                </Link>
-                <Link
-                  to="about"
-                  onClick={() => {
-                    setIsOpenDrawer(false);
-                  }}
-                >
-                  ABOUT
-                </Link>
-                <Link
-                  to="information-user"
-                  onClick={() => {
-                    setIsOpenDrawer(false);
-                  }}
-                >
-                  User
-                </Link>
+              <div className="flex flex-wrap gap-5 items-center">
+                <Row gutter={[12, 12]}>
+                  <Col xs={12} md={12} lg={12}>
+                    <Link
+                      to="/"
+                      onClick={() => {
+                        setIsOpenDrawer(false);
+                      }}
+                    >
+                      <ButtonGradient>
+                        <HomeOutlined style={{ fontSize: 20 }} />
+                        <span>HOME</span>
+                      </ButtonGradient>
+                    </Link>
+                  </Col>
+                  <Col xs={12} md={12} lg={12}>
+                    <Link
+                      to="manga"
+                      onClick={() => {
+                        setIsOpenDrawer(false);
+                      }}
+                    >
+                      <ButtonGradient>
+                        <BookOutlined style={{ fontSize: 20 }} />
+                        <span>MANGA</span>
+                      </ButtonGradient>
+                    </Link>
+                  </Col>
+                  <Col xs={12} md={12} lg={12}>
+                    <Link
+                      to="movie"
+                      onClick={() => {
+                        setIsOpenDrawer(false);
+                      }}
+                    >
+                      <ButtonGradient>
+                        <BookOutlined style={{ fontSize: 20 }} />
+                        <span>MOVIE</span>
+                      </ButtonGradient>
+                    </Link>
+                  </Col>
+                  <Col xs={12} md={12} lg={12}>
+                    <Link
+                      to="about"
+                      onClick={() => {
+                        setIsOpenDrawer(false);
+                      }}
+                    >
+                      <ButtonGradient>
+                        <BookOutlined style={{ fontSize: 20 }} />
+                        <span>ABOUT</span>
+                      </ButtonGradient>
+                    </Link>
+                  </Col>
+                  <Col xs={12} md={12} lg={12}>
+                    <Link
+                      to="information-user"
+                      onClick={() => {
+                        setIsOpenDrawer(false);
+                      }}
+                    >
+                      <ButtonGradient>
+                        <UserOutlined style={{ fontSize: 20 }} />
+                        <span>USER</span>
+                      </ButtonGradient>
+                    </Link>
+                  </Col>
+                </Row>
               </div>
               <div className="flex items-center justify-center gap-5 ">
                 <a href="https://www.facebook.com/Otakime3.0" target="_blank">
@@ -190,10 +230,10 @@ function HeaderClient() {
         </>
       ) : (
         <>
-          <Link to="/" className="items-center justify-center h-full">
+          <Link to="/" className="flex items-center justify-center h-full">
             <Image
-              src={IMAGES.logo}
-              style={{ width: 200, height: "100%" }}
+              src={logo}
+              style={{ width: 150, height: "100%" }}
               preview={false}
             />
           </Link>

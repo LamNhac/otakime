@@ -84,6 +84,10 @@ function HomePage() {
         console.log("error", error);
         setIsLoadingMovieViewest(false);
       });
+
+    document.title = `Otakime - Home`;
+    const el = document.querySelector("meta[name='description']");
+    el.setAttribute("content", "Trang web chính thức của nhóm dịch Otakime, Việt hóa những dự án manga nhằm giới thiệu độc giả. Truy cập ngay để đọc những tựa truyện được yêu thích.");
   }, []);
   console.log("newMangaUpdate", newMangaUpdate);
 

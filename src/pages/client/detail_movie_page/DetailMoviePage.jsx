@@ -12,7 +12,6 @@ import {
   getAllDocuments,
   updateDocument,
 } from "../../../services/firebaseService";
-import DetailMovieUrlPage from "./DetailMovieUrlPage";
 function DetailMoviePage() {
   const { movieId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
@@ -46,7 +45,6 @@ function DetailMoviePage() {
 
   useEffect(() => {
     setIsLoading(true);
-
     getAllDocuments("movie")
       .then((res) => {
         const movie = res.find((item) => item.urlMovie === movieId);
@@ -57,6 +55,10 @@ function DetailMoviePage() {
           updateLastView();
           updateDocument("movie", movie.id, { ...movie, view: movie.view + 1 });
         }
+
+        document.title = `Otakime - ${movie?.nameMovie} `;
+        const el = document.querySelector("meta[name='description']");
+        el.setAttribute("content", movie?.description);
       })
       .finally(() => setIsLoading(false));
   }, []);
