@@ -5,18 +5,9 @@ import {
   BookOutlined,
   HomeOutlined,
   LogoutOutlined,
-  UserOutlined
+  UserOutlined,
 } from "@ant-design/icons";
-import {
-  Avatar,
-  Button,
-  Col,
-  Drawer,
-  Image,
-  Layout,
-  Row,
-  message
-} from "antd";
+import { Avatar, Button, Col, Drawer, Image, Layout, Row, message } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { BsDiscord, BsFacebook } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -24,7 +15,7 @@ import AppContextClient from "../contexts/AppContextClient";
 import {
   getRedirectResultUser,
   logout,
-  onChangeToken
+  onChangeToken,
 } from "../services/firebase";
 import ButtonGradient from "./ButtonGradient";
 const { Header } = Layout;
@@ -123,7 +114,13 @@ function HeaderClient({ logo }) {
       {windowWidth < 640 ? (
         <>
           <Link to="/" className="flex items-center justify-start">
-            {logo && <Image preview={false} src={logo}    style={{ width: 150, height: "100%" }}/>}
+            {logo && (
+              <Image
+                preview={false}
+                src={logo}
+                style={{ width: 150, height: "100%" }}
+              />
+            )}
           </Link>
           <Button
             icon={<BarsOutlined />}
@@ -134,7 +131,7 @@ function HeaderClient({ logo }) {
             title={
               <div className="w-full flex items-center justify-between">
                 {logo && <Image preview={false} src={logo} width={100} />}
-                <Avatar src={user?.photoURL} />
+                {/* <Avatar src={user?.photoURL} /> */}
               </div>
             }
             placement="right"
@@ -185,7 +182,7 @@ function HeaderClient({ logo }) {
                       </ButtonGradient>
                     </Link>
                   </Col>
-                  <Col xs={12} md={12} lg={12}>
+                  {/* <Col xs={12} md={12} lg={12}>
                     <Link
                       to="about"
                       onClick={() => {
@@ -197,7 +194,7 @@ function HeaderClient({ logo }) {
                         <span>ABOUT</span>
                       </ButtonGradient>
                     </Link>
-                  </Col>
+                  </Col> */}
                   <Col xs={12} md={12} lg={12}>
                     <Link
                       to="information-user"
@@ -242,9 +239,9 @@ function HeaderClient({ logo }) {
             <Link to="movie" style={{ color: "white" }}>
               MOVIE
             </Link>
-            <Link to="about" style={{ color: "white" }}>
+            {/* <Link to="about" style={{ color: "white" }}>
               ABOUT
-            </Link>
+            </Link> */}
             <div className="flex items-center gap-5 ">
               <a href="https://www.facebook.com/Otakime3.0" target="_blank">
                 <BsFacebook color="white" size={20} />

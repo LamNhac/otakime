@@ -206,7 +206,6 @@ function DetailMangaChapterPage() {
                 <ViewImage
                   key={index}
                   src={item.imgUrl ? item.imgUrl : IMAGES.imgDefault}
-                  fallback={IMAGES.imgDefault}
                   style={{ width: 800 }}
                 />
               );
