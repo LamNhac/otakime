@@ -14,7 +14,15 @@ function MangaPageClient() {
   useEffect(() => {
     setIsLoading(true);
     getAllDocuments("manga")
-      .then(setData)
+      .then((manga) => {
+        setData(manga);
+        document.title = `Otakime - Manga`;
+        const el = document.querySelector("meta[name='description']");
+        el.setAttribute(
+          "content",
+          "Đọc ngay những tựa truyện được Việt hóa chất lượng bởi Otakime."
+        );
+      })
       .finally(() => setIsLoading(false))
       .catch((error) => {
         console.log(error);

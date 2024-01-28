@@ -14,7 +14,15 @@ function MoviePageClient() {
   useEffect(() => {
     setIsLoading(true);
     getAllDocuments("movie")
-      .then(setData)
+      .then((movie) => {
+        setData(movie);
+        document.title = `Otakime - Movie`;
+        const el = document.querySelector("meta[name='description']");
+        el.setAttribute(
+          "content",
+          "Xem những dự án dịch phim do Otakime và những đối tác thực hiện."
+        );
+      })
       .finally(() => setIsLoading(false))
       .catch((error) => console.log(error));
   }, []);

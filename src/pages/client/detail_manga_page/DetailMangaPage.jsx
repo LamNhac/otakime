@@ -25,6 +25,9 @@ function DetailMangaPage() {
       .then((res) => {
         const manga = res.find((item) => item.urlManga === mangaId);
         setData(manga);
+        document.title = `Otakime - ${manga?.nameManga}`;
+        const el = document.querySelector("meta[name='description']");
+        el.setAttribute("content", manga?.description);
       })
       .finally(() => setIsLoading(false));
   }, []);
