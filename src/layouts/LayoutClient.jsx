@@ -5,6 +5,7 @@ import FooterClient from "../components/FooterClient";
 import HeaderClient from "../components/HeaderClient";
 import AppContextClient from "../contexts/AppContextClient";
 import { getAllDocumentsRealtime } from "../services/firebaseService";
+import { LoadingOutlined } from "@ant-design/icons";
 const { Content } = Layout;
 function LayoutClient() {
   const [isLoading, setIsLoading] = useState(false);
@@ -65,7 +66,12 @@ function LayoutClient() {
 
   return (
     <AppContextClient.Provider value={state}>
-      <Spin spinning={isLoading} tip="Đang tải dữ liệu...">
+      <Spin
+        spinning={isLoading}
+        tip="Đang tải dữ liệu..."
+        className="min-h-screen"
+        indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />}
+      >
         <HeaderClient logo={config?.logo} />
         <Content
           className={
@@ -77,7 +83,7 @@ function LayoutClient() {
         >
           <Outlet />
         </Content>
-        <FooterClient logo={config?.logo} email={config?.email}/>
+        <FooterClient logo={config?.logo} email={config?.email} />
         {/* {isLoading ? <LoadingScreen /> : <></>} */}
       </Spin>
     </AppContextClient.Provider>

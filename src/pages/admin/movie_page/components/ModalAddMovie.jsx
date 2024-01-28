@@ -1,12 +1,4 @@
-import {
-  Col,
-  DatePicker,
-  Form,
-  Input,
-  Modal,
-  Row,
-  message
-} from "antd";
+import { Col, DatePicker, Form, Input, Modal, Row, message } from "antd";
 import { useContext, useState } from "react";
 import Config from "../../../../config";
 import {
@@ -101,6 +93,21 @@ function ModalAddMovie() {
                   });
                 }}
               />
+            </Form.Item>
+          </Col>
+          <Col flex="auto">
+            <Form.Item
+              name="nameMovieVie"
+              label="Tên phim (Vie)"
+              required
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng nhập ${label}",
+                },
+              ]}
+            >
+              <Input allowClear />
             </Form.Item>
           </Col>
         </Row>
@@ -262,10 +269,7 @@ function ModalAddMovie() {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item
-              name="ageClassification"
-              label="Phân loại tuổi"
-            >
+            <Form.Item name="ageClassification" label="Phân loại tuổi">
               <SelectAgeClassification
                 onChange={(e) => {
                   form.setFieldsValue({

@@ -14,7 +14,7 @@ import MoviePage from "./pages/admin/movie_page/MoviePage";
 
 import UploadImagePage from "./pages/admin/upload_image_page/UploadImagePage";
 
-import { AgeClassificationPage, EventPage, QueryPage, SettingPage, UserPage, VersionPage } from "./pages/admin";
+import { AgeClassificationPage, EventPage, QueryPage, SettingPage, UploadImageMoviePage, UserPage, VersionPage } from "./pages/admin";
 import HistoryPage from "./pages/admin/history_page/HistoryPage";
 
 import "../src/css/output.css";
@@ -24,7 +24,6 @@ import {
   DetailMangaChapterPage,
   DetailMangaPage,
   DetailMoviePage,
-  DetailMovieUrlPage,
   HomePage,
   InformationClientPage,
   LicensePage,
@@ -37,8 +36,8 @@ import {
 
 
 const isMaintain = false
-const defaultTitle = 'Otakime'
-const defaultDescription= 'Đây là description'
+const defaultTitle = 'Otakime - Home'
+const defaultDescription= 'Trang web chính thức của nhóm dịch Otakime, Việt hóa những dự án manga nhằm giới thiệu độc giả. Truy cập ngay để đọc những tựa truyện được yêu thích.'
 
 const App = () => {
 
@@ -71,7 +70,8 @@ const App = () => {
               <Route path="manga" element={<MangaPage />}></Route>
               <Route path="movie" element={<MoviePage />}></Route>
               <Route path="mail" element={<MailPage />}></Route>
-              <Route path="upload" element={<UploadImagePage />}></Route>
+              <Route path="upload-manga" element={<UploadImagePage />}></Route>
+              <Route path="upload-movie" element={<UploadImageMoviePage />}></Route>
               <Route path="tags" element={<CategoryTagPage />}></Route>
               <Route path="history" element={<HistoryPage />}></Route>
               <Route path="event" element={<EventPage />}></Route>

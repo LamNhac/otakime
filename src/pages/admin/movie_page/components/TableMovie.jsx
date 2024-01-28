@@ -1,16 +1,15 @@
 /* eslint-disable array-callback-return */
+import { blue } from "@ant-design/colors";
 import {
   DeleteOutlined,
   EditOutlined,
   ExclamationCircleFilled,
-  RetweetOutlined,
 } from "@ant-design/icons";
-import { Button, Modal, Popconfirm, Space, Table, Tag, message } from "antd";
+import { Button, Modal, Space, Table, Tag } from "antd";
 import { useContext } from "react";
 import {
   deleteDocument,
   saveToLog,
-  updateDocument,
 } from "../../../../services/firebaseService";
 import MovieContext from "../MovieContext";
 
@@ -21,15 +20,34 @@ function TableMovie() {
     {
       dataIndex: "id",
       title: "#",
+      align: "center",
       render: (text, record, index) => index + 1,
     },
     {
-      dataIndex: "nameMovie",
-      title: "Tên phim",
+      dataIndex: "Movie",
+      title: "Movie",
+      render: (text, record, index) => {
+        return (
+          <div>
+            <p className={`text-[${blue.primary}]`}>{record.nameMovie}</p>
+            <p>Vie: {record.nameMovieVie}</p>
+            <p>Other name: {record.otherName}</p>
+          </div>
+        );
+      },
     },
     {
-      dataIndex: "otherName",
-      title: "Tên khác",
+      dataIndex: "ThongTinPhim",
+      title: "Thông tin phim",
+      render: (text, record, index) => {
+        return (
+          <div>
+            <p>Đạo diễn: {record.director}</p>
+            <p>Studio: {record.studio}</p>
+            <p>Biên kịch: {record.writer}</p>
+          </div>
+        );
+      },
     },
     {
       dataIndex: "updateAt",
@@ -61,62 +79,14 @@ function TableMovie() {
         );
       },
     },
-    {
-      dataIndex: "director",
-      title: "Đạo diễn",
-    },
-    {
-      dataIndex: "stars",
-      title: "Diễn viên",
-    },
-    {
-      dataIndex: "studio",
-      title: "Studio",
-    },
-    {
-      dataIndex: "writer",
-      title: "Biên kịch",
-    },
-    {
-      dataIndex: "description",
-      title: "Mô tả",
-    },
+
     {
       dataIndex: "thaotac",
       title: "Thao tác",
-      align: "right",
+      align: "center",
       render: (text, record, index) => {
         return (
           <Space size="small">
-            <Popconfirm
-              title={record.nameMovie}
-              description={
-                record.isStatusMovie
-                  ? "Bạn có chắc chắn ngừng hoạt động không?"
-                  : "Bạn có chắc chắn mở hoạt động không?"
-              }
-              okText="Cập nhật"
-              cancelText="Đóng"
-              onConfirm={() => {
-                record.isStatusMovie = !record.isStatusMovie;
-
-                updateDocument("movie", record.id, record)
-                  .then(() => loadMovie())
-                  .then(() =>
-                    message.success(
-                      <span>
-                        Cập nhật trạng thái <b>{record.nameMovie}</b> thành
-                        công!
-                      </span>
-                    )
-                  );
-              }}
-            >
-              <Button type="link" icon={<RetweetOutlined />}>
-                CN Trạng thái
-              </Button>
-            </Popconfirm>
-
             <Button
               type="link"
               icon={<EditOutlined />}

@@ -18,7 +18,7 @@ export default function CardImage(props) {
   const containerClasses = "relative w-full h-full rounded-md";
 
   const overlayClasses = isBackdrop
-    ? "absolute inset-0 bg-black opacity-20" // Chỉ áp dụng nếu isBackdrop là true
+    ? "absolute inset-0 bg-black opacity-30" // Chỉ áp dụng nếu isBackdrop là true
     : "";
 
   const contentClasses = "absolute left-5 top-[70%] text-white ";
@@ -51,7 +51,7 @@ export default function CardImage(props) {
         )}
 
         <div className={contentClasses}>
-          <h2 className="font-bold xs:text-2xl sm:text-[1rem] md:text-[2rem]">
+          <h2 className="font-bold xs:text-2xl sm:text-[1rem] md:text-[1.3rem]">
             {title}
           </h2>
           {description && <p>{description}</p>}

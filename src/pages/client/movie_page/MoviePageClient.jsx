@@ -1,9 +1,9 @@
-import { Col, Input, Row, Spin } from "antd";
+import { Col, Row, Spin } from "antd";
 import { useEffect, useState } from "react";
 import {
-  CardImageMovieView,
+  CardImage,
   SkeletionMovie,
-  TopBarFilterClientView,
+  TopBarFilterClientView
 } from "../../../components";
 import { getAllDocuments } from "../../../services/firebaseService";
 
@@ -52,9 +52,11 @@ function MoviePageClient() {
               const ageClassification = item.ageClassification[0];
               return (
                 <Col xs={12} sm={12} md={12} lg={12} xl={6} key={index}>
-                  <CardImageMovieView
-                    to={`/movie/${item.urlMovie}`}
-                    movie={item}
+                 <CardImage
+                    to={`/movie/${item.urlMMovie}`}
+                    src={item?.imgMain}
+                    title={item.nameMovie}
+                    isBackdrop
                     isAgeClassification
                     ageClassification={ageClassification}
                   />

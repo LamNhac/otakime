@@ -1,32 +1,29 @@
-import { Card, Tag } from "antd";
+import { Card } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
-import ViewImage from "./ViewImage";
 import AgeClassificationView from "./AgeClassificationView";
-import { EyeOutlined } from "@ant-design/icons";
-
-const { Meta } = Card;
+import ViewImage from "./ViewImage";
 
 export default function CardImageMovieView(props) {
   const {
     movie,
     isAgeClassification,
-    ageClassification,
     to,
     height = 305,
+    isBackdrop = true,
   } = props;
-  // const containerClasses = "relative w-full h-full rounded-md";
 
-  // const overlayClasses = isBackdrop
-  //   ? "absolute inset-0 bg-black opacity-20 mb-[5px]" // Chỉ áp dụng nếu isBackdrop là true
-  //   : "";
+  const containerClasses = "relative w-full h-full rounded-md";
+
+  const overlayClasses = isBackdrop
+    ? "absolute inset-0 bg-black opacity-20 " // Chỉ áp dụng nếu isBackdrop là true
+    : "";
 
   // const contentClasses = "absolute left-[1rem] bottom-[3rem] text-white";
 
-  console.log("movie", movie);
   return (
     <Link to={to}>
-      <div>
+      <div className="containerClasses">
         <ViewImage
           src={movie?.imgCover}
           preview={false}
@@ -39,6 +36,14 @@ export default function CardImageMovieView(props) {
             borderRadius: 8,
           }}
         />
+        {isBackdrop && (
+          <div
+            className={overlayClasses}
+            style={{
+              borderRadius: 8,
+            }}
+          ></div>
+        )}
         <h2 className="font-bold xs:text-2xl sm:text-[1rem] md:text-[1.5rem] absolute top-[70%] left-5">
           {movie?.nameMovie}
         </h2>

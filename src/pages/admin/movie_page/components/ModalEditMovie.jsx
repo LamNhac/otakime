@@ -110,6 +110,21 @@ function ModalEditMovie() {
                 />
               </Form.Item>
             </Col>
+            <Col flex="auto">
+              <Form.Item
+                name="nameMovieVie"
+                label="Tên phim (Vie)"
+                required
+                rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng nhập ${label}",
+                  },
+                ]}
+              >
+                <Input allowClear />
+              </Form.Item>
+            </Col>
           </Row>
           <Row gutter={[12, 12]}>
             <Col flex="auto">

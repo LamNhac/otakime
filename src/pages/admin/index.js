@@ -10,4 +10,6 @@ import EventPage from "./event_page/EventPage";
 import QueryPage from "./query_page/QueryPage";
 import UserPage from "./user_page/UserPage";
 
-export { MoviePage, MangaPage, MailPage, VersionPage,AgeClassificationPage, SettingPage, EventPage ,QueryPage,UserPage};
+import UploadImageMoviePage from "./upload_image_movie_page/UploadImageMoviePage";
+
+export { MoviePage, MangaPage, MailPage, VersionPage,AgeClassificationPage, SettingPage, EventPage ,QueryPage,UserPage, UploadImageMoviePage};

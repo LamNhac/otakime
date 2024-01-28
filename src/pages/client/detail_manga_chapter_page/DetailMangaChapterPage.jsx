@@ -198,20 +198,21 @@ function DetailMangaChapterPage() {
         </Row>
       </div>
 
-      {dataChapter?.imgChapterFile && (
-        <div className="flex flex-col justify-center items-center">
-          {dataChapter?.imgChapterFile?.map((item, index) => {
-            return (
-              <ViewImage
-                key={index}
-                src={item.imgUrl ? item.imgUrl : IMAGES.imgDefault}
-                fallback={IMAGES.imgDefault}
-                style={{ width: 800 }}
-              />
-            );
-          })}
-        </div>
-      )}
+      {dataChapter?.imgChapterFile &&
+        dataChapter?.imgChapterFile.length > 0 && (
+          <div className="flex flex-col justify-center items-center">
+            {dataChapter?.imgChapterFile?.map((item, index) => {
+              return (
+                <ViewImage
+                  key={index}
+                  src={item.imgUrl ? item.imgUrl : IMAGES.imgDefault}
+                  fallback={IMAGES.imgDefault}
+                  style={{ width: 800 }}
+                />
+              );
+            })}
+          </div>
+        )}
     </Spin>
   );
 }

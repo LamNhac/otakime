@@ -17,7 +17,7 @@ function FooterClient({ email, logo }) {
         <Col>
           <div className="flex flex-col items-center">
             <div>
-              <div className="flex gap-5">
+              <div className="flex gap-5 justify-center">
                 <Link to="/termsofuse">
                   <p className="underline"> Điều khoản sử dụng</p>
                 </Link>

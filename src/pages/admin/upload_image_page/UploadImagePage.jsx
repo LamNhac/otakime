@@ -9,7 +9,7 @@ import {
 } from "./components";
 
 function UploadImagePage() {
-  const [filterManga, setFilterManga] = useState(null);
+  // const [filterManga, setFilterManga] = useState(null);
 
   const [isLoadingTable, setIsLoadingTable] = useState(false);
   const [isLoadingTableChapter, setIsLoadingTableChapter] = useState(false);

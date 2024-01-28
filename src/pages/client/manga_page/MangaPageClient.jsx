@@ -54,7 +54,7 @@ function MangaPageClient() {
                 <Col xs={12} sm={12} md={12} lg={12} xl={6} key={index}>
                   <CardImage
                     to={`/manga/${item.urlManga}`}
-                    src={item?.imgCover}
+                    src={item?.imgMain}
                     title={item.nameManga}
                     isBackdrop
                     isAgeClassification
