@@ -18,7 +18,7 @@ export default function CardImage(props) {
   const containerClasses = "relative w-full h-full rounded-md";
 
   const overlayClasses = isBackdrop
-    ? "absolute inset-0 bg-black opacity-20 mb-[5px]" // Chỉ áp dụng nếu isBackdrop là true
+    ? "absolute inset-0 bg-black opacity-20" // Chỉ áp dụng nếu isBackdrop là true
     : "";
 
   const contentClasses = "absolute left-5 top-[70%] text-white ";

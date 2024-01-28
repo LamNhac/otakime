@@ -87,7 +87,10 @@ function HomePage() {
 
     document.title = `Otakime - Home`;
     const el = document.querySelector("meta[name='description']");
-    el.setAttribute("content", "Trang web chính thức của nhóm dịch Otakime, Việt hóa những dự án manga nhằm giới thiệu độc giả. Truy cập ngay để đọc những tựa truyện được yêu thích.");
+    el.setAttribute(
+      "content",
+      "Trang web chính thức của nhóm dịch Otakime, Việt hóa những dự án manga nhằm giới thiệu độc giả. Truy cập ngay để đọc những tựa truyện được yêu thích."
+    );
   }, []);
   console.log("newMangaUpdate", newMangaUpdate);
 
@@ -99,7 +102,7 @@ function HomePage() {
         Object.keys(newMangaUpdate).length !== 0 && (
           <CardImage
             to={`/manga/${newMangaUpdate?.urlManga}/${newMangaUpdate?.newNameChapter}`}
-            src={newMangaUpdate?.imgMain}
+            src={newMangaUpdate?.imgCover}
             title="Mới cập nhật"
             description={`${newMangaUpdate?.nameManga ?? ""} - Chapter ${
               newMangaUpdate?.newNameChapter?.toString().padStart(2, 0) ?? ""
@@ -140,7 +143,7 @@ function HomePage() {
                     <CardImage
                       isLoading={isLoadingMangaViewest}
                       to={`/manga/${dataMangaViewest[0]?.urlManga}/${dataMangaViewest[0]?.newNameChapter}`}
-                      src={dataMangaViewest[0]?.imgMain}
+                      src={dataMangaViewest[0]?.imgCover}
                       title={dataMangaViewest[0]?.nameManga}
                       description={`Chapter ${
                         dataMangaViewest[0]?.newNameChapter
@@ -171,7 +174,7 @@ function HomePage() {
                     <CardImage
                       isLoading={isLoadingMangaViewest}
                       to={`/manga/${dataMangaViewest[1]?.urlManga}/${dataMangaViewest[1]?.newNameChapter}`}
-                      src={dataMangaViewest[1]?.imgMain}
+                      src={dataMangaViewest[1]?.imgCover}
                       title={dataMangaViewest[1]?.nameManga}
                       description={`Chapter ${
                         dataMangaViewest[1]?.newNameChapter
@@ -219,7 +222,7 @@ function HomePage() {
                   <CardImage
                     isLoading={isLoadingMovieViewest}
                     to={`/movie/${dataMovieViewest.urlMovie}`}
-                    src={dataMovieViewest.imgMain}
+                    src={dataMovieViewest.imgCover}
                     title={dataMovieViewest?.nameMovie}
                     description=""
                     ageClassification={

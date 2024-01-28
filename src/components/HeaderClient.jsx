@@ -3,21 +3,19 @@
 import {
   BarsOutlined,
   BookOutlined,
-  GoogleOutlined,
   HomeOutlined,
   LogoutOutlined,
-  UserOutlined,
+  UserOutlined
 } from "@ant-design/icons";
 import {
   Avatar,
   Button,
   Col,
   Drawer,
-  Dropdown,
   Image,
   Layout,
   Row,
-  message,
+  message
 } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { BsDiscord, BsFacebook } from "react-icons/bs";
@@ -26,11 +24,9 @@ import AppContextClient from "../contexts/AppContextClient";
 import {
   getRedirectResultUser,
   logout,
-  onChangeToken,
-  signInClientUser,
+  onChangeToken
 } from "../services/firebase";
 import ButtonGradient from "./ButtonGradient";
-import ViewImage from "./ViewImage";
 const { Header } = Layout;
 function HeaderClient({ logo }) {
   const { userClient, setUserClient, isLoginUser, setIsLoginUser } =
@@ -127,7 +123,7 @@ function HeaderClient({ logo }) {
       {windowWidth < 640 ? (
         <>
           <Link to="/" className="flex items-center justify-start">
-            <ViewImage src={logo} />
+            {logo && <Image preview={false} src={logo}    style={{ width: 150, height: "100%" }}/>}
           </Link>
           <Button
             icon={<BarsOutlined />}
@@ -137,7 +133,7 @@ function HeaderClient({ logo }) {
           <Drawer
             title={
               <div className="w-full flex items-center justify-between">
-                <Image src={logo} preview={false} width={100} />
+                {logo && <Image preview={false} src={logo} width={100} />}
                 <Avatar src={user?.photoURL} />
               </div>
             }
@@ -231,11 +227,13 @@ function HeaderClient({ logo }) {
       ) : (
         <>
           <Link to="/" className="flex items-center justify-center h-full">
-            <Image
-              src={logo}
-              style={{ width: 150, height: "100%" }}
-              preview={false}
-            />
+            {logo && (
+              <Image
+                preview={false}
+                src={logo}
+                style={{ width: 150, height: "100%" }}
+              />
+            )}
           </Link>
           <div className="flex flex-row gap-5">
             <Link to="manga" style={{ color: "white" }}>
@@ -255,7 +253,7 @@ function HeaderClient({ logo }) {
                 <BsDiscord color="white" size={20} />
               </a>
             </div>
-            <div>
+            {/* <div>
               {isLoginUser ? (
                 <>
                   <Dropdown
@@ -283,7 +281,7 @@ function HeaderClient({ logo }) {
                   </Button>
                 </>
               )}
-            </div>
+            </div> */}
           </div>
         </>
       )}

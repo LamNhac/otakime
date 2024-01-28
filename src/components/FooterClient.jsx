@@ -1,13 +1,18 @@
-import { Col, Layout, Row } from "antd";
+import { Col, Image, Layout, Row } from "antd";
 import { Link } from "react-router-dom";
-import ViewImage from "./ViewImage";
 const { Footer } = Layout;
 function FooterClient({ email, logo }) {
   return (
-    <Footer className="text-center">
+    <Footer className="text-center" style={{padding: "12px 12px"}}>
       <Row gutter={[12, 12]} align="middle" justify="center">
         <Col>
-          <ViewImage src={logo} style={{ width: 200, height: "100%" }} />
+          {logo && (
+            <Image
+              preview={false}
+              src={logo}
+              style={{ width: 200, height: "100%" }}
+            />
+          )}
         </Col>
         <Col>
           <div className="flex flex-col items-center">

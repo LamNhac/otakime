@@ -105,6 +105,9 @@ function ModalImage() {
             imgCover: urlCover,
             imgMain: urlMain,
           };
+          values.imgCover = JSON.stringify(values.imgCover);
+          values.imgMain = JSON.stringify(values.imgMain);
+
           console.log(params);
           setIsLoading(false);
           updateDocument("manga", dataImage.id, params)

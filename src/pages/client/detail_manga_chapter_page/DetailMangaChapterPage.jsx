@@ -59,7 +59,6 @@ function DetailMangaChapterPage() {
               id: item.id,
             }));
             setSelectChapter(options);
-            console.log("setSelectChapter xxx");
 
             //Convert ảnh
             chapter.imgChapterFile = JSON.parse(chapter.imgChapterFile);
@@ -85,6 +84,7 @@ function DetailMangaChapterPage() {
             manga?.nameManga
           } - ${chapter?.nameChapter.toString().padStart(2, "0")}`;
           const el = document.querySelector("meta[name='description']");
+          console.log("manga", manga);
           el.setAttribute("content", manga?.description);
         });
       })
@@ -137,7 +137,7 @@ function DetailMangaChapterPage() {
     currentChapterId === null ||
     selectChapter?.length === 0 ||
     currentChapterId === selectChapter?.length;
-
+  console.log("dataChapter?.imgChapterFile", dataChapter?.imgChapterFile);
   return (
     <Spin spinning={isLoading}>
       <FloatButton.BackTop style={{ insetBlockEnd: 20, insetInlineEnd: 20 }} />
@@ -204,7 +204,7 @@ function DetailMangaChapterPage() {
             return (
               <ViewImage
                 key={index}
-                src={item.imgUrl ? item.imgUrl : "error"}
+                src={item.imgUrl ? item.imgUrl : IMAGES.imgDefault}
                 fallback={IMAGES.imgDefault}
                 style={{ width: 800 }}
               />

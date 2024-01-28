@@ -38,7 +38,7 @@ const ViewImage = ({ style, src, ...restProps }) => {
       style={{
         ...style,
       }}
-      placeholder={<Image preview={false} src={ImageDefault} />}
+      // placeholder={<Image preview={false} src={ImageDefault} />}
       onError={(e) => {
         console.log("Ảnh bị lỗi...");
       }}
