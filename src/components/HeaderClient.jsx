@@ -7,7 +7,7 @@ import {
   LogoutOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Avatar, Button, Col, Drawer, Image, Layout, Row, message } from "antd";
+import { Button, Col, Drawer, Image, Layout, Row, message } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { BsDiscord, BsFacebook } from "react-icons/bs";
 import { Link } from "react-router-dom";
