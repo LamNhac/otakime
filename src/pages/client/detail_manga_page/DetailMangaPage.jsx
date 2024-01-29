@@ -24,6 +24,7 @@ function DetailMangaPage() {
     getAllDocuments("manga")
       .then((res) => {
         const manga = res.find((item) => item.urlManga === mangaId);
+
         setData(manga);
         document.title = `Otakime - ${manga?.nameManga}`;
         const el = document.querySelector("meta[name='description']");
@@ -37,7 +38,9 @@ function DetailMangaPage() {
       setIsLoadingChapter(true);
       getAllDocuments(`manga/${data?.id}/chapter`)
         .then((res) => {
-          setDataChapter(res);
+          console.log("res chapter", res);
+          const chapterFilter = res.sort((a, b) => b.nameChapter - a.nameChapter);
+          setDataChapter(chapterFilter);
           let _totalView = res.reduce(
             (accumulator, currentValue) => accumulator + currentValue.view,
             0

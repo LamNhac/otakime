@@ -104,7 +104,7 @@ function ModalAddChapter() {
           if (chapterExist) {
             return message.warning(`Chapter ${values.nameChapter} đã tồn tại!`);
           } else {
-            // setIsLoading(true);
+            setIsLoading(true);
             values.updateChapterAt = dayjs(values.updateChapterAt).format(
               Config.dateFormat
             );
