@@ -27,14 +27,22 @@ function HomePage() {
     // setUserId(analytics, uuidv4());
     getAllDocuments("manga")
       .then((res) => {
+        console.log("Gốc->", res);
         // Chuyển đổi chuỗi ngày thành đối tượng Date
         const dateObjects = res.map((manga) => {
-          return {
-            ...manga,
-            newDateUpdateChapterAt: dateUtil.convertToDateType(
-              manga.newDateUpdateChapterAt
-            ),
-          };
+          if (
+            manga.newDateUpdateChapterAt !== "" ||
+            manga.newDateUpdateChapterAt
+          ) {
+            return {
+              ...manga,
+              newDateUpdateChapterAt: dateUtil.convertToDateType(
+                manga.newDateUpdateChapterAt
+              ),
+            };
+          } else {
+            return manga; // Giữ nguyên nếu newDateUpdateChapterAt là null hoặc ""
+          }
         });
 
         // Lấy ngày mới nhất
@@ -55,11 +63,15 @@ function HomePage() {
         }
 
         //Lấy ra manga có lượt view cao nhất
-        if (res) {
-          const mangaViewest = res.sort((a, b) => a.view - b.view);
-          const mangaViewestSlice = mangaViewest.slice(0, 2);
-          setDataMangaViewest(mangaViewestSlice);
-        }
+        let mangaHasChapterUploaded = res.filter(
+          (item) => item.newNameChapter !== null
+        );
+        const mangaViewest = mangaHasChapterUploaded.sort(
+          (a, b) => a.view - b.view
+        );
+        console.log("mangaViewest", mangaViewest);
+        const mangaViewestSlice = mangaViewest.slice(0, 2);
+        setDataMangaViewest(mangaViewestSlice);
       })
       .finally(() => {
         setIsLoadingManga(false);

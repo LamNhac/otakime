@@ -210,7 +210,6 @@ const getFileDownloadURL = (path) => {
 // Lấy tất cả documents từ collection
  const getAllDocumentsRealtime  = (collection) => {
  const res =  ref(database, collection)  
- console.log(res)
  return new Promise((resolve, reject)=>{
   onValue(res, (snapshot) => {
     const data = snapshot.val();

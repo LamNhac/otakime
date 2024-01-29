@@ -17,14 +17,14 @@ function FooterClient({ email, logo }) {
         <Col>
           <div className="flex flex-col items-center">
             <div>
-              <div className="flex gap-5 justify-center">
+              {/* <div className="flex gap-5 justify-center">
                 <Link to="/termsofuse">
                   <p className="underline"> Điều khoản sử dụng</p>
                 </Link>
                 <Link to="/license">
                   <p className="underline">Bản quyền</p>
                 </Link>
-              </div>
+              </div> */}
 
               <p>Email us: {email}</p>
               <p>© Copyright 2023 Otakime</p>

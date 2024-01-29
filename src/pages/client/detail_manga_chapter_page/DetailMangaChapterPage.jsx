@@ -30,7 +30,7 @@ function DetailMangaChapterPage() {
   // const [isTypeRead] = useState(localStorage.getItem("isTypeRead"));
 
   const [data, setData] = useState(null);
-  const [dataChapter, setDataChapter] = useState(null);
+  const [dataChapter, setDataChapter] = useState({});
   const [selectChapter, setSelectChapter] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [lastView] = useState(localStorage.getItem("lastViewManga"));
@@ -198,20 +198,19 @@ function DetailMangaChapterPage() {
         </Row>
       </div>
 
-      {dataChapter?.imgChapterFile &&
-        dataChapter?.imgChapterFile.length > 0 && (
-          <div className="flex flex-col justify-center items-center">
-            {dataChapter?.imgChapterFile?.map((item, index) => {
-              return (
-                <ViewImage
-                  key={index}
-                  src={item.imgUrl ? item.imgUrl : IMAGES.imgDefault}
-                  style={{ width: 800 }}
-                />
-              );
-            })}
-          </div>
-        )}
+      {dataChapter?.imgChapterFile && dataChapter?.imgChapterFile.length > 0 ? (
+        <div className="flex flex-col justify-center items-center">
+          {dataChapter?.imgChapterFile?.map((item, index) => {
+            return (
+              <ViewImage
+                key={index}
+                src={item.imgUrl ? item.imgUrl : IMAGES.imgDefault}
+                style={{ width: 800 }}
+              />
+            );
+          })}
+        </div>
+      ) : null}
     </Spin>
   );
 }

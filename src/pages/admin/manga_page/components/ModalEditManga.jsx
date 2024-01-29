@@ -7,12 +7,12 @@ import {
   Modal,
   Row,
   Spin,
-  Switch,
-  message,
+  message
 } from "antd";
 import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
 import { SelectAgeClassification, SelectTag } from "../../../../components";
+import SelectStatusFilter from "../../../../components/SelectStatusFilter";
 import Config from "../../../../config";
 import {
   getAllDocuments,
@@ -21,7 +21,6 @@ import {
   updateDocument,
 } from "../../../../services/firebaseService";
 import MangaPageContext from "../MangaPageContext";
-import SelectStatusFilter from "../../../../components/SelectStatusFilter";
 
 function ModalEditManga(props) {
   const context = useContext(MangaPageContext);
@@ -197,22 +196,7 @@ function ModalEditManga(props) {
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item
-                name="ageClassification"
-                label="Phân loại tuổi"
-                required
-                rules={[
-                  {
-                    validator: (_, value) => {
-                      if (value && value.length > 0) {
-                        return Promise.resolve();
-                      }
-                      return Promise.reject("Vui lòng chọn thể loại");
-                    },
-                  },
-                ]}
-                validateTrigger={["onChange"]} // Validate on tag selection change
-              >
+              <Form.Item name="ageClassification" label="Phân loại tuổi">
                 <SelectAgeClassification
                   onChange={(e) => {
                     form.setFieldsValue({

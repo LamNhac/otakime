@@ -66,7 +66,6 @@ function HeaderClient({ logo }) {
           if (user && user.photoURL) {
             setIsLoginUser(true);
             setUserClient(user);
-            console.log(user);
             setUser({
               photoURL: user.photoURL,
               displayName: user.displayName,

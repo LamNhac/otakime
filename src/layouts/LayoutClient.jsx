@@ -78,7 +78,7 @@ function LayoutClient() {
             server || chapterId ? "" : " container p-4 md:p-14 min-w-full"
           }
           style={{
-            minHeight: "calc(100vh - 151px)",
+            minHeight: "calc(100vh - 142px)",
           }}
         >
           <Outlet />
