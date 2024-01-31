@@ -56,7 +56,7 @@ function LoginPage() {
             <Input allowClear></Input>
           </Form.Item>
           <Form.Item name="PASSWORD" label="Mật khẩu">
-            <Input allowClear onPressEnter={() => form.submit()}></Input>
+            <Input.Password onPressEnter={() => form.submit()}></Input.Password>
           </Form.Item>
           <div className="w-[100%] flex justify-end">
             <Button onClick={() => form.submit()} loading={isLoading}>
