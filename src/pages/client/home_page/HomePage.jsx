@@ -234,7 +234,7 @@ function HomePage() {
                   <CardImage
                     isLoading={isLoadingMovieViewest}
                     to={`/movie/${dataMovieViewest.urlMovie}`}
-                    src={dataMovieViewest.imgCover}
+                    src={dataMovieViewest?.imgCover}
                     title={dataMovieViewest?.nameMovie}
                     description=""
                     ageClassification={
