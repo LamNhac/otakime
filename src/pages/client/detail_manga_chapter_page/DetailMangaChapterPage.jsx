@@ -189,10 +189,10 @@ function DetailMangaChapterPage() {
               const selectedLabelsAndValues = selectChapter.find(
                 (item) => item.id === selectedItems
               );
-
               navigate(`/manga/${mangaId}/${selectedLabelsAndValues.chapter}`);
             }}
             placeholder="Chọn chapter..."
+            style={{ width: 150 }}
           ></Select>
           <Button
             shape="circle"
