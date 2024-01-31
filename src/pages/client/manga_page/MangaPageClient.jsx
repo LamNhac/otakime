@@ -31,7 +31,8 @@ function MangaPageClient() {
   }, []);
   return (
     <Spin spinning={isLoading} tip="Đang tải dữ liệu...">
-      <div className="sm:pr-[15rem] sm:pl-[15rem] md:pr-[10rem] md:pl-[10rem] flex flex-col gap-4">
+      {/* <div className="sm:pr-[15rem] sm:pl-[15rem] md:pr-[10rem] md:pl-[10rem] flex flex-col gap-4"></div> */}
+      <div className="flex flex-col gap-4">
         <TopBarFilterClientView
           title="Truyện mới nhất"
           onChange={(value) => {
@@ -66,7 +67,8 @@ function MangaPageClient() {
                     // title={item.nameManga}
                     isAgeClassification
                     ageClassification={ageClassification}
-                    objectFit={""}
+                    objectFit={"cover"}
+                    height={"auto"}
                   />
                 </Col>
               );

@@ -52,7 +52,7 @@ function DetailMangaChapterPage() {
           );
           console.log("chapterFilterName", chapterFilterName);
           const chapter = chapterFilterName.find(
-            (item) => item.nameChapter === parseInt(chapterId)
+            (item) => item.nameChapter === parseFloat(chapterId)
           );
 
           if (chapter) {
@@ -142,7 +142,7 @@ function DetailMangaChapterPage() {
     currentChapterId === null ||
     selectChapter?.length === 0 ||
     currentChapterId === selectChapter?.length;
-  console.log("dataChapter?.imgChapterFile", dataChapter?.imgChapterFile);
+  console.log("dataChapter?.imgChapterFile", dataChapter);
   return (
     <Spin spinning={isLoading}>
       <FloatButton.BackTop style={{ insetBlockEnd: 20, insetInlineEnd: 20 }} />
