@@ -13,6 +13,7 @@ export default function CardImage(props) {
     ageClassification,
     to,
     height = 305,
+    objectFit = "cover",
   } = props;
 
   const containerClasses = "relative w-full h-full rounded-md";
@@ -33,7 +34,7 @@ export default function CardImage(props) {
             height: height,
             backgroundSize: "cover",
             backgroundPosition: "center",
-            objectFit: "cover",
+            objectFit: objectFit,
             width: "100%",
             borderRadius: 8,
           }}
@@ -51,9 +52,11 @@ export default function CardImage(props) {
         )}
 
         <div className={contentClasses}>
-          <h2 className="font-bold xs:text-2xl sm:text-[1rem] md:text-[1.3rem]">
-            {title}
-          </h2>
+          {title && (
+            <h2 className="font-bold xs:text-2xl sm:text-[1rem] md:text-[1.3rem]">
+              {title}
+            </h2>
+          )}
           {description && <p>{description}</p>}
         </div>
       </div>

@@ -64,6 +64,8 @@ function LayoutClient() {
       });
   }, []);
 
+  const stylePadding = "p-4  md:p-14"; // Sử dụng cho mọi kích thước
+
   return (
     <AppContextClient.Provider value={state}>
       <Spin
@@ -75,7 +77,7 @@ function LayoutClient() {
         <HeaderClient logo={config?.logo} />
         <Content
           className={
-            server || chapterId ? "" : " container p-4 md:p-14 min-w-full"
+            server || chapterId ? "" : `container min-w-full ${stylePadding}`
           }
           style={{
             minHeight: "calc(100vh - 142px)",

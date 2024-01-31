@@ -117,7 +117,8 @@ function ModalAddChapter() {
                   dataMangaObj.nameManga
                 }/chapter/${values.imgChapterFile[i].name
                   .toString()
-                  .padStart(2, "0")}`
+                  .padStart(2, "0")}`,
+                values.imgChapterFile[i].type
               );
               values.imgChapterFile[i] = {
                 ...values.imgChapterFile[i],

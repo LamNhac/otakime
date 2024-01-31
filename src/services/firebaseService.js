@@ -180,10 +180,12 @@ const deleteAllDocuments = async (collectionPath) => {
 };
 
 
-const uploadFile = async (file, path) => {
+const uploadFile = async (file, path, type) => {
   try {
     const storageRef = storageReference(storage, path);
-    await uploadBytes(storageRef, file);
+    await uploadBytes(storageRef, file, {
+      contentType: type,
+    });
 
     // Get the download URL after successful upload
     const downloadURL = await getFileDownloadURL(path);

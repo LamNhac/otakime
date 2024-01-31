@@ -115,10 +115,11 @@ function ModalEditChapter() {
       <Form
         form={form}
         onFinish={async (values) => {
-          setIsLoading(true);
+          // setIsLoading(true);
           values.updateChapterAt = dayjs(values.updateChapterAt).format(
             Config.dateFormat
           );
+
           for (var i in values.imgChapterFile) {
             const urlPromise = await uploadFile(
               values.imgChapterFile[i].originFileObj,
@@ -126,7 +127,8 @@ function ModalEditChapter() {
                 i
               ].name
                 .toString()
-                .padStart(2, "0")}`
+                .padStart(2, "0")}`,
+              values.imgChapterFile[i].type
             );
 
             values.imgChapterFile[i] = {
@@ -146,6 +148,8 @@ function ModalEditChapter() {
                 ),
                 newNameChapter: values.nameChapter,
               };
+
+              console.log("values", values);
               //Cập nhật newDateUpdateChapterAt vào trong Manga để lấy ra truyện mới cập nhật
               updateDocument("manga", dataMangaObj.id, cloneDataMangaObj);
               updateDocument(

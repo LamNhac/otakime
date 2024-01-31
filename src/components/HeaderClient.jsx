@@ -19,7 +19,7 @@ import {
 } from "../services/firebase";
 import ButtonGradient from "./ButtonGradient";
 const { Header } = Layout;
-function HeaderClient({ logo }) {
+function HeaderClient({ logo, stylePadding }) {
   const { userClient, setUserClient, isLoginUser, setIsLoginUser } =
     useContext(AppContextClient);
 
@@ -103,11 +103,11 @@ function HeaderClient({ logo }) {
 
   return (
     <Header
-      className="flex items-center justify-between bg-gradient-to-r from-[#ADF709] via-[#F3ADC3] to-[#00CCFF]"
+      className="ps-4 pe-4 md:ps-14 md:pe-14 flex items-center justify-between bg-gradient-to-r from-[#ADF709] via-[#F3ADC3] to-[#00CCFF]"
       style={{
         width: "100%",
         top: 0,
-        paddingInline: 20,
+        // paddingInline: '3.5rem',
       }}
     >
       {windowWidth < 640 ? (

@@ -63,10 +63,10 @@ function MangaPageClient() {
                   <CardImage
                     to={`/manga/${item.urlManga}`}
                     src={item?.imgMain}
-                    title={item.nameManga}
-                    isBackdrop
+                    // title={item.nameManga}
                     isAgeClassification
                     ageClassification={ageClassification}
+                    objectFit={""}
                   />
                 </Col>
               );

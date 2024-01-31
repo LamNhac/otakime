@@ -1,5 +1,4 @@
 import { Col, Image, Layout, Row } from "antd";
-import { Link } from "react-router-dom";
 const { Footer } = Layout;
 function FooterClient({ email, logo }) {
   return (

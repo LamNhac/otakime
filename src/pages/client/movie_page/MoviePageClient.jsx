@@ -60,10 +60,11 @@ function MoviePageClient() {
                   <CardImage
                     to={`/movie/${item.urlMovie}`}
                     src={item?.imgMain}
-                    title={item.nameMovie}
-                    isBackdrop
+                    // title={item.nameMovie}
+                    // isBackdrop
                     isAgeClassification
                     ageClassification={ageClassification}
+                    objectFit=""
                   />
                 </Col>
               );
