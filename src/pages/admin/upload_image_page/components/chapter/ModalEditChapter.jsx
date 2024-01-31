@@ -139,8 +139,14 @@ function ModalEditChapter() {
 
           Promise.all(values.imgChapterFile)
             .then(() => {
+              //Thêm trường cho chapter để render ra UI
               values.imgChapterFile = JSON.stringify(values.imgChapterFile);
-
+              values.idManga = dataMangaObj.id;
+              values.nameManga = dataMangaObj.nameManga;
+              values.nameMangaVie = dataMangaObj.nameMangaVie;
+              values.urlManga = dataMangaObj.urlManga;
+              values.tags = dataMangaObj.tags;
+              
               const cloneDataMangaObj = {
                 ...dataMangaObj,
                 newDateUpdateChapterAt: dayjs(new Date()).format(
@@ -150,6 +156,7 @@ function ModalEditChapter() {
               };
 
               console.log("values", values);
+
               //Cập nhật newDateUpdateChapterAt vào trong Manga để lấy ra truyện mới cập nhật
               updateDocument("manga", dataMangaObj.id, cloneDataMangaObj);
               updateDocument(

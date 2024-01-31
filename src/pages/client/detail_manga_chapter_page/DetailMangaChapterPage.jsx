@@ -47,12 +47,17 @@ function DetailMangaChapterPage() {
 
         //Lấy danh sách chapter
         getAllDocuments(`manga/${manga.id}/chapter`).then((res) => {
-          const chapter = res.find(
+          const chapterFilterName = res.sort(
+            (a, b) => b.nameChapter - a.nameChapter
+          );
+          console.log("chapterFilterName", chapterFilterName);
+          const chapter = chapterFilterName.find(
             (item) => item.nameChapter === parseInt(chapterId)
           );
+
           if (chapter) {
             //Tạo danh sách select chapter
-            const options = res.map((item) => ({
+            const options = chapterFilterName.map((item) => ({
               label: `Chapter ${item.nameChapter}`,
               chapter: item.nameChapter,
               value: item.id,

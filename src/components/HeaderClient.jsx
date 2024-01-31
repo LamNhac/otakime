@@ -112,7 +112,7 @@ function HeaderClient({ logo, stylePadding }) {
     >
       {windowWidth < 640 ? (
         <>
-          <Link to="/" className="flex items-center justify-start">
+          <Link to="/" className="flex items-center justify-end">
             {logo && (
               <Image
                 preview={false}
@@ -128,8 +128,10 @@ function HeaderClient({ logo, stylePadding }) {
           ></Button>
           <Drawer
             title={
-              <div className="w-full flex items-center justify-between">
-                {logo && <Image preview={false} src={logo} width={100} />}
+              <div className="w-full flex items-center justify-end">
+                <Link to="/">
+                  {logo && <Image preview={false} src={logo} width={100} />}
+                </Link>
                 {/* <Avatar src={user?.photoURL} /> */}
               </div>
             }
@@ -140,9 +142,8 @@ function HeaderClient({ logo, stylePadding }) {
             destroyOnClose={true}
           >
             <div className="flex flex-col  justify-between h-[100%]">
-              <div className="flex flex-wrap gap-5 items-center">
-                <Row gutter={[12, 12]}>
-                  <Col xs={12} md={12} lg={12}>
+              <Row gutter={[12, 12]}>
+                {/* <Col xs={12} md={12} lg={12}>
                     <Link
                       to="/"
                       onClick={() => {
@@ -154,34 +155,34 @@ function HeaderClient({ logo, stylePadding }) {
                         <span>HOME</span>
                       </ButtonGradient>
                     </Link>
-                  </Col>
-                  <Col xs={12} md={12} lg={12}>
-                    <Link
-                      to="manga"
-                      onClick={() => {
-                        setIsOpenDrawer(false);
-                      }}
-                    >
-                      <ButtonGradient>
-                        <BookOutlined style={{ fontSize: 20 }} />
-                        <span>MANGA</span>
-                      </ButtonGradient>
-                    </Link>
-                  </Col>
-                  <Col xs={12} md={12} lg={12}>
-                    <Link
-                      to="movie"
-                      onClick={() => {
-                        setIsOpenDrawer(false);
-                      }}
-                    >
-                      <ButtonGradient>
-                        <BookOutlined style={{ fontSize: 20 }} />
-                        <span>MOVIE</span>
-                      </ButtonGradient>
-                    </Link>
-                  </Col>
-                  {/* <Col xs={12} md={12} lg={12}>
+                  </Col> */}
+                <Col xs={12} md={12} lg={12}>
+                  <Link
+                    to="manga"
+                    onClick={() => {
+                      setIsOpenDrawer(false);
+                    }}
+                  >
+                    <ButtonGradient>
+                      <BookOutlined style={{ fontSize: 20 }} />
+                      <span>MANGA</span>
+                    </ButtonGradient>
+                  </Link>
+                </Col>
+                <Col xs={12} md={12} lg={12}>
+                  <Link
+                    to="movie"
+                    onClick={() => {
+                      setIsOpenDrawer(false);
+                    }}
+                  >
+                    <ButtonGradient>
+                      <BookOutlined style={{ fontSize: 20 }} />
+                      <span>MOVIE</span>
+                    </ButtonGradient>
+                  </Link>
+                </Col>
+                {/* <Col xs={12} md={12} lg={12}>
                     <Link
                       to="about"
                       onClick={() => {
@@ -194,7 +195,7 @@ function HeaderClient({ logo, stylePadding }) {
                       </ButtonGradient>
                     </Link>
                   </Col> */}
-                  <Col xs={12} md={12} lg={12}>
+                {/* <Col xs={12} md={12} lg={12}>
                     <Link
                       to="information-user"
                       onClick={() => {
@@ -206,9 +207,8 @@ function HeaderClient({ logo, stylePadding }) {
                         <span>USER</span>
                       </ButtonGradient>
                     </Link>
-                  </Col>
-                </Row>
-              </div>
+                  </Col> */}
+              </Row>
               <div className="flex items-center justify-center gap-5 ">
                 <a href="https://www.facebook.com/Otakime3.0" target="_blank">
                   <BsFacebook size={20} />
