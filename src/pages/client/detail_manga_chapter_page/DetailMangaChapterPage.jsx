@@ -41,8 +41,8 @@ function DetailMangaChapterPage() {
     setIsLoading(true);
     //Lấy danh sách manga
     getAllDocuments("manga")
-      .then((res) => {
-        const manga = res.find((item) => item.urlManga === mangaId);
+      .then((resManga) => {
+        const manga = resManga.find((item) => item.urlManga === mangaId);
         setData(manga);
 
         //Lấy danh sách chapter
@@ -78,11 +78,17 @@ function DetailMangaChapterPage() {
           // Nếu vượt quá 1 phút thì mới update lại view
           if (!lastView || Date.now() - parseInt(lastView) > 60000) {
             updateLastView();
-            updateDocument(`manga/${manga.id}/chapter`, chapter.id, {
-              ...res,
+            const cloneDatatoUpdateView = {
+              ...chapter,
               imgChapterFile: JSON.stringify(chapter.imgChapterFile),
               view: chapter.view + 1,
-            });
+            };
+            console.log("cloneDatatoUpdateView", cloneDatatoUpdateView);
+            updateDocument(
+              `manga/${manga.id}/chapter`,
+              chapter.id,
+              cloneDatatoUpdateView
+            );
           }
 
           document.title = `Otakime - ${
