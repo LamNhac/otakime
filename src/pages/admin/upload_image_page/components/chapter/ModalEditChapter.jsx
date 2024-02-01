@@ -115,7 +115,7 @@ function ModalEditChapter() {
       <Form
         form={form}
         onFinish={async (values) => {
-          // setIsLoading(true);
+          setIsLoading(true);
           values.updateChapterAt = dayjs(values.updateChapterAt).format(
             Config.dateFormat
           );
@@ -123,9 +123,9 @@ function ModalEditChapter() {
           for (var i in values.imgChapterFile) {
             const urlPromise = await uploadFile(
               values.imgChapterFile[i].originFileObj,
-              `manga/${dataMangaObj.nameManga}/chapter/${values.imgChapterFile[
-                i
-              ].name
+              `manga/${dataMangaObj.nameManga}/chapter/${values.nameChapter
+                .toString()
+                .padStart(2, "0")}/${values.imgChapterFile[i].name
                 .toString()
                 .padStart(2, "0")}`,
               values.imgChapterFile[i].type
@@ -136,6 +136,9 @@ function ModalEditChapter() {
               imgUrl: urlPromise,
             };
           }
+          console.log(
+            values.imgChapterFile[0].name.toString().padStart(2, "0")
+          );
 
           Promise.all(values.imgChapterFile)
             .then(() => {
@@ -146,7 +149,7 @@ function ModalEditChapter() {
               values.nameMangaVie = dataMangaObj.nameMangaVie;
               values.urlManga = dataMangaObj.urlManga;
               values.tags = dataMangaObj.tags;
-              
+
               const cloneDataMangaObj = {
                 ...dataMangaObj,
                 newDateUpdateChapterAt: dayjs(new Date()).format(

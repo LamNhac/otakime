@@ -50,12 +50,12 @@ function DetailMangaChapterPage() {
           const chapterFilterName = res.sort(
             (a, b) => b.nameChapter - a.nameChapter
           );
-          console.log("chapterFilterName", chapterFilterName);
           const chapter = chapterFilterName.find(
             (item) => item.nameChapter === parseFloat(chapterId)
           );
 
           if (chapter) {
+            console.log("chapter", chapter.nameChapter);
             //Tạo danh sách select chapter
             const options = chapterFilterName.map((item) => ({
               label: `Chapter ${item.nameChapter}`,
@@ -64,9 +64,8 @@ function DetailMangaChapterPage() {
               id: item.id,
             }));
             setSelectChapter(options);
-
-            //Convert ảnh
-            chapter.imgChapterFile = JSON.parse(chapter.imgChapterFile);
+            chapter.imgChapterFile = JSON.parse(chapter.imgChapterFile); //Convert ảnh
+            console.log("chapter.imgChapterFile", chapter.imgChapterFile);
             setDataChapter(chapter);
           } else {
             message.error(`Chapter ${chapterId} không tồn tại!`);
@@ -83,7 +82,6 @@ function DetailMangaChapterPage() {
               imgChapterFile: JSON.stringify(chapter.imgChapterFile),
               view: chapter.view + 1,
             };
-            console.log("cloneDatatoUpdateView", cloneDatatoUpdateView);
             updateDocument(
               `manga/${manga.id}/chapter`,
               chapter.id,
@@ -95,7 +93,6 @@ function DetailMangaChapterPage() {
             manga?.nameManga
           } - ${chapter?.nameChapter.toString().padStart(2, "0")}`;
           const el = document.querySelector("meta[name='description']");
-          console.log("manga", manga);
           el.setAttribute("content", manga?.description);
         });
       })
@@ -148,7 +145,6 @@ function DetailMangaChapterPage() {
     currentChapterId === null ||
     selectChapter?.length === 0 ||
     currentChapterId === selectChapter?.length;
-  console.log("dataChapter?.imgChapterFile", dataChapter);
   return (
     <Spin spinning={isLoading}>
       <FloatButton.BackTop style={{ insetBlockEnd: 20, insetInlineEnd: 20 }} />

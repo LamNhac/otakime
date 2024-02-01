@@ -113,9 +113,9 @@ function ModalAddChapter() {
             for (var i in values.imgChapterFile) {
               const urlPromise = await uploadFile(
                 values.imgChapterFile[i].originFileObj,
-                `manga/${
-                  dataMangaObj.nameManga
-                }/chapter/${values.imgChapterFile[i].name
+                `manga/${dataMangaObj.nameManga}/chapter/${values.nameChapter
+                  .toString()
+                  .padStart(2, "0")}/${values.imgChapterFile[i].name
                   .toString()
                   .padStart(2, "0")}`,
                 values.imgChapterFile[i].type
