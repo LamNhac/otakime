@@ -121,27 +121,28 @@ function ModalEditChapter() {
           );
 
           for (var i in values.imgChapterFile) {
-            const urlPromise = await uploadFile(
-              values.imgChapterFile[i].originFileObj,
-              `manga/${dataMangaObj.nameManga}/chapter/${values.nameChapter
-                .toString()
-                .padStart(2, "0")}/${values.imgChapterFile[i].name
-                .toString()
-                .padStart(2, "0")}`,
-              values.imgChapterFile[i].type
-            );
+            if (!values.imgChapterFile[i].imgUrl) {
+              const urlPromise = await uploadFile(
+                values.imgChapterFile[i].originFileObj,
+                `manga/${dataMangaObj.nameManga}/chapter/${values.nameChapter
+                  .toString()
+                  .padStart(2, "0")}/${values.imgChapterFile[i].name
+                  .toString()
+                  .padStart(2, "0")}`,
+                values.imgChapterFile[i].type
+              );
 
-            values.imgChapterFile[i] = {
-              ...values.imgChapterFile[i],
-              imgUrl: urlPromise,
-            };
+              values.imgChapterFile[i] = {
+                ...values.imgChapterFile[i],
+                imgUrl: urlPromise,
+              };
+            }
           }
-          console.log(
-            values.imgChapterFile[0].name.toString().padStart(2, "0")
-          );
 
           Promise.all(values.imgChapterFile)
             .then(() => {
+              console.log("KQ->", values.imgChapterFile);
+
               //Thêm trường cho chapter để render ra UI
               values.imgChapterFile = JSON.stringify(values.imgChapterFile);
               values.idManga = dataMangaObj.id;

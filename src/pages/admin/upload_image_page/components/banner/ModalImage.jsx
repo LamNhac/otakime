@@ -28,16 +28,16 @@ function ModalImage() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [fileList, setFileList] = useState([]);
-  const [fileList2, setFileList2] = useState([]);
-  const [fileList3, setFileList3] = useState([]);
+  const [fileListMain, setFileListMain] = useState([]);
+  const [fileListCoverDesktop, setFileListCoverDesktop] = useState([]);
+  const [fileListCoverMobile, setFileListCoverMobile] = useState([]);
 
   const handleChangeMain = ({ fileList: newFileList }) =>
-    setFileList(newFileList);
-  const handleChangeCover = ({ fileList: newFileList }) =>
-    setFileList2(newFileList);
-  const handleChangeIndex = ({ fileList: newFileList }) =>
-    setFileList3(newFileList);
+    setFileListMain(newFileList);
+  const handleChangeCoverDesktop = ({ fileList: newFileList }) =>
+    setFileListCoverDesktop(newFileList);
+  const handleChangeCoverMobile = ({ fileList: newFileList }) =>
+    setFileListCoverMobile(newFileList);
 
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -75,16 +75,6 @@ function ModalImage() {
         form={form}
         onFinish={async (values) => {
           setIsLoading(true);
-          console.log(" values.imgMain[0].type", values.imgMain[0].type);
-          console.log(
-            "   values.imgCoverDesktop[0].type",
-            values.imgCoverDesktop[0].type
-          );
-
-          console.log(
-            " values.imgCoverMobile[0].type",
-            values.imgCoverMobile[0].type
-          );
 
           const urlMain = await uploadFile(
             values.imgMain[0].originFileObj,
@@ -159,9 +149,9 @@ function ModalImage() {
             >
               <Upload
                 multiple
-                fileList={fileList}
+                fileList={fileListMain}
                 onPreview={handlePreview}
-                onChange={handleChangeCover}
+                onChange={handleChangeMain}
                 customRequest={dummyRequest}
                 className="upload-list-inline"
                 maxCount={1}
@@ -188,9 +178,9 @@ function ModalImage() {
             >
               <Upload
                 multiple
-                fileList={fileList2}
+                fileList={fileListCoverDesktop}
                 onPreview={handlePreview}
-                onChange={handleChangeIndex}
+                onChange={handleChangeCoverDesktop}
                 customRequest={dummyRequest}
                 className="upload-list-inline"
                 maxCount={1}
@@ -215,9 +205,9 @@ function ModalImage() {
             >
               <Upload
                 multiple
-                fileList={fileList2}
+                fileList={fileListCoverMobile}
                 onPreview={handlePreview}
-                onChange={handleChangeIndex}
+                onChange={handleChangeCoverMobile}
                 customRequest={dummyRequest}
                 className="upload-list-inline"
                 maxCount={1}

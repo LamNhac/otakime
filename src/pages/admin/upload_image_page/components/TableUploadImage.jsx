@@ -33,8 +33,13 @@ function TableUploadImage() {
       render: (text, record, index) => <Image src={text} width={100} />,
     },
     {
-      title: "imgCover",
-      dataIndex: "imgCover",
+      title: "imgCoverDesktop",
+      dataIndex: "imgCoverDesktop",
+      render: (text, record, index) => <Image src={text} width={100} />,
+    },
+    {
+      title: "imgCoverMobile",
+      dataIndex: "imgCoverMobile",
       render: (text, record, index) => <Image src={text} width={100} />,
     },
     {

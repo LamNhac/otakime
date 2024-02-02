@@ -1,15 +1,5 @@
 import { UploadOutlined } from "@ant-design/icons";
-import {
-  Button,
-  Col,
-  Form,
-  Image,
-  Modal,
-  Row,
-  Switch,
-  Upload,
-  message,
-} from "antd";
+import { Button, Col, Form, Image, Modal, Row, Upload, message } from "antd";
 import { useContext, useState } from "react";
 import {
   saveToLog,
@@ -38,16 +28,18 @@ function ModalImage() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [fileList, setFileList] = useState([]);
-  const [fileList2, setFileList2] = useState([]);
-  const [fileList3, setFileList3] = useState([]);
+  const [fileListMain, setFileListMain] = useState([]);
+  const [fileListCoverDesktop, setFileListCoverDesktop] = useState([]);
+  const [fileListCoverMobile, setFileListCoverMobile] = useState([]);
 
   const handleChangeMain = ({ fileList: newFileList }) =>
-    setFileList(newFileList);
-  const handleChangeCover = ({ fileList: newFileList }) =>
-    setFileList2(newFileList);
-  const handleChangeIndex = ({ fileList: newFileList }) =>
-    setFileList3(newFileList);
+    setFileListMain(newFileList);
+
+  const handleChangeCoverDesktop = ({ fileList: newFileList }) =>
+    setFileListCoverDesktop(newFileList);
+
+  const handleChangeCoverMobile = ({ fileList: newFileList }) =>
+    setFileListCoverMobile(newFileList);
 
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -92,19 +84,32 @@ function ModalImage() {
               .padStart(2, "0")}`
           );
 
-          const urlCover = await uploadFile(
-            values.imgCover[0].originFileObj,
-            `manga/${dataImage.nameMovie}/logo/${values.imgCover[0].name
+          const urlCoverDesktop = await uploadFile(
+            values.imgCoverDesktop[0].originFileObj,
+            `manga/${dataImage.nameMovie}/logo/${values.imgCoverDesktop[0].name
               .toString()
-              .padStart(2, "0")}`
+              .padStart(2, "0")}`,
+            values.imgCoverDesktop[0].type
+          );
+
+          const urlCoverMobile = await uploadFile(
+            values.imgCoverMobile[0].originFileObj,
+            `manga/${dataImage.nameMovie}/logo/${values.imgCoverMobile[0].name
+              .toString()
+              .padStart(2, "0")}`,
+            values.imgCoverMobile[0].type
           );
 
           const params = {
             ...dataImage,
-            imgCover: urlCover,
+            imgCoverDesktop: urlCoverDesktop,
+            imgCoverMobile: urlCoverMobile,
             imgMain: urlMain,
           };
-          values.imgCover = JSON.stringify(values.imgCover);
+
+          values.imgCoverDesktop = JSON.stringify(values.imgCoverDesktop);
+          values.imgCoverMobile = JSON.stringify(values.imgCoverMobile);
+
           values.imgMain = JSON.stringify(values.imgMain);
 
           updateDocument("movie", dataImage.id, params)
@@ -136,9 +141,9 @@ function ModalImage() {
             >
               <Upload
                 multiple
-                fileList={fileList}
+                fileList={fileListMain}
                 onPreview={handlePreview}
-                onChange={handleChangeCover}
+                onChange={handleChangeMain}
                 customRequest={dummyRequest}
                 className="upload-list-inline"
                 maxCount={1}
@@ -147,10 +152,12 @@ function ModalImage() {
               </Upload>
             </Form.Item>
           </Col>
+        </Row>
+        <Row>
           <Col>
             <Form.Item
-              name="imgCover"
-              label="imgCover"
+              name="imgCoverDesktop"
+              label="imgCoverDesktop"
               valuePropName="fileList"
               getValueFromEvent={normFile}
               required
@@ -163,9 +170,38 @@ function ModalImage() {
             >
               <Upload
                 multiple
-                fileList={fileList2}
+                fileList={fileListCoverDesktop}
                 onPreview={handlePreview}
-                onChange={handleChangeIndex}
+                onChange={handleChangeCoverDesktop}
+                customRequest={dummyRequest}
+                className="upload-list-inline"
+                maxCount={1}
+              >
+                <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>
+              </Upload>
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Form.Item
+              name="imgCoverMobile"
+              label="imgCoverMobile"
+              valuePropName="fileList"
+              getValueFromEvent={normFile}
+              required
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng chọn ${label}",
+                },
+              ]}
+            >
+              <Upload
+                multiple
+                fileList={fileListCoverMobile}
+                onPreview={handlePreview}
+                onChange={handleChangeCoverMobile}
                 customRequest={dummyRequest}
                 className="upload-list-inline"
                 maxCount={1}
