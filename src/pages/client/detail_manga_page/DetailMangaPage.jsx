@@ -39,7 +39,9 @@ function DetailMangaPage() {
       getAllDocuments(`manga/${data?.id}/chapter`)
         .then((res) => {
           console.log("res chapter", res);
-          const chapterFilter = res.sort((a, b) => b.nameChapter - a.nameChapter);
+          const chapterFilter = res.sort(
+            (a, b) => b.nameChapter - a.nameChapter
+          );
           setDataChapter(chapterFilter);
           let _totalView = res.reduce(
             (accumulator, currentValue) => accumulator + currentValue.view,
@@ -51,6 +53,20 @@ function DetailMangaPage() {
         .finally(() => setIsLoadingChapter(false));
     }
   }, [data?.id]);
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const updateWindowWidth = () => {
+    setWindowWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", updateWindowWidth);
+
+    // Clean up: hủy đăng ký sự kiện khi component unmount
+    return () => {
+      window.removeEventListener("resize", updateWindowWidth);
+    };
+  }, []);
+
   return (
     <Spin
       spinning={isLoading}
@@ -59,10 +75,10 @@ function DetailMangaPage() {
     >
       <div className="flex flex-col gap-4">
         <ViewImage
-          src={data?.imgCover}
+          src={windowWidth < 640 ? data?.imgCoverMobile : data?.imgCoverDesktop}
           preview={false}
           style={{
-            height: 400,
+            height: "auto",
             backgroundSize: "cover",
             backgroundPosition: "center",
             objectFit: "cover",

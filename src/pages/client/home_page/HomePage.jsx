@@ -18,6 +18,10 @@ function HomePage() {
   const [dataMangaViewest, setDataMangaViewest] = useState([]);
   const [dataMovieViewest, setDataMovieViewest] = useState({});
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const updateWindowWidth = () => {
+    setWindowWidth(window.innerWidth);
+  };
   useEffect(() => {
     setIsLoadingManga(true);
     setIsLoadingMangaViewest(true);
@@ -103,8 +107,11 @@ function HomePage() {
       "content",
       "Trang web chính thức của nhóm dịch Otakime, Việt hóa những dự án manga nhằm giới thiệu độc giả. Truy cập ngay để đọc những tựa truyện được yêu thích."
     );
+    window.addEventListener("resize", updateWindowWidth);
+    return () => {
+      window.removeEventListener("resize", updateWindowWidth);
+    };
   }, []);
-  console.log("newMangaUpdate", newMangaUpdate);
 
   return (
     <div className="flex flex-col">
@@ -114,7 +121,11 @@ function HomePage() {
         Object.keys(newMangaUpdate).length !== 0 && (
           <CardImage
             to={`/manga/${newMangaUpdate?.urlManga}/${newMangaUpdate?.newNameChapter}`}
-            src={newMangaUpdate?.imgCover}
+            src={
+              windowWidth < 640
+                ? newMangaUpdate?.imgCoverMobile
+                : newMangaUpdate?.imgCoverDesktop
+            }
             title="Mới cập nhật"
             description={`${newMangaUpdate?.nameManga ?? ""} - Chapter ${
               newMangaUpdate?.newNameChapter?.toString().padStart(2, 0) ?? ""
@@ -155,7 +166,11 @@ function HomePage() {
                     <CardImage
                       isLoading={isLoadingMangaViewest}
                       to={`/manga/${dataMangaViewest[0]?.urlManga}/${dataMangaViewest[0]?.newNameChapter}`}
-                      src={dataMangaViewest[0]?.imgCover}
+                      src={
+                        windowWidth < 640
+                          ? dataMangaViewest[0]?.imgCoverMobile
+                          : dataMangaViewest[0]?.imgCoverDesktop
+                      }
                       title={dataMangaViewest[0]?.nameManga}
                       description={`Chapter ${
                         dataMangaViewest[0]?.newNameChapter
@@ -186,7 +201,11 @@ function HomePage() {
                     <CardImage
                       isLoading={isLoadingMangaViewest}
                       to={`/manga/${dataMangaViewest[1]?.urlManga}/${dataMangaViewest[1]?.newNameChapter}`}
-                      src={dataMangaViewest[1]?.imgCover}
+                      src={
+                        windowWidth < 640
+                          ? dataMangaViewest[1]?.imgCoverMobile
+                          : dataMangaViewest[1]?.imgCoverDesktop
+                      }
                       title={dataMangaViewest[1]?.nameManga}
                       description={`Chapter ${
                         dataMangaViewest[1]?.newNameChapter
@@ -234,7 +253,11 @@ function HomePage() {
                   <CardImage
                     isLoading={isLoadingMovieViewest}
                     to={`/movie/${dataMovieViewest.urlMovie}`}
-                    src={dataMovieViewest?.imgCover}
+                    src={
+                      windowWidth < 640
+                        ? dataMovieViewest?.imgCoverMobile
+                        : dataMovieViewest?.imgCoverDesktop
+                    }
                     title={dataMovieViewest?.nameMovie}
                     description=""
                     ageClassification={

@@ -1,15 +1,5 @@
 import { UploadOutlined } from "@ant-design/icons";
-import {
-  Button,
-  Col,
-  Form,
-  Image,
-  Modal,
-  Row,
-  Switch,
-  Upload,
-  message,
-} from "antd";
+import { Button, Col, Form, Image, Modal, Row, Upload, message } from "antd";
 import { useContext, useState } from "react";
 import {
   saveToLog,
@@ -85,31 +75,61 @@ function ModalImage() {
         form={form}
         onFinish={async (values) => {
           setIsLoading(true);
+          console.log(" values.imgMain[0].type", values.imgMain[0].type);
+          console.log(
+            "   values.imgCoverDesktop[0].type",
+            values.imgCoverDesktop[0].type
+          );
+
+          console.log(
+            " values.imgCoverMobile[0].type",
+            values.imgCoverMobile[0].type
+          );
 
           const urlMain = await uploadFile(
             values.imgMain[0].originFileObj,
             `manga/${dataImage.nameManga}/logo/${values.imgMain[0].name
               .toString()
-              .padStart(2, "0")}`
+              .padStart(2, "0")}`,
+            values.imgMain[0].type
           );
 
-          const urlCover = await uploadFile(
-            values.imgCover[0].originFileObj,
-            `manga/${dataImage.nameManga}/logo/${values.imgCover[0].name
+          const urlCoverDesktop = await uploadFile(
+            values.imgCoverDesktop[0].originFileObj,
+            `manga/${dataImage.nameManga}/logo/${values.imgCoverDesktop[0].name
               .toString()
-              .padStart(2, "0")}`
+              .padStart(2, "0")}`,
+            values.imgCoverDesktop[0].type
           );
+
+          const urlCoverMobile = await uploadFile(
+            values.imgCoverMobile[0].originFileObj,
+            `manga/${dataImage.nameManga}/logo/${values.imgCoverMobile[0].name
+              .toString()
+              .padStart(2, "0")}`,
+            values.imgCoverMobile[0].type
+          );
+
+          // const urlBanner = await uploadFile(
+          //   values.imgBanner[0].originFileObj,
+          //   `manga/${dataImage.nameManga}/logo/${values.imgBanner[0].name
+          //     .toString()
+          //     .padStart(2, "0")}`,
+          //   values.imgBanner[0].type
+          // );
 
           const params = {
             ...dataImage,
-            imgCover: urlCover,
+            imgCoverDesktop: urlCoverDesktop,
+            imgCoverMobile: urlCoverMobile,
             imgMain: urlMain,
+            // imgBanner: urlBanner,
           };
-          values.imgCover = JSON.stringify(values.imgCover);
+
+          values.imgCoverDesktop = JSON.stringify(values.imgCoverDesktop);
+          values.imgCoverMobile = JSON.stringify(values.imgCoverMobile);
           values.imgMain = JSON.stringify(values.imgMain);
 
-          console.log(params);
-          setIsLoading(false);
           updateDocument("manga", dataImage.id, params)
             .then(() => {
               message.success("Cập nhật ảnh bìa thành công!");
@@ -150,10 +170,39 @@ function ModalImage() {
               </Upload>
             </Form.Item>
           </Col>
+        </Row>
+        <Row gutter={[12, 12]}>
           <Col>
             <Form.Item
-              name="imgCover"
-              label="imgCover"
+              name="imgCoverDesktop"
+              label="imgCoverDesktop"
+              valuePropName="fileList"
+              getValueFromEvent={normFile}
+              required
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng chọn ${label}",
+                },
+              ]}
+            >
+              <Upload
+                multiple
+                fileList={fileList2}
+                onPreview={handlePreview}
+                onChange={handleChangeIndex}
+                customRequest={dummyRequest}
+                className="upload-list-inline"
+                maxCount={1}
+              >
+                <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>
+              </Upload>
+            </Form.Item>
+          </Col>
+          <Col>
+            <Form.Item
+              name="imgCoverMobile"
+              label="imgCoverMobile"
               valuePropName="fileList"
               getValueFromEvent={normFile}
               required
@@ -179,20 +228,11 @@ function ModalImage() {
           </Col>
         </Row>
 
-        <Row gutter={[12, 12]}>
+        {/* <Row gutter={[12, 12]}>
           <Col span={8}>
             <Form.Item
-              name="isImgIndex"
-              label="Trang bìa"
-              valuePropName="checked"
-            >
-              <Switch />
-            </Form.Item>
-          </Col>
-          <Col span={8}>
-            <Form.Item
-              name="imgIndex"
-              label="imgIndex"
+              name="imgBanner"
+              label="imgBanner"
               valuePropName="fileList"
               getValueFromEvent={normFile}
             >
@@ -209,7 +249,7 @@ function ModalImage() {
               </Upload>
             </Form.Item>
           </Col>
-        </Row>
+        </Row> */}
       </Form>
       <Modal
         open={previewOpen}
