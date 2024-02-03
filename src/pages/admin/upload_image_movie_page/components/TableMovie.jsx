@@ -18,25 +18,31 @@ export default function TableMovie() {
       title: "#",
       dataIndex: "id",
       render: (text, record, index) => index + 1,
+      align: "center",
     },
     {
-      title: "Tên manga",
+      title: "Tên Movie",
       dataIndex: "nameMovie",
     },
 
     {
-      title: "imgMain",
+      title: "Ảnh Main",
       dataIndex: "imgMain",
       render: (text, record, index) => <Image src={text} width={100} />,
     },
     {
-      title: "imgCover",
-      dataIndex: "imgCover",
+      title: "Ảnh Cover Desktop",
+      dataIndex: "imgCoverDesktop",
+      render: (text, record, index) => <Image src={text} width={100} />,
+    },
+    {
+      title: "Ảnh Cover Mobile",
+      dataIndex: "imgCoverMobile",
       render: (text, record, index) => <Image src={text} width={100} />,
     },
     {
       title: "Thao tác",
-      align: "right",
+      align: "center",
       render: (text, record, index) => {
         return (
           <Space wrap>

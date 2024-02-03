@@ -1,11 +1,20 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
+  AppstoreOutlined,
+  BookOutlined,
+  CloudUploadOutlined,
   DashboardOutlined,
+  DesktopOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  ShopOutlined,
+  SendOutlined,
+  SettingOutlined,
+  TagOutlined,
+  UploadOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
-import { Button, Layout, Menu, Modal, theme } from "antd";
+import { Button, Image, Layout, Menu, Modal, theme } from "antd";
 import { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import AppContextAdmin from "../contexts/AppContextAdmin";
@@ -32,19 +41,19 @@ function LayoutAdmin() {
         User
       </Link>,
       "user",
-      <DashboardOutlined style={{ fontSize: 16 }} />
+      <UserOutlined style={{ fontSize: 16 }} />
     ),
 
-    getItem("Upload", "upload", <ShopOutlined />, [
+    getItem("Upload", "upload", <CloudUploadOutlined />, [
       getItem(
         <Link to="/admin/upload-manga">Upload Manga</Link>,
         "upload-manga",
-        <DashboardOutlined style={{ fontSize: 16 }} />
+        <UploadOutlined style={{ fontSize: 16 }} />
       ),
       getItem(
         <Link to="/admin/upload-movie">Upload Movie</Link>,
         "upload-movie",
-        <DashboardOutlined style={{ fontSize: 16 }} />
+        <UploadOutlined style={{ fontSize: 16 }} />
       ),
     ]),
 
@@ -53,7 +62,7 @@ function LayoutAdmin() {
         Manga
       </Link>,
       "manga",
-      <DashboardOutlined style={{ fontSize: 16 }} />
+      <BookOutlined style={{ fontSize: 16 }} />
     ),
 
     getItem(
@@ -61,23 +70,23 @@ function LayoutAdmin() {
         Movie
       </Link>,
       "Movie",
-      <DashboardOutlined style={{ fontSize: 16 }} />
+      <DesktopOutlined style={{ fontSize: 16 }} />
     ),
     getItem(
       <Link to="/admin/mail" style={{ fontSize: 16 }}>
         Mail
       </Link>,
       "trang-chu",
-      <DashboardOutlined style={{ fontSize: 16 }} />
+      <SendOutlined style={{ fontSize: 16 }} />
     ),
-    getItem("Danh mục", "danh-muc", <ShopOutlined />, [
+    getItem("Category", "danh-muc", <AppstoreOutlined />, [
       getItem(
-        <Link to="/admin/tags">Thể loại</Link>,
+        <Link to="/admin/tags">Tags</Link>,
         "tags",
-        <DashboardOutlined style={{ fontSize: 16 }} />
+        <TagOutlined style={{ fontSize: 16 }} />
       ),
       getItem(
-        <Link to="/admin/age-classification">Phân loại tuổi</Link>,
+        <Link to="/admin/age-classification">Age Classification</Link>,
         "age-classification",
         <DashboardOutlined style={{ fontSize: 16 }} />
       ),
@@ -101,7 +110,7 @@ function LayoutAdmin() {
         Setting
       </Link>,
       "setting",
-      <DashboardOutlined style={{ fontSize: 16 }} />
+      <SettingOutlined style={{ fontSize: 16 }} />
     ),
     getItem(
       <Link to="/admin/query" style={{ fontSize: 16 }}>
@@ -136,19 +145,28 @@ function LayoutAdmin() {
       });
     }
   }, []);
+
+  useEffect(() => {}, []);
+
   const state = {};
 
   return (
     <AppContextAdmin.Provider value={state}>
       <Layout style={{ height: "100vh" }}>
-        <Sider trigger={null} collapsible collapsed={collapsed}>
-          <div className="demo-logo-vertical" />
-          <Menu
-            theme="dark"
-            mode="inline"
-            defaultSelectedKeys={["1"]}
-            items={items}
-          />
+        <Sider
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
+          style={{ background: colorBgContainer }}
+        >
+          <a onClick={() => window.open(window.location.origin)}>
+            <Image
+              src="https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/app?alt=media&token=d6849d49-7890-48a3-bcae-30c05a3ccd4f"
+              style={{ padding: 20 }}
+              preview={false}
+            />
+          </a>
+          <Menu mode="inline" defaultSelectedKeys={["1"]} items={items} />
         </Sider>
         <Layout>
           <Header style={{ padding: 0, background: colorBgContainer }}>

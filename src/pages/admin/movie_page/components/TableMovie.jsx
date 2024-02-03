@@ -28,10 +28,10 @@ function TableMovie() {
       title: "Movie",
       render: (text, record, index) => {
         return (
-          <div>
-            <p className={`text-[${blue.primary}]`}>{record.nameMovie}</p>
+          <div className="flex flex-col items-start text-left">
+            <p className={`text-[${blue.primary}] font-bold`}>{record.nameMovie}</p>
             <p>Vie: {record.nameMovieVie}</p>
-            <p>Other name: {record.otherName}</p>
+            <p class="italic">Other name: {record.otherName}</p>
           </div>
         );
       },

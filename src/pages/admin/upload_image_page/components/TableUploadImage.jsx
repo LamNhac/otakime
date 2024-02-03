@@ -21,6 +21,7 @@ function TableUploadImage() {
       title: "#",
       dataIndex: "id",
       render: (text, record, index) => index + 1,
+      align: "center",
     },
     {
       title: "Tên manga",
@@ -28,17 +29,17 @@ function TableUploadImage() {
     },
 
     {
-      title: "imgMain",
+      title: "Ảnh Main",
       dataIndex: "imgMain",
       render: (text, record, index) => <Image src={text} width={100} />,
     },
     {
-      title: "imgCoverDesktop",
+      title: "Ảnh Cover Desktop",
       dataIndex: "imgCoverDesktop",
       render: (text, record, index) => <Image src={text} width={100} />,
     },
     {
-      title: "imgCoverMobile",
+      title: "Ảnh Cover Mobile",
       dataIndex: "imgCoverMobile",
       render: (text, record, index) => <Image src={text} width={100} />,
     },

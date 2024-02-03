@@ -10,6 +10,7 @@ import {
   saveToLog,
 } from "../../../../services/firebaseService";
 import MangaPageContext from "../MangaPageContext";
+import { blue } from "@ant-design/colors";
 
 function ModalAddManga() {
   const context = useContext(MangaPageContext);
@@ -20,7 +21,7 @@ function ModalAddManga() {
 
   return (
     <Modal
-      title="Thêm manga"
+      title={<span className={`text-[${blue.primary}]`}>Thêm manga</span>}
       open={isShowModalAdd}
       onCancel={() => setIsShowModalAdd(false)}
       okText="Thêm"

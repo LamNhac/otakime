@@ -1,4 +1,4 @@
-import { ConfigProvider } from "antd";
+import { ConfigProvider, theme } from "antd";
 import locale from "antd/lib/locale/vi_VN";
 
 import React, { useEffect } from "react";
@@ -18,7 +18,8 @@ import { AgeClassificationPage, EventPage, QueryPage, SettingPage, UploadImageMo
 import HistoryPage from "./pages/admin/history_page/HistoryPage";
 
 import "../src/css/output.css";
-
+// import 'antd/dist/reset.css';
+import "./App.css"
 import {
   AboutPage,
   DetailMangaChapterPage,
@@ -57,8 +58,9 @@ const App = () => {
       locale={locale}
       theme={{
         token: {
-          fontFamily: "Be Vietnam Pro"
-        }
+          fontFamily: "Be Vietnam Pro",
+        },
+        
       }}
     >
         <Routes>

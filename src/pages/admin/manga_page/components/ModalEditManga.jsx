@@ -8,9 +8,10 @@ import Config from "../../../../config";
 import {
   getDocument,
   saveToLog,
-  updateDocument
+  updateDocument,
 } from "../../../../services/firebaseService";
 import MangaPageContext from "../MangaPageContext";
+import { blue } from "@ant-design/colors";
 
 function ModalEditManga(props) {
   const context = useContext(MangaPageContext);
@@ -33,8 +34,8 @@ function ModalEditManga(props) {
   return (
     <Modal
       title={
-        <span>
-          Sửa manga <b>{dataEdit.nameManga}</b>
+        <span >
+          Sửa Manga <b className={`text-[${blue.primary}]`}>[{dataEdit.nameManga}]</b>
         </span>
       }
       open={isShowModalEdit}

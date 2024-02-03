@@ -1,14 +1,13 @@
 import {
   DeleteOutlined,
   EditOutlined,
-  ExclamationCircleFilled
+  ExclamationCircleFilled,
 } from "@ant-design/icons";
 import { Button, Modal, Space, Table, Tag } from "antd";
 import { useContext } from "react";
-import {
-  deleteDocument
-} from "../../../../services/firebaseService";
+import { deleteDocument } from "../../../../services/firebaseService";
 import MangaPageContext from "../MangaPageContext";
+import { blue } from "@ant-design/colors";
 
 function TableManga() {
   const context = useContext(MangaPageContext);
@@ -27,7 +26,6 @@ function TableManga() {
       title: "#",
       align: "center",
       render: (text, record, index) => {
-        // return index + 1;
         return index + 1;
       },
     },
@@ -36,23 +34,28 @@ function TableManga() {
       dataIndex: "nameManga",
       title: "Tên manga",
       align: "center",
-    },
-    {
-      key: "nameMangaVie",
-      dataIndex: "nameMangaVie",
-      title: "Tên manga (Việt)",
-      align: "center",
-    },
-    {
-      key: "otherName",
-      dataIndex: "otherName",
-      title: "Tên khác",
-      align: "center",
+      render: (text, record, index) => {
+        return (
+          <div className="flex flex-col items-start text-left">
+            <h2 class={`text-[${blue.primary}] font-bold`}>
+              {record.nameManga}
+            </h2>
+            <p>Vie: {record.nameMangaVie}</p>
+            <p class="italic">Other name: {record.otherName}</p>
+          </div>
+        );
+      },
     },
     {
       key: "author",
       dataIndex: "author",
       title: "Tác giả",
+      align: "center",
+    },
+    {
+      key: "updateAt",
+      dataIndex: "updateAt",
+      title: "Ngày cập nhật",
       align: "center",
     },
     {
@@ -64,16 +67,6 @@ function TableManga() {
         const item = text[0];
         return <Tag color={item?.color}>{item?.label}</Tag>;
       },
-    },
-    {
-      key: "updateAt",
-      dataIndex: "updateAt",
-      title: "Ngày cập nhật",
-      align: "center",
-      // render: (text, record, index) => {
-      //   console.log(text);
-      //   return moment(text).format(Config.dateFormat);
-      // },
     },
     {
       key: "tags",
@@ -92,13 +85,6 @@ function TableManga() {
         );
       },
     },
-
-    {
-      key: "description",
-      dataIndex: "description",
-      title: "Mô tả",
-    },
-
     {
       key: "thaotac",
       dataIndex: "thaotac",
