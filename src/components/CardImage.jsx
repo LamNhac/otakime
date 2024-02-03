@@ -22,7 +22,7 @@ export default function CardImage(props) {
     ? "absolute inset-0 bg-black opacity-30" // Chỉ áp dụng nếu isBackdrop là true
     : "";
 
-  const contentClasses = "absolute left-5 top-[70%] text-white ";
+  const contentClasses = "absolute left-0 bottom-5 pl-5 pr-5 text-white w-full";
 
   return (
     <Link to={to}>
@@ -39,7 +39,7 @@ export default function CardImage(props) {
             borderRadius: 8,
           }}
         />
-        {isBackdrop && (
+        {isBackdrop && src && (
           <div
             className={overlayClasses}
             style={{
@@ -53,7 +53,14 @@ export default function CardImage(props) {
 
         <div className={contentClasses}>
           {title && (
-            <h2 className="font-bold xs:text-2xl sm:text-[1rem] md:text-[1.3rem]">
+            <h2
+              className="font-bold xs:text-2xl sm:text-[1rem] md:text-[1.3rem]"
+              style={{
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+              }}
+            >
               {title}
             </h2>
           )}

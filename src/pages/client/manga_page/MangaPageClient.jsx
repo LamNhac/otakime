@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getAllDocuments } from "../../../services/firebaseService";
 
 import {
+  CardBackgroundImage,
   CardImage,
   SkeletionMovie,
   TopBarFilterClientView,
@@ -61,15 +62,25 @@ function MangaPageClient() {
               const ageClassification = item.ageClassification[0];
               return (
                 <Col xs={12} sm={12} md={12} lg={12} xl={6} key={index}>
-                  <CardImage
-                    to={`/manga/${item.urlManga}`}
-                    src={item?.imgMain}
-                    // title={item.nameManga}
-                    isAgeClassification
-                    ageClassification={ageClassification}
-                    objectFit={"cover"}
-                    height={"auto"}
-                  />
+                  {item.imgMain ? (
+                    <CardImage
+                      to={`/manga/${item.urlManga}`}
+                      src={item?.imgMain}
+                      // title={item.nameManga}
+                      isAgeClassification
+                      ageClassification={ageClassification}
+                      objectFit={"cover"}
+                      height={"auto"}
+                    />
+                  ) : (
+                    <CardBackgroundImage
+                      to={`/manga/${item.urlManga}`}
+                      src={item?.imgMain}
+                      // title={item.nameManga}
+                      isAgeClassification
+                      ageClassification={ageClassification}
+                    />
+                  )}
                 </Col>
               );
             })

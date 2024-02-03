@@ -7,6 +7,7 @@ import { logEvent } from "firebase/analytics";
 import CardImage from "../../../components/CardImage";
 import SkeletonImage from "../../../components/SkeletonImage";
 import dateUtil from "../../../utils/dateUtil";
+import CardBackgroundImage from "../../../components/CardBackgroundImage";
 
 function HomePage() {
   const [isLoadingManga, setIsLoadingManga] = useState(false);
@@ -137,6 +138,7 @@ function HomePage() {
             }
             isBackdrop
             isAgeClassification
+            height={"auto"}
           />
         )
       )}
@@ -162,15 +164,12 @@ function HomePage() {
                 {isLoadingMangaViewest ? (
                   <SkeletonImage />
                 ) : (
-                  dataMangaViewest[0]?.newNameChapter !== null && (
+                  dataMangaViewest[0]?.newNameChapter !== null &&
+                  (dataMangaViewest[0]?.imgMain ? (
                     <CardImage
                       isLoading={isLoadingMangaViewest}
                       to={`/manga/${dataMangaViewest[0]?.urlManga}/${dataMangaViewest[0]?.newNameChapter}`}
-                      src={
-                        windowWidth < 640
-                          ? dataMangaViewest[0]?.imgCoverMobile
-                          : dataMangaViewest[0]?.imgCoverDesktop
-                      }
+                      src={dataMangaViewest[0]?.imgMain}
                       title={dataMangaViewest[0]?.nameManga}
                       description={`Chapter ${
                         dataMangaViewest[0]?.newNameChapter
@@ -185,7 +184,27 @@ function HomePage() {
                       isBackdrop
                       isAgeClassification
                     />
-                  )
+                  ) : (
+                    <CardBackgroundImage
+                      isLoading={isLoadingMangaViewest}
+                      to={`/manga/${dataMangaViewest[0]?.urlManga}/${dataMangaViewest[0]?.newNameChapter}`}
+                      src={dataMangaViewest[0]?.imgMain}
+                      title={dataMangaViewest[0]?.nameManga}
+                      description={`Chapter ${
+                        dataMangaViewest[0]?.newNameChapter
+                          ?.toString()
+                          .padStart(2, 0) ?? ""
+                      }`}
+                      ageClassification={
+                        dataMangaViewest[0]?.ageClassification
+                          ? dataMangaViewest[0]?.ageClassification[0]
+                          : []
+                      }
+                      isBackdrop
+                      isAgeClassification
+                      height={305}
+                    />
+                  ))
                 )}
               </Col>
               {dataMangaViewest[1] && (
@@ -197,15 +216,11 @@ function HomePage() {
                 >
                   {isLoadingMangaViewest ? (
                     <SkeletonImage />
-                  ) : (
+                  ) : dataMangaViewest[1]?.imgMain ? (
                     <CardImage
                       isLoading={isLoadingMangaViewest}
                       to={`/manga/${dataMangaViewest[1]?.urlManga}/${dataMangaViewest[1]?.newNameChapter}`}
-                      src={
-                        windowWidth < 640
-                          ? dataMangaViewest[1]?.imgCoverMobile
-                          : dataMangaViewest[1]?.imgCoverDesktop
-                      }
+                      src={dataMangaViewest[1]?.imgMain}
                       title={dataMangaViewest[1]?.nameManga}
                       description={`Chapter ${
                         dataMangaViewest[1]?.newNameChapter
@@ -214,11 +229,32 @@ function HomePage() {
                       }`}
                       ageClassification={
                         dataMangaViewest[1]?.ageClassification
-                          ? dataMangaViewest[1]?.ageClassification[1]
+                          ? dataMangaViewest[1]?.ageClassification[0]
                           : []
                       }
                       isBackdrop
                       isAgeClassification
+                      height={"auto"}
+                    />
+                  ) : (
+                    <CardBackgroundImage
+                      isLoading={isLoadingMangaViewest}
+                      to={`/manga/${dataMangaViewest[1]?.urlManga}/${dataMangaViewest[1]?.newNameChapter}`}
+                      src={dataMangaViewest[1]?.imgMain}
+                      title={dataMangaViewest[1]?.nameManga}
+                      description={`Chapter ${
+                        dataMangaViewest[1]?.newNameChapter
+                          ?.toString()
+                          .padStart(2, 1) ?? ""
+                      }`}
+                      ageClassification={
+                        dataMangaViewest[1]?.ageClassification
+                          ? dataMangaViewest[1]?.ageClassification[0]
+                          : []
+                      }
+                      isBackdrop
+                      isAgeClassification
+                      height={"auto"}
                     />
                   )}
                 </Col>
@@ -249,15 +285,26 @@ function HomePage() {
               >
                 {Object.keys(dataMovieViewest).length === 0 ? (
                   <SkeletonImage />
-                ) : (
+                ) : dataMovieViewest?.imgCoverMobile ? (
                   <CardImage
                     isLoading={isLoadingMovieViewest}
                     to={`/movie/${dataMovieViewest.urlMovie}`}
-                    src={
-                      windowWidth < 640
-                        ? dataMovieViewest?.imgCoverMobile
-                        : dataMovieViewest?.imgCoverDesktop
+                    src={dataMovieViewest?.imgCoverMobile}
+                    title={dataMovieViewest?.nameMovie}
+                    description=""
+                    ageClassification={
+                      dataMovieViewest.ageClassification
+                        ? dataMovieViewest.ageClassification[0]
+                        : []
                     }
+                    isBackdrop
+                    isAgeClassification
+                  />
+                ) : (
+                  <CardBackgroundImage
+                    isLoading={isLoadingMovieViewest}
+                    to={`/movie/${dataMovieViewest.urlMovie}`}
+                    src={dataMovieViewest?.imgCoverMobile}
                     title={dataMovieViewest?.nameMovie}
                     description=""
                     ageClassification={

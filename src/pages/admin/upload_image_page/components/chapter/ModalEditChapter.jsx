@@ -151,18 +151,18 @@ function ModalEditChapter() {
               values.urlManga = dataMangaObj.urlManga;
               values.tags = dataMangaObj.tags;
 
-              const cloneDataMangaObj = {
-                ...dataMangaObj,
-                newDateUpdateChapterAt: dayjs(new Date()).format(
-                  Config.dateTimeFormat
-                ),
-                newNameChapter: values.nameChapter,
-              };
+              // const cloneDataMangaObj = {
+              //   ...dataMangaObj,
+              //   newDateUpdateChapterAt: dayjs(new Date()).format(
+              //     Config.dateTimeFormat
+              //   ),
+              //   newNameChapter: values.nameChapter,
+              // };
 
-              console.log("values", values);
+              // console.log("values", values);
 
-              //Cập nhật newDateUpdateChapterAt vào trong Manga để lấy ra truyện mới cập nhật
-              updateDocument("manga", dataMangaObj.id, cloneDataMangaObj);
+              // //Cập nhật newDateUpdateChapterAt vào trong Manga để lấy ra truyện mới cập nhật
+              // updateDocument("manga", dataMangaObj.id, cloneDataMangaObj);
               updateDocument(
                 `manga/${dataMangaObj.id}/chapter`,
                 dataDetailChapter.id,

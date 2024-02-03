@@ -78,7 +78,7 @@ function DetailMangaPage() {
           src={windowWidth < 640 ? data?.imgCoverMobile : data?.imgCoverDesktop}
           preview={false}
           style={{
-            height: "auto",
+            height: 400,
             backgroundSize: "cover",
             backgroundPosition: "center",
             objectFit: "cover",

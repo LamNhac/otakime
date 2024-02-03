@@ -1,24 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  Col,
-  DatePicker,
-  Form,
-  Input,
-  Modal,
-  Row,
-  Spin,
-  message
-} from "antd";
+import { Col, DatePicker, Form, Input, Modal, Row, Spin, message } from "antd";
 import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
 import { SelectAgeClassification, SelectTag } from "../../../../components";
 import SelectStatusFilter from "../../../../components/SelectStatusFilter";
 import Config from "../../../../config";
 import {
-  getAllDocuments,
   getDocument,
   saveToLog,
-  updateDocument,
+  updateDocument
 } from "../../../../services/firebaseService";
 import MangaPageContext from "../MangaPageContext";
 
@@ -61,7 +51,7 @@ function ModalEditManga(props) {
           form={form}
           onFinish={async (values) => {
             // Lấy danh sách tất cả các manga
-            const data = await getAllDocuments("manga");
+            // const data = await getAllDocuments("manga");
 
             // Kiểm tra xem manga đã tồn tại chưa
             // const mangaExists = data.some(

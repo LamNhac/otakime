@@ -28,6 +28,9 @@ import SkeletonChapterBarView from "./SkeletonChapterBarView";
 import TopBarFilterClientView from "./TopBarFilterClientView";
 
 import ButtonGradient from "./ButtonGradient";
+import CardBackgroundImage from "./CardBackgroundImage";
+import ImageDefaultView from "./ImageDefaultView";
+
 export {
   RowAction,
   SelectTag,
@@ -52,5 +55,7 @@ export {
   SelectStatusFilter,
   SkeletonChapterBarView,
   TopBarFilterClientView,
-  ButtonGradient
+  ButtonGradient,
+  CardBackgroundImage,
+  ImageDefaultView
 };

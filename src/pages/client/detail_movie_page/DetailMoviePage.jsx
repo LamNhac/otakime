@@ -20,6 +20,12 @@ function DetailMoviePage() {
   const [searchParam] = useSearchParams();
   const [isRenderUrlPage, setIsRenderUrlPage] = useState(false);
   const [lastView] = useState(localStorage.getItem("lastViewMovie"));
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const updateWindowWidth = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
   let server = searchParam.get("server");
 
   useEffect(() => {
@@ -38,8 +44,10 @@ function DetailMoviePage() {
       }
     };
     window.addEventListener("popstate", handleBack);
+    window.addEventListener("resize", updateWindowWidth);
     return () => {
       window.removeEventListener("popstate", handleBack);
+      window.removeEventListener("resize", updateWindowWidth);
     };
   }, []);
 
@@ -70,7 +78,7 @@ function DetailMoviePage() {
     // Thực hiện các bước khác để set view theo logic của bạn
     console.log("View updated!");
   };
-  console.log("isRenderUrlPage", isRenderUrlPage);
+
   return (
     <Spin
       spinning={isLoading}
@@ -91,7 +99,9 @@ function DetailMoviePage() {
       ) : (
         <div className="flex flex-col gap-4">
           <ViewImage
-            src={data?.imgCover}
+            src={
+              windowWidth < 640 ? data?.imgCoverMobile : data?.imgCoverDesktop
+            }
             preview={false}
             style={{
               height: 400,
