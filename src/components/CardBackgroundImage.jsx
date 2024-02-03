@@ -40,7 +40,7 @@ export default function CardBackgroundImage(props) {
   const containerClasses = "relative w-full h-full rounded-md";
 
   const overlayClasses = isBackdrop
-    ? "absolute inset-0 bg-black opacity-30" // Chỉ áp dụng nếu isBackdrop là true
+    ? "absolute inset-0 bg-black opacity-40" // Chỉ áp dụng nếu isBackdrop là true
     : "";
 
   const contentClasses = "absolute left-0 bottom-5 pl-5 pr-5 text-white w-full";

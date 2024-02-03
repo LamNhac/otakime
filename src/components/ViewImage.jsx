@@ -2,6 +2,7 @@
 import { Image } from "antd";
 import React, { useEffect, useState } from "react";
 import ImageDefault from "../assets/images/image_default.jpg";
+import ImageDefaultView from "./ImageDefaultView";
 const ViewImage = ({ style, src, ...restProps }) => {
   const [imageBlobUrl, setImageBlobUrl] = useState(src);
 
@@ -28,6 +29,11 @@ const ViewImage = ({ style, src, ...restProps }) => {
   const handleImageLoad = () => {
     URL.revokeObjectURL(imageBlobUrl);
   };
+
+  if (!src) {
+    return <ImageDefaultView height={"h-[400px]"} />;
+  }
+
   return (
     <Image
       {...restProps}

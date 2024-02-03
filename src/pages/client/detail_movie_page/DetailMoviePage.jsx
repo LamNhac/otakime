@@ -165,7 +165,11 @@ function DetailMoviePage() {
                   <b>Mô tả:</b> {data?.description ?? 0}
                 </div>
                 <Link to={`/movie/${data?.urlMovie}?server=abyss`}>
-                  <Button type="primary" ghost block size="large">
+                  <Button
+                    className="bg-black text-white hover:text-black hover:bg-white "
+                    block
+                    size="large"
+                  >
                     Xem ngay
                   </Button>
                 </Link>

@@ -55,7 +55,6 @@ function DetailMangaChapterPage() {
           );
 
           if (chapter) {
-            console.log("chapter", chapter.nameChapter);
             //Tạo danh sách select chapter
             const options = chapterFilterName.map((item) => ({
               label: `Chapter ${item.nameChapter}`,
@@ -65,7 +64,6 @@ function DetailMangaChapterPage() {
             }));
             setSelectChapter(options);
             chapter.imgChapterFile = JSON.parse(chapter.imgChapterFile); //Convert ảnh
-            console.log("chapter.imgChapterFile", chapter.imgChapterFile);
             setDataChapter(chapter);
           } else {
             message.error(`Chapter ${chapterId} không tồn tại!`);
@@ -100,9 +98,7 @@ function DetailMangaChapterPage() {
   }, [chapterId]);
 
   const updateLastView = () => {
-    // Cập nhật giá trị lastview vào local storage
     localStorage.setItem("lastViewManga", Date.now());
-
     // Thực hiện các bước khác để set view theo logic của bạn
     console.log("View updated!");
   };
@@ -145,6 +141,7 @@ function DetailMangaChapterPage() {
     currentChapterId === null ||
     selectChapter?.length === 0 ||
     currentChapterId === selectChapter?.length;
+
   return (
     <Spin spinning={isLoading}>
       <FloatButton.BackTop style={{ insetBlockEnd: 20, insetInlineEnd: 20 }} />
@@ -180,7 +177,19 @@ function DetailMangaChapterPage() {
           <Button
             shape="circle"
             icon={<LeftOutlined />}
-            onClick={() => navigate(`/manga/${mangaId}/${--chapterId}`)}
+            onClick={() => {
+              let indexPreviosChapter = selectChapter.findIndex(
+                (item) => item.chapter === parseFloat(chapterId)
+              );
+
+              if (indexPreviosChapter !== -1) {
+                navigate(
+                  `/manga/${mangaId}/${
+                    selectChapter[indexPreviosChapter + 1].chapter
+                  }`
+                );
+              }
+            }}
             disabled={isBackDisabled}
           ></Button>
           <Select
@@ -199,7 +208,19 @@ function DetailMangaChapterPage() {
           <Button
             shape="circle"
             icon={<RightOutlined />}
-            onClick={() => navigate(`/manga/${mangaId}/${++chapterId}`)}
+            onClick={() => {
+              let indexBeforeChapter = selectChapter.findIndex(
+                (item) => item.chapter === parseFloat(chapterId)
+              );
+              //Nếu tìm thấy chapter
+              if (indexBeforeChapter !== -1) {
+                navigate(
+                  `/manga/${mangaId}/${
+                    selectChapter[indexBeforeChapter - 1].chapter
+                  }`
+                );
+              }
+            }}
             disabled={isForwardDisabled}
           ></Button>
         </Row>
