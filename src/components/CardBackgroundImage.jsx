@@ -75,7 +75,7 @@ export default function CardBackgroundImage(props) {
           <div className={contentClasses}>
             {title && (
               <h2
-                className="font-bold xs:text-2xl sm:text-[1rem] md:text-[1.3rem]"
+                className="font-bold text-[0.9rem] md:text-[1.3rem]"
                 style={{
                   whiteSpace: "nowrap",
                   textOverflow: "ellipsis",
@@ -106,7 +106,7 @@ export default function CardBackgroundImage(props) {
           <div className={contentClasses}>
             {title && (
               <h2
-                className="font-bold xs:text-2xl sm:text-[1rem] md:text-[1.3rem]"
+                className="font-bold text-[0.9rem] md:text-[1.3rem]"
                 style={{
                   whiteSpace: "nowrap",
                   textOverflow: "ellipsis",

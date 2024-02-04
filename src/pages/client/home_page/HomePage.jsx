@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { analytics, getAllDocuments } from "../../../services/firebaseService";
 
 import { logEvent } from "firebase/analytics";
+import CardBackgroundImage from "../../../components/CardBackgroundImage";
 import CardImage from "../../../components/CardImage";
 import SkeletonImage from "../../../components/SkeletonImage";
 import dateUtil from "../../../utils/dateUtil";
-import CardBackgroundImage from "../../../components/CardBackgroundImage";
 
 function HomePage() {
   const [isLoadingManga, setIsLoadingManga] = useState(false);
@@ -20,6 +20,7 @@ function HomePage() {
   const [dataMovieViewest, setDataMovieViewest] = useState({});
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
   const updateWindowWidth = () => {
     setWindowWidth(window.innerWidth);
   };
@@ -32,7 +33,6 @@ function HomePage() {
     // setUserId(analytics, uuidv4());
     getAllDocuments("manga")
       .then((res) => {
-        console.log("Gốc->", res);
         // Chuyển đổi chuỗi ngày thành đối tượng Date
         const dateObjects = res.map((manga) => {
           if (
@@ -74,7 +74,6 @@ function HomePage() {
         const mangaViewest = mangaHasChapterUploaded.sort(
           (a, b) => a.view - b.view
         );
-        console.log("mangaViewest", mangaViewest);
         const mangaViewestSlice = mangaViewest.slice(0, 2);
         setDataMangaViewest(mangaViewestSlice);
       })
@@ -114,6 +113,11 @@ function HomePage() {
     };
   }, []);
 
+  const [imageHeight, setImageHeight] = useState(null);
+  useEffect(() => {
+    console.log("imageHeight", imageHeight);
+  }, [imageHeight]);
+
   return (
     <div className="flex flex-col">
       {isLoadingManga ? (
@@ -121,6 +125,7 @@ function HomePage() {
       ) : (
         Object.keys(newMangaUpdate).length !== 0 && (
           <CardImage
+            setImageHeight={null}
             to={`/manga/${newMangaUpdate?.urlManga}/${newMangaUpdate?.newNameChapter}`}
             src={
               windowWidth < 640
@@ -160,6 +165,7 @@ function HomePage() {
                 sm={{ span: 12 }}
                 md={{ span: 12 }}
                 lg={{ span: 12 }}
+                // onLoad={(e) => setImageHeightFromManga(event.target.height)}
               >
                 {isLoadingMangaViewest ? (
                   <SkeletonImage />
@@ -167,6 +173,10 @@ function HomePage() {
                   dataMangaViewest[0]?.newNameChapter !== null &&
                   (dataMangaViewest[0]?.imgMain ? (
                     <CardImage
+                      setImageHeight={(e) => {
+                        console.log("xxx", e);
+                        setImageHeight(e);
+                      }}
                       isLoading={isLoadingMangaViewest}
                       to={`/manga/${dataMangaViewest[0]?.urlManga}/${dataMangaViewest[0]?.newNameChapter}`}
                       src={dataMangaViewest[0]?.imgMain}
@@ -218,6 +228,10 @@ function HomePage() {
                     <SkeletonImage />
                   ) : dataMangaViewest[1]?.imgMain ? (
                     <CardImage
+                      setImageHeight={(e) => {
+                        console.log("xxx", e);
+                        setImageHeight(e);
+                      }}
                       isLoading={isLoadingMangaViewest}
                       to={`/manga/${dataMangaViewest[1]?.urlManga}/${dataMangaViewest[1]?.newNameChapter}`}
                       src={dataMangaViewest[1]?.imgMain}
@@ -267,7 +281,7 @@ function HomePage() {
             md={{ span: 12 }}
             lg={{ span: 12 }}
           >
-            <Row gutter={[12, 0]} style={{ height: "100%" }}>
+            <Row gutter={[12, 0]} style={{ height: "auto" }}>
               <Col
                 xs={{ span: 12 }}
                 sm={{ span: 12 }}
@@ -287,6 +301,7 @@ function HomePage() {
                   <SkeletonImage />
                 ) : dataMovieViewest?.imgCoverMobile ? (
                   <CardImage
+                    setImageHeight={null}
                     isLoading={isLoadingMovieViewest}
                     to={`/movie/${dataMovieViewest.urlMovie}`}
                     src={dataMovieViewest?.imgCoverMobile}
@@ -299,7 +314,7 @@ function HomePage() {
                     }
                     isBackdrop
                     isAgeClassification
-                    height={"auto"}
+                    height={imageHeight}
                   />
                 ) : (
                   <CardBackgroundImage

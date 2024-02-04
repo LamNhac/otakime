@@ -1,9 +1,9 @@
-import React from "react";
+import React, { forwardRef, useRef } from "react";
 import { Link } from "react-router-dom";
 import AgeClassificationView from "./AgeClassificationView";
 import ViewImage from "./ViewImage";
 
-export default function CardImage(props) {
+export default forwardRef(function CardImage(props, ref) {
   const {
     src,
     title,
@@ -14,6 +14,7 @@ export default function CardImage(props) {
     to,
     height = 305,
     objectFit = "cover",
+    setImageHeight,
   } = props;
 
   const containerClasses = "relative w-full h-full rounded-md";
@@ -26,7 +27,12 @@ export default function CardImage(props) {
 
   return (
     <Link to={to}>
-      <div className={containerClasses}>
+      <div
+        className={containerClasses}
+        onLoad={(e) => {
+          setImageHeight && setImageHeight(e.target.height);
+        }}
+      >
         <ViewImage
           src={src}
           preview={false}
@@ -54,7 +60,7 @@ export default function CardImage(props) {
         <div className={contentClasses}>
           {title && (
             <h2
-              className="font-bold xs:text-2xl sm:text-[1rem] md:text-[1.3rem]"
+              className="font-bold text-[0.9rem] md:text-[1.3rem]"
               style={{
                 whiteSpace: "nowrap",
                 textOverflow: "ellipsis",
@@ -69,4 +75,4 @@ export default function CardImage(props) {
       </div>
     </Link>
   );
-}
+});

@@ -3,7 +3,7 @@ import { Image } from "antd";
 import React, { useEffect, useState } from "react";
 import ImageDefault from "../assets/images/image_default.jpg";
 import ImageDefaultView from "./ImageDefaultView";
-const ViewImage = ({ style, src, ...restProps }) => {
+const ViewImage = ({ style, src, setCurrentHeight, ...restProps }) => {
   const [imageBlobUrl, setImageBlobUrl] = useState(src);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const ViewImage = ({ style, src, ...restProps }) => {
       }
     };
   }, [src]);
-  const handleImageLoad = () => {
+  const handleImageLoad = (e) => {
     URL.revokeObjectURL(imageBlobUrl);
   };
 

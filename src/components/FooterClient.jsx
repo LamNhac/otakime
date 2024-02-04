@@ -1,8 +1,9 @@
 import { Col, Image, Layout, Row } from "antd";
+import { Link } from "react-router-dom";
 const { Footer } = Layout;
 function FooterClient({ email, logo }) {
   return (
-    <Footer className="text-center" style={{padding: "12px 12px"}}>
+    <Footer className="text-center" style={{ padding: "12px 12px" }}>
       <Row gutter={[12, 12]} align="middle" justify="center">
         <Col>
           {logo && (
@@ -16,14 +17,14 @@ function FooterClient({ email, logo }) {
         <Col>
           <div className="flex flex-col items-center">
             <div>
-              {/* <div className="flex gap-5 justify-center">
+              <div className="flex gap-5 justify-center">
                 <Link to="/termsofuse">
-                  <p className="underline"> Điều khoản sử dụng</p>
+                  <p className="underline mb-0"> Điều khoản sử dụng</p>
                 </Link>
-                <Link to="/license">
+                {/* <Link to="/license">
                   <p className="underline">Bản quyền</p>
-                </Link>
-              </div> */}
+                </Link> */}
+              </div>
 
               <p className="mb-0">Email us: {email}</p>
               <p className="mb-0">© Copyright 2023 Otakime</p>
