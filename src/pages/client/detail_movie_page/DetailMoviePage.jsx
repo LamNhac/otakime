@@ -116,7 +116,7 @@ function DetailMoviePage() {
           ) : (
             <div className="sm:pl-4 sm:pr-4 md:pl-8 md:pr-8 lg:pl-12 lg:pr-12">
               <div className="flex justify-between items-center ">
-                <h1 className="text-[2rem] font-bold">{data?.nameMovie}</h1>
+                <h1 className="text-[2rem] font-bold">{data?.nameMovieVie}</h1>
                 <AgeClassificationView
                   ageClassification={data?.ageClassification[0] ?? []}
                 />

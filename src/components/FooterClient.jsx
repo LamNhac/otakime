@@ -25,8 +25,8 @@ function FooterClient({ email, logo }) {
                 </Link>
               </div> */}
 
-              <p>Email us: {email}</p>
-              <p>© Copyright 2023 Otakime</p>
+              <p className="mb-0">Email us: {email}</p>
+              <p className="mb-0">© Copyright 2023 Otakime</p>
             </div>
           </div>
         </Col>

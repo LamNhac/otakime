@@ -267,7 +267,7 @@ function HomePage() {
             md={{ span: 12 }}
             lg={{ span: 12 }}
           >
-            <Row gutter={[12, 0]}>
+            <Row gutter={[12, 0]} style={{ height: "100%" }}>
               <Col
                 xs={{ span: 12 }}
                 sm={{ span: 12 }}
@@ -299,6 +299,7 @@ function HomePage() {
                     }
                     isBackdrop
                     isAgeClassification
+                    height={"auto"}
                   />
                 ) : (
                   <CardBackgroundImage

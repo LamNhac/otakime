@@ -241,7 +241,7 @@ function HeaderClient({ logo, stylePadding }) {
             {/* <Link to="about" style={{ color: "white" }}>
               ABOUT
             </Link> */}
-            <div className="flex items-center gap-5 ">
+            <div className="flex items-center gap-5 pt-[0.25rem]">
               <a href="https://www.facebook.com/Otakime3.0" target="_blank">
                 <BsFacebook color="white" size={20} />
               </a>
