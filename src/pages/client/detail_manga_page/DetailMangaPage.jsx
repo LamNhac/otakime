@@ -140,9 +140,13 @@ function DetailMangaPage() {
             {dataChapter?.map((item, index) => {
               return (
                 <Link to={`${item.nameChapter}`} key={index}>
-                  <div className="w-[100%] p-4 border rounded-sm flex justify-between items-center">
-                    <p className="text-center">Chapter {item.nameChapter} </p>
-                    <p>Ngày cập nhật: {item.updateChapterAt}</p>
+                  <div className="w-[100%] p-4  rounded-sm flex justify-between items-center" style={{ border: "1px solid black"}}>
+                    <p className="mb-0 text-center">
+                      Chapter {item.nameChapter}
+                    </p>
+                    <p className="mb-0">
+                      Ngày cập nhật: {item.updateChapterAt}
+                    </p>
                   </div>
                 </Link>
               );

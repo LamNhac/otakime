@@ -10,6 +10,7 @@ import {
 } from "../../../components";
 function MangaPageClient() {
   const [data, setData] = useState([]);
+  const [filter, setFilter] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -36,11 +37,10 @@ function MangaPageClient() {
       <div className="flex flex-col gap-4">
         <TopBarFilterClientView
           title="Truyện mới nhất"
-          onChange={(value) => {
-            console.log(value);
+          onChangeFilter={(value) => {
+            setFilter(value);
           }}
         />
-
         <Row gutter={[16, 16]}>
           {data.length === 0 ? (
             <>
@@ -58,32 +58,38 @@ function MangaPageClient() {
               </Col>
             </>
           ) : (
-            data?.map((item, index) => {
-              const ageClassification = item.ageClassification[0];
-              return (
-                <Col xs={12} sm={12} md={12} lg={12} xl={6} key={index}>
-                  {item.imgMain ? (
-                    <CardImage
-                      to={`/manga/${item.urlManga}`}
-                      src={item?.imgMain}
-                      // title={item.nameManga}
-                      isAgeClassification
-                      ageClassification={ageClassification}
-                      objectFit={"cover"}
-                      height={"auto"}
-                    />
-                  ) : (
-                    <CardBackgroundImage
-                      to={`/manga/${item.urlManga}`}
-                      src={item?.imgMain}
-                      // title={item.nameManga}
-                      isAgeClassification
-                      ageClassification={ageClassification}
-                    />
-                  )}
-                </Col>
-              );
-            })
+            data
+              ?.filter(
+                (item) =>
+                  item.nameManga.toLowerCase().includes(filter) ||
+                  item.nameMangaVie.toLowerCase().includes(filter)
+              )
+              .map((item, index) => {
+                const ageClassification = item.ageClassification[0];
+                return (
+                  <Col xs={12} sm={12} md={12} lg={12} xl={6} key={index}>
+                    {item.imgMain ? (
+                      <CardImage
+                        to={`/manga/${item.urlManga}`}
+                        src={item?.imgMain}
+                        // title={item.nameManga}
+                        isAgeClassification
+                        ageClassification={ageClassification}
+                        objectFit={"cover"}
+                        height={"auto"}
+                      />
+                    ) : (
+                      <CardBackgroundImage
+                        to={`/manga/${item.urlManga}`}
+                        src={item?.imgMain}
+                        // title={item.nameManga}
+                        isAgeClassification
+                        ageClassification={ageClassification}
+                      />
+                    )}
+                  </Col>
+                );
+              })
           )}
         </Row>
       </div>

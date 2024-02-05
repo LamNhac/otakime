@@ -11,6 +11,7 @@ import { getAllDocuments } from "../../../services/firebaseService";
 function MoviePageClient() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -35,8 +36,9 @@ function MoviePageClient() {
       <div className="flex flex-col gap-4">
         <TopBarFilterClientView
           title="Phim mới nhất"
-          onChange={(value) => {
+          onChangeFilter={(value) => {
             console.log(value);
+            setFilter(value);
           }}
         />
         <Row gutter={[12, 12]} wrap>
@@ -56,36 +58,42 @@ function MoviePageClient() {
               </Col>
             </>
           ) : (
-            data?.map((item, index) => {
-              const ageClassification = item.ageClassification[0];
-              return (
-                <Col xs={12} sm={12} md={12} lg={12} xl={6} key={index}>
-                  {item?.imgMain ? (
-                    <CardImage
-                      to={`/movie/${item.urlMovie}`}
-                      src={item?.imgMain}
-                      // title={item.nameMovie}
-                      // isBackdrop
-                      isAgeClassification
-                      ageClassification={ageClassification}
-                      objectFit={"cover"}
-                      height={"auto"}
-                    />
-                  ) : (
-                    <CardBackgroundImage
-                      to={`/movie/${item.urlMovie}`}
-                      src={item?.imgMain}
-                      // title={item.nameMovie}
-                      // isBackdrop
-                      isAgeClassification
-                      ageClassification={ageClassification}
-                      objectFit={"cover"}
-                      height={"auto"}
-                    />
-                  )}
-                </Col>
-              );
-            })
+            data
+              ?.filter(
+                (item) =>
+                  item.nameMovie.toLowerCase().includes(filter) ||
+                  item.nameMovieVie.toLowerCase().includes(filter)
+              )
+              .map((item, index) => {
+                const ageClassification = item.ageClassification[0];
+                return (
+                  <Col xs={12} sm={12} md={12} lg={12} xl={6} key={index}>
+                    {item?.imgMain ? (
+                      <CardImage
+                        to={`/movie/${item.urlMovie}`}
+                        src={item?.imgMain}
+                        // title={item.nameMovie}
+                        // isBackdrop
+                        isAgeClassification
+                        ageClassification={ageClassification}
+                        objectFit={"cover"}
+                        height={"auto"}
+                      />
+                    ) : (
+                      <CardBackgroundImage
+                        to={`/movie/${item.urlMovie}`}
+                        src={item?.imgMain}
+                        // title={item.nameMovie}
+                        // isBackdrop
+                        isAgeClassification
+                        ageClassification={ageClassification}
+                        objectFit={"cover"}
+                        height={"auto"}
+                      />
+                    )}
+                  </Col>
+                );
+              })
           )}
         </Row>
       </div>
