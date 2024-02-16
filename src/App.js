@@ -1,4 +1,4 @@
-import { ConfigProvider, theme } from "antd";
+import { ConfigProvider } from "antd";
 import locale from "antd/lib/locale/vi_VN";
 
 import React, { useEffect } from "react";
@@ -19,7 +19,7 @@ import HistoryPage from "./pages/admin/history_page/HistoryPage";
 
 import "../src/css/output.css";
 // import 'antd/dist/reset.css';
-import "./App.css"
+import "./App.css";
 import {
   AboutPage,
   DetailMangaChapterPage,

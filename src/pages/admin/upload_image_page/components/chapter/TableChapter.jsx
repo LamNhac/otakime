@@ -1,5 +1,6 @@
 import {
   DeleteOutlined,
+  DesktopOutlined,
   EditOutlined,
   ExclamationCircleFilled,
 } from "@ant-design/icons";
@@ -41,12 +42,21 @@ function TableChapter() {
         return jsonConvert.length;
       },
     },
+
     {
       title: "Thao tác",
       align: "right",
       render: (text, record, index) => {
         return (
           <Space size="small">
+            <Button
+              type="link"
+              target="_blank"
+              href={`${window.location.origin}/manga/${record.urlManga}/${record.nameChapter}`}
+              icon={<DesktopOutlined />}
+            >
+              Chapter
+            </Button>
             <Button
               type="link"
               icon={<EditOutlined />}

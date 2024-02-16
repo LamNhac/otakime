@@ -4,6 +4,7 @@ import {
   DeleteOutlined,
   EditOutlined,
   ExclamationCircleFilled,
+  DesktopOutlined,
 } from "@ant-design/icons";
 import { Button, Modal, Space, Table, Tag } from "antd";
 import { useContext } from "react";
@@ -19,7 +20,7 @@ function TableMovie() {
   const columns = [
     {
       dataIndex: "id",
-      title: "#",
+      title: "STT",
       align: "center",
       render: (text, record, index) => index + 1,
     },
@@ -29,9 +30,11 @@ function TableMovie() {
       render: (text, record, index) => {
         return (
           <div className="flex flex-col items-start text-left">
-            <p className={`text-[${blue.primary}] font-bold`}>{record.nameMovie}</p>
+            <h2 className={`text-[${blue.primary}] font-bold`}>
+              {record.nameMovie}
+            </h2>
             <p>Vie: {record.nameMovieVie}</p>
-            <p class="italic">Other name: {record.otherName}</p>
+            <p className="italic">Other name: {record.otherName}</p>
           </div>
         );
       },
@@ -54,14 +57,12 @@ function TableMovie() {
       title: "Ngày tải lên",
     },
     {
-      dataIndex: "isStatusMovie",
+      dataIndex: "statusMovie",
+      align: "center",
       title: "Trạng thái",
       render: (text, record, index) => {
-        return (
-          <Tag color={text ? "success" : "red"}>
-            {text ? "Hoạt động" : "Ngừng hoạt động"}
-          </Tag>
-        );
+        const item = text[0];
+        return <Tag color={item?.color}>{item?.label}</Tag>;
       },
     },
     {
@@ -83,10 +84,19 @@ function TableMovie() {
     {
       dataIndex: "thaotac",
       title: "Thao tác",
-      align: "center",
+      align: "right",
       render: (text, record, index) => {
         return (
           <Space size="small">
+            <Button
+              type="link"
+              size="small"
+              icon={<DesktopOutlined />}
+              target="_blank"
+              href={`${window.location.origin}/movie/${record.urlMovie}`}
+            >
+              Movie
+            </Button>
             <Button
               type="link"
               icon={<EditOutlined />}
@@ -122,6 +132,7 @@ function TableMovie() {
       },
     },
   ];
+  console.log("dataTable", dataTable);
   return (
     <Table
       dataSource={dataTable}

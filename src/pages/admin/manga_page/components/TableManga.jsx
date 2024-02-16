@@ -1,5 +1,6 @@
 import {
   DeleteOutlined,
+  DesktopOutlined,
   EditOutlined,
   ExclamationCircleFilled,
 } from "@ant-design/icons";
@@ -23,7 +24,7 @@ function TableManga() {
     {
       key: "id",
       dataIndex: "id",
-      title: "#",
+      title: "STT",
       align: "center",
       render: (text, record, index) => {
         return index + 1;
@@ -32,16 +33,15 @@ function TableManga() {
     {
       key: "nameManga",
       dataIndex: "nameManga",
-      title: "Tên manga",
-      align: "center",
+      title: "Manga",
       render: (text, record, index) => {
         return (
           <div className="flex flex-col items-start text-left">
-            <h2 class={`text-[${blue.primary}] font-bold`}>
+            <h2 className={`text-[${blue.primary}] font-bold`}>
               {record.nameManga}
             </h2>
             <p>Vie: {record.nameMangaVie}</p>
-            <p class="italic">Other name: {record.otherName}</p>
+            <p className="italic">Other name: {record.otherName}</p>
           </div>
         );
       },
@@ -93,6 +93,16 @@ function TableManga() {
       render: (text, record, index) => {
         return (
           <Space size="small">
+            <Button
+              type="link"
+              size="small"
+              icon={<DesktopOutlined />}
+              target="_blank"
+              href={`${window.location.origin}/manga/${record.urlManga}`}
+            >
+              Manga
+            </Button>
+
             <Button
               type="link"
               size="small"
