@@ -49,15 +49,17 @@ function LayoutClient() {
     // }, 3000);
     getAllDocumentsRealtime("/setting")
       .then((res) => {
-        const favicon = document.querySelector("link[rel~='icon']");
-        let parseStringIconLogo = JSON.parse(res.iconLogo.iconLogoFile);
-        let parseStringLogo = JSON.parse(res.logo.logoImgFile);
+        if (res) {
+          const favicon = document.querySelector("link[rel~='icon']");
+          let parseStringIconLogo = JSON.parse(res.iconLogo.iconLogoFile);
+          let parseStringLogo = JSON.parse(res.logo.logoImgFile);
 
-        favicon.href = parseStringIconLogo[0].imgUrl;
-        setConfig({
-          logo: parseStringLogo[0].imgUrl,
-          email: res.email,
-        });
+          favicon.href = parseStringIconLogo[0].imgUrl;
+          setConfig({
+            logo: parseStringLogo[0].imgUrl,
+            email: res.email,
+          });
+        }
       })
       .finally(() => {
         setIsLoading(false);

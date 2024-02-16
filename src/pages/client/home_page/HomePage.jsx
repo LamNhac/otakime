@@ -71,8 +71,9 @@ function HomePage() {
         let mangaHasChapterUploaded = res.filter(
           (item) => item.newNameChapter !== null
         );
+
         const mangaViewest = mangaHasChapterUploaded.sort(
-          (a, b) => a.view - b.view
+          (a, b) => b.view - a.view
         );
         const mangaViewestSlice = mangaViewest.slice(0, 2);
         setDataMangaViewest(mangaViewestSlice);
@@ -114,9 +115,6 @@ function HomePage() {
   }, []);
 
   const [imageHeight, setImageHeight] = useState(null);
-  useEffect(() => {
-    console.log("imageHeight", imageHeight);
-  }, [imageHeight]);
 
   return (
     <div className="flex flex-col">
@@ -174,7 +172,6 @@ function HomePage() {
                   (dataMangaViewest[0]?.imgMain ? (
                     <CardImage
                       setImageHeight={(e) => {
-                        console.log("xxx", e);
                         setImageHeight(e);
                       }}
                       isLoading={isLoadingMangaViewest}
@@ -193,6 +190,7 @@ function HomePage() {
                       }
                       isBackdrop
                       isAgeClassification
+                      height={"auto"}
                     />
                   ) : (
                     <CardBackgroundImage
@@ -212,7 +210,7 @@ function HomePage() {
                       }
                       isBackdrop
                       isAgeClassification
-                      height={305}
+                      height={"auto"}
                     />
                   ))
                 )}
@@ -229,7 +227,6 @@ function HomePage() {
                   ) : dataMangaViewest[1]?.imgMain ? (
                     <CardImage
                       setImageHeight={(e) => {
-                        console.log("xxx", e);
                         setImageHeight(e);
                       }}
                       isLoading={isLoadingMangaViewest}

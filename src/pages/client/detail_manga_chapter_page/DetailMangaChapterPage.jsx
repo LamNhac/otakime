@@ -80,11 +80,25 @@ function DetailMangaChapterPage() {
               imgChapterFile: JSON.stringify(chapter.imgChapterFile),
               view: chapter.view + 1,
             };
+
+            //Thêm view cho manga, tính tổng view
+            let sumView = 0;
+            chapterFilterName.forEach((item) => {
+              if (item.view) {
+                console.log("view", item, item.view);
+                sumView += item.view;
+              }
+            });
+
+            let updateViewManga = { ...manga, view: sumView };
+            console.log("->", updateViewManga.view);
+
             updateDocument(
               `manga/${manga.id}/chapter`,
               chapter.id,
               cloneDatatoUpdateView
             );
+            updateDocument(`manga`, manga.id, updateViewManga);
           }
 
           document.title = `Otakime - ${
@@ -160,6 +174,7 @@ function DetailMangaChapterPage() {
             );
           })}
         </Space>
+        <p>Lượt xem: {dataChapter?.view ?? 0}</p>
         {/* <p className="mb-0 italic">
           Bạn có thể bấm phím <LeftOutlined /> hoặc <RightOutlined /> để chuyển
           chap
@@ -183,11 +198,17 @@ function DetailMangaChapterPage() {
               );
 
               if (indexPreviosChapter !== -1) {
-                navigate(
-                  `/manga/${mangaId}/${
-                    selectChapter[indexPreviosChapter + 1].chapter
-                  }`
-                );
+                //Kiểm tra selectChapter[indexPreviosChapter + 1] xem có tồn tại không?
+                //Tức là có index
+                if (selectChapter[indexPreviosChapter + 1]) {
+                  navigate(
+                    `/manga/${mangaId}/${
+                      selectChapter[indexPreviosChapter + 1].chapter
+                    }`
+                  );
+                } else {
+                  message.error("Hiện tại chapter sau không có");
+                }
               }
             }}
             disabled={isBackDisabled}
@@ -200,6 +221,7 @@ function DetailMangaChapterPage() {
               const selectedLabelsAndValues = selectChapter.find(
                 (item) => item.id === selectedItems
               );
+
               navigate(`/manga/${mangaId}/${selectedLabelsAndValues.chapter}`);
             }}
             placeholder="Chọn chapter..."
@@ -212,13 +234,18 @@ function DetailMangaChapterPage() {
               let indexBeforeChapter = selectChapter.findIndex(
                 (item) => item.chapter === parseFloat(chapterId)
               );
-              //Nếu tìm thấy chapter
+              //Kiểm tra selectChapter[indexPreviosChapter + 1] xem có tồn tại không?
+              //Tức là có index
               if (indexBeforeChapter !== -1) {
-                navigate(
-                  `/manga/${mangaId}/${
-                    selectChapter[indexBeforeChapter - 1].chapter
-                  }`
-                );
+                if (selectChapter[indexBeforeChapter - 1]) {
+                  navigate(
+                    `/manga/${mangaId}/${
+                      selectChapter[indexBeforeChapter - 1].chapter
+                    }`
+                  );
+                } else {
+                  message.error("Hiện tại chapter trước không có");
+                }
               }
             }}
             disabled={isForwardDisabled}

@@ -213,7 +213,7 @@ function HeaderClient({ logo, stylePadding }) {
                 <a href="https://www.facebook.com/Otakime3.0" target="_blank">
                   <BsFacebook size={20} />
                 </a>
-                <a href="#">
+                <a href="https://discord.com/invite/kzgscSwyga" target="_blank">
                   <BsDiscord size={20} />
                 </a>
               </div>
@@ -245,7 +245,7 @@ function HeaderClient({ logo, stylePadding }) {
               <a href="https://www.facebook.com/Otakime3.0" target="_blank">
                 <BsFacebook color="white" size={20} />
               </a>
-              <a href="#">
+              <a href="https://discord.com/invite/kzgscSwyga" target="_blank">
                 <BsDiscord color="white" size={20} />
               </a>
             </div>
