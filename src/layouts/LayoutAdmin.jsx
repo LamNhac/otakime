@@ -130,8 +130,7 @@ function LayoutAdmin() {
   const navigate = useNavigate();
   useEffect(() => {
     const isLoginAdmin = localStorage.getItem("isLoginAdmin");
-    const accessToken = localStorage.getItem("accessToken");
-    console.log("", isLoginAdmin);
+    // const accessToken = localStorage.getItem("accessToken");
     if (!isLoginAdmin) {
       Modal.error({
         title: "Bạn không có quyền truy cập",
@@ -146,30 +145,34 @@ function LayoutAdmin() {
     }
   }, []);
 
-  useEffect(() => {}, []);
-
   const state = {};
 
   return (
     <AppContextAdmin.Provider value={state}>
       <Layout style={{ height: "100vh" }}>
         <Sider
+          className="h-full relative"
           trigger={null}
           collapsible
           collapsed={collapsed}
           style={{ background: colorBgContainer }}
         >
-          <a onClick={() => window.open(window.location.origin)}>
-            <Image
-              src="https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/app?alt=media&token=d6849d49-7890-48a3-bcae-30c05a3ccd4f"
-              style={{ padding: 20 }}
-              preview={false}
-            />
-          </a>
+          <div className="flex items-center justify-between bg-gradient-to-r from-[#ADF709] via-[#F3ADC3] to-[#00CCFF]">
+            <a onClick={() => window.open(window.location.origin)}>
+              <Image
+                src="https://firebasestorage.googleapis.com/v0/b/otakime-dc208.appspot.com/o/app?alt=media&token=d6849d49-7890-48a3-bcae-30c05a3ccd4f"
+                style={{ padding: 10 }}
+                preview={false}
+              />
+            </a>
+          </div>
           <Menu mode="inline" defaultSelectedKeys={["1"]} items={items} />
+          <div className=" absolute bottom-2 w-full text-center">
+            Version 1.0.0
+          </div>
         </Sider>
         <Layout>
-          <Header style={{ padding: 0, background: colorBgContainer }}>
+          <Header style={{ padding: 0, backgroundColor: colorBgContainer }}>
             <Button
               type="text"
               icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}

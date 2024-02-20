@@ -3,9 +3,8 @@
 import {
   BarsOutlined,
   BookOutlined,
-  HomeOutlined,
   LogoutOutlined,
-  UserOutlined,
+  UserOutlined
 } from "@ant-design/icons";
 import { Button, Col, Drawer, Image, Layout, Row, message } from "antd";
 import { useContext, useEffect, useState } from "react";
